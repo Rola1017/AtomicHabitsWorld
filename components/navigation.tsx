@@ -7,11 +7,11 @@ import { MenuTreeDropdown } from "@/components/ui/menu-tree-dropdown"
 
 const navItems = [
   // 高對比交錯配色（確保相鄰按鈕色系明顯不同）
-  { label: "法律", href: "/law", bgColor: "rgba(255,226,210,.98)" }, // warm peach
-  { label: "閱讀", href: "#", bgColor: "rgba(215,243,234,.98)" }, // mint
-  { label: "科技", href: "#", bgColor: "rgba(222,230,255,.98)" }, // periwinkle
-  { label: "學習技巧", href: "#", bgColor: "rgba(255,243,196,.98)" }, // butter
-  { label: "日常", href: "#", bgColor: "rgba(240,224,255,.98)" }, // lavender
+  { label: "法律", href: "/law", bgColor: "rgba(222,230,255,.98)" }, // 淡藍紫
+  { label: "閱讀", href: "#", bgColor: "rgba(255,243,196,.98)" }, // 奶油黃
+  { label: "科技", href: "#", bgColor: "rgba(215,243,234,.98)" }, // 薄荷綠
+  { label: "學習技巧", href: "#", bgColor: "rgba(240,224,255,.98)" }, // 薰衣草紫
+  { label: "日常", href: "#", bgColor: "rgba(255,226,210,.98)" }, // 暖桃色
 ]
 
 const lawMenuTree = [
