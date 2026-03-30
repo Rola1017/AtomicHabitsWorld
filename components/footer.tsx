@@ -92,12 +92,10 @@ export function Footer() {
           </div>
           
           <p className="text-sm mb-6">
-            <span className="inline-flex items-center gap-1 rounded-full bg-black px-4 py-1.5 shadow-sm ring-1 ring-black/70">
-              <span className="bg-gradient-to-r from-pink-400 via-amber-400 via-lime-400 via-cyan-400 to-indigo-500 bg-clip-text text-transparent">
-                累積，終於，迎來質變
-              </span>
-              <span className="text-[#9ca3af]">&#128142;</span>
+            <span className="bg-gradient-to-r from-pink-400 via-amber-400 via-lime-400 via-cyan-400 to-indigo-500 bg-clip-text text-transparent">
+              累積，終於，迎來質變
             </span>
+            <span className="text-[#9ca3af]">&#128142;</span>
           </p>
           
           {/* Divider */}
