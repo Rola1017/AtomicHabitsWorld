@@ -11,7 +11,7 @@ const navItems = [
   { label: "閱讀", href: "#", bgColor: "rgba(255,243,196,.98)" }, // 奶油黃
   { label: "科技", href: "#", bgColor: "rgba(215,243,234,.98)" }, // 薄荷綠
   { label: "學習技巧", href: "#", bgColor: "rgba(240,224,255,.98)" }, // 薰衣草紫
-  { label: "日常", href: "#", bgColor: "rgba(255,226,210,.98)" }, // 暖桃色
+  { label: "日常", href: "/daily", bgColor: "rgba(255,226,210,.98)" }, // 暖桃色
 ]
 
 const lawMenuTree = [
@@ -82,6 +82,12 @@ const lawMenuTree = [
   { label: "民事訴訟法", href: "/law/civil-procedure" },
 ] as const
 
+const dailyMenuTree = [
+  { label: "考試", href: "/daily/exam" },
+  { label: "生活智慧王", href: "/daily/life-wisdom" },
+  { label: "左手寫字", href: "/daily/left-hand-writing" },
+] as const
+
 export function Navigation() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md shadow-sm">
@@ -102,13 +108,29 @@ export function Navigation() {
           {/* Navigation Items (centered) */}
           <div className="flex-1 min-w-0 flex justify-center">
             <div className="flex items-center justify-center gap-2 overflow-x-auto scrollbar-hide px-1">
-              {navItems.map((item) => (
+              {navItems.map((item) =>
                 item.label === "法律" ? (
                   <MenuTreeDropdown
                     key={item.label}
                     nodes={lawMenuTree as any}
                     openOnHover
                     contentClassName="min-w-[16rem]"
+                    trigger={
+                      <Link
+                        href={item.href}
+                        style={{ backgroundColor: item.bgColor }}
+                        className="inline-flex cursor-pointer items-center py-2.5 px-6 rounded-full border border-[#101A3A]/15 text-lg font-medium whitespace-nowrap text-[#101A3A] shadow-sm ring-1 ring-black/5 hover:opacity-80 transition-opacity"
+                      >
+                        {item.label}
+                      </Link>
+                    }
+                  />
+                ) : item.label === "日常" ? (
+                  <MenuTreeDropdown
+                    key={item.label}
+                    nodes={dailyMenuTree as any}
+                    openOnHover
+                    contentClassName="min-w-[14rem]"
                     trigger={
                       <Link
                         href={item.href}
@@ -131,7 +153,7 @@ export function Navigation() {
                     {item.label}
                   </Link>
                 )
-              ))}
+              )}
             </div>
           </div>
         </nav>
