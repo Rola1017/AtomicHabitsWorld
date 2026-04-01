@@ -105,7 +105,10 @@ export default async function LaborPostPage({
       ?.map((c) => c.name?.trim())
       .filter((n): n is string => Boolean(n)) ?? []
 
-  const breadcrumbItems = buildLaborArticleBreadcrumb(post.categories?.nodes)
+  const breadcrumbItems = buildLaborArticleBreadcrumb(
+    post.categories?.nodes,
+    post.title
+  )
   const sidebarPosts = await fetchLaborSidebarPosts(post.slug, 12)
 
   return (
