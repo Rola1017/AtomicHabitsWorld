@@ -85,7 +85,7 @@ const lawMenuTree = [
 const dailyMenuTree = [
   { label: "考試", href: "/daily/exam" },
   { label: "生活智慧王", href: "/daily/life-wisdom" },
-  { label: "左手寫字", href: "/daily/left-hand-writing" },
+  { label: "左手訓練", href: "/daily/left-hand-writing" },
 ] as const
 
 export function Navigation() {
