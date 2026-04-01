@@ -24,10 +24,34 @@ type WpGraphQLPostResponse = {
   errors?: Array<{ message?: string }>
 }
 
-export const fetchLaborPostBySlug = cache(
+/** 與 getLawArticleHrefFromWpCategories 一致：僅掛「法律」父分類時也導向 /law/labor */
+const LABOR_SECTION_CATEGORY_SLUGS = new Set(["labor-social-law", "law"])
+
+function normalizePostSlugParam(raw: string): string {
+  try {
+    const once = decodeURIComponent(raw.trim())
+    return once.replace(/^\/+|\/+$/g, "")
+  } catch {
+    return raw.trim().replace(/^\/+|\/+$/g, "")
+  }
+}
+
+function postHasAnyCategorySlug(
+  post: WpPostDetail,
+  slugs: ReadonlySet<string>
+): boolean {
+  return (
+    post.categories?.nodes?.some((c) => c.slug && slugs.has(c.slug)) ?? false
+  )
+}
+
+const loadPublishedWpPostBySlug = cache(
   async (slug: string): Promise<WpPostDetail | null> => {
     const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_API_URL
     if (!endpoint) return null
+
+    const normalizedSlug = normalizePostSlugParam(slug)
+    if (!normalizedSlug) return null
 
     try {
       const res = await fetch(endpoint, {
@@ -59,7 +83,7 @@ export const fetchLaborPostBySlug = cache(
             }
           }
         `,
-          variables: { slug },
+          variables: { slug: normalizedSlug },
         }),
         cache: "no-store",
       })
@@ -71,17 +95,37 @@ export const fetchLaborPostBySlug = cache(
 
       const post = json.data?.post
       if (!post) return null
-
-      const inLaborCategory =
-        post.categories?.nodes?.some((c) => c.slug === "labor-social-law") ??
-        false
-
-      if (!inLaborCategory) return null
       if (post.status && post.status.toLowerCase() !== "publish") return null
 
       return post
     } catch {
       return null
     }
+  }
+)
+
+export const fetchLaborPostBySlug = cache(
+  async (slug: string): Promise<WpPostDetail | null> => {
+    const post = await loadPublishedWpPostBySlug(slug)
+    if (!post) return null
+    if (!postHasAnyCategorySlug(post, LABOR_SECTION_CATEGORY_SLUGS)) return null
+    return post
+  }
+)
+
+/**
+ * 詳頁：文章必須帶有指定 WP 分類代稱（例如個別勞動法 `individual`）。
+ */
+export const fetchLaborPostByRequiredWpCategorySlug = cache(
+  async (
+    slug: string,
+    requiredCategorySlug: string
+  ): Promise<WpPostDetail | null> => {
+    const req = requiredCategorySlug.trim()
+    if (!req) return null
+    const post = await loadPublishedWpPostBySlug(slug)
+    if (!post) return null
+    if (!postHasAnyCategorySlug(post, new Set([req]))) return null
+    return post
   }
 )

@@ -8,11 +8,14 @@ import { LaborAuthorityLinksPanel } from "@/components/law/labor-authority-links
 import { LaborPopularPostsPanel } from "@/components/law/labor-popular-posts-panel"
 import { LawAboutCompact } from "@/components/law/law-about-compact"
 import { LawCertSection } from "@/components/law/law-cert-section"
+import { getWpCategorySlugForSitePath } from "@/config/law-site-wp-slugs"
 import { buildLaborArticleBreadcrumb } from "@/lib/labor-wp-breadcrumb"
 import { getSiteOrigin } from "@/lib/site-url"
 import { stripHtml } from "@/lib/strip-html"
+import { fetchLaborPostByRequiredWpCategorySlug } from "@/lib/wp-labor-post"
 import { fetchLaborSidebarPosts } from "@/lib/wp-labor-sidebar-posts"
-import { fetchLaborPostBySlug } from "@/lib/wp-labor-post"
+
+const COLLECTIVE_SITE_PATH = "labor/collective-procedure"
 
 function formatPostDate(iso: string): string {
   const d = new Date(iso)
@@ -40,6 +43,10 @@ function absolutizeOgImage(
   return `${siteOrigin}${u.startsWith("/") ? "" : "/"}${u}`
 }
 
+function getCollectiveWpCategorySlug(): string {
+  return getWpCategorySlugForSitePath(COLLECTIVE_SITE_PATH)
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -47,13 +54,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug: rawSlug } = await params
   const slug = decodeURIComponent(rawSlug)
-  const post = await fetchLaborPostBySlug(slug)
+  const wpCat = getCollectiveWpCategorySlug()
+  const post = await fetchLaborPostByRequiredWpCategorySlug(slug, wpCat)
   if (!post) {
     return { title: "文章" }
   }
 
   const siteOrigin = await getSiteOrigin()
-  const canonical = `${siteOrigin}/law/labor/${encodeURIComponent(slug)}`
+  const pathBase = `/law/${COLLECTIVE_SITE_PATH}`
+  const canonical = `${siteOrigin}${pathBase}/${encodeURIComponent(slug)}`
   const rawDesc = stripHtml(
     (post.excerpt?.trim() ? post.excerpt : null) ?? post.content ?? ""
   )
@@ -85,21 +94,23 @@ export async function generateMetadata({
   }
 }
 
-export default async function LaborPostPage({
+export default async function CollectiveProcedurePostPage({
   params,
 }: {
   params: Promise<{ slug: string }>
 }) {
   const { slug: rawSlug } = await params
   const slug = decodeURIComponent(rawSlug)
-  const post = await fetchLaborPostBySlug(slug)
+  const wpCat = getCollectiveWpCategorySlug()
+  const post = await fetchLaborPostByRequiredWpCategorySlug(slug, wpCat)
 
   if (!post) {
     notFound()
   }
 
   const siteOrigin = await getSiteOrigin()
-  const articleUrl = `${siteOrigin}/law/labor/${encodeURIComponent(post.slug)}`
+  const pathBase = `/law/${COLLECTIVE_SITE_PATH}`
+  const articleUrl = `${siteOrigin}${pathBase}/${encodeURIComponent(post.slug)}`
   const categoryLabels =
     post.categories?.nodes
       ?.map((c) => c.name?.trim())
@@ -115,11 +126,8 @@ export default async function LaborPostPage({
     <CategoryLayout
       contentFrame="flat"
       variant="labor-article"
-      heroTitle={[
-        "1948 年《世界人權宣言》第 22 條：",
-        "每個人都有獲得社會安全保障的權利",
-      ]}
-      heroLatin="Everyone, as a member of society, has the right to social security."
+      heroTitle={["集體勞動法&程序法"]}
+      heroLatin="Collective labor & procedure law."
     >
       <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start lg:gap-x-10 xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className="flex min-w-0 flex-col gap-8">
