@@ -13,8 +13,11 @@ export const WP_CATEGORY_SLUG_TO_LAW_PATH_PREFIX: Record<string, string> = {
   individual: "/law/labor/individual",
   /** 社會法子分類優先於 social 父分類 */
   "labor-insurance": "/law/labor/social/labor-insurance",
-  /** 更細的子分類優先於社會法父分類 */
+  "occupational-accident-insurance":
+    "/law/labor/social/occupational-accident-insurance",
+  "employment-insurance": "/law/labor/social/employment-insurance",
   nhi: "/law/labor/social/nhi",
+  "national-pension-welfare": "/law/labor/social/national-pension-welfare",
   social: "/law/labor/social",
   /** 集體勞動法子分類優先於 collective-procedure 父分類 */
   "dispute-mediation": "/law/labor/collective-procedure/dispute-mediation",

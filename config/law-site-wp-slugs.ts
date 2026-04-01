@@ -20,10 +20,17 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
   "labor/social": "social",
   /** 勞工保險(勞保)；若後台 slug 不同請改此值 */
   "labor/social/labor-insurance": "labor-insurance",
+  /** 職業災害保險與保護(災保法)；若後台 slug 不同請改此值 */
+  "labor/social/occupational-accident-insurance":
+    "occupational-accident-insurance",
+  /** 就業保險與失業保障；若後台 slug 不同請改此值 */
+  "labor/social/employment-insurance": "employment-insurance",
+  /** 全民健保與二代健保；若後台 slug 不同請改此值 */
+  "labor/social/nhi": "nhi",
+  /** 國民年金與社會福利；若後台 slug 不同請改此值 */
+  "labor/social/national-pension-welfare": "national-pension-welfare",
   /** 集體勞動法&程序法；若後台 slug 不同請改此值 */
   "labor/collective-procedure": "collective-procedure",
-  // 依你的 WP 實際代稱增修，例如：
-  // "labor/social/nhi": "nhi",
 }
 
 /**
