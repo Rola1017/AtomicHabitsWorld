@@ -4,9 +4,14 @@ import { notFound } from "next/navigation"
 import { ArticleBreadcrumb } from "@/components/law/article-breadcrumb"
 import { ArticleShare } from "@/components/law/article-share"
 import { CategoryLayout } from "@/components/law/CategoryLayout"
+import { LaborAuthorityLinksPanel } from "@/components/law/labor-authority-links-panel"
+import { LaborPopularPostsPanel } from "@/components/law/labor-popular-posts-panel"
+import { LawAboutCompact } from "@/components/law/law-about-compact"
+import { LawCertSection } from "@/components/law/law-cert-section"
 import { buildLaborArticleBreadcrumb } from "@/lib/labor-wp-breadcrumb"
 import { getSiteOrigin } from "@/lib/site-url"
 import { stripHtml } from "@/lib/strip-html"
+import { fetchLaborSidebarPosts } from "@/lib/wp-labor-sidebar-posts"
 import { fetchLaborPostBySlug } from "@/lib/wp-labor-post"
 
 function formatPostDate(iso: string): string {
@@ -101,40 +106,54 @@ export default async function LaborPostPage({
       .filter((n): n is string => Boolean(n)) ?? []
 
   const breadcrumbItems = buildLaborArticleBreadcrumb(post.categories?.nodes)
+  const sidebarPosts = await fetchLaborSidebarPosts(post.slug, 12)
 
   return (
     <CategoryLayout
       contentFrame="flat"
+      variant="labor-article"
       heroTitle={[
         "1948 年《世界人權宣言》第 22 條：",
         "每個人都有獲得社會安全保障的權利",
       ]}
       heroLatin="Everyone, as a member of society, has the right to social security."
     >
-      <article
-        className="w-full rounded-2xl border border-[#D1C7B7] bg-white p-6 text-[#334155] shadow-md sm:p-8 md:p-10"
-      >
-        <ArticleBreadcrumb items={breadcrumbItems} />
-        <h1
-          className={`text-2xl font-bold text-[#1A2744] ${
-            post.date || categoryLabels.length > 0 ? "mb-2" : "mb-6"
-          }`}
-        >
-          {post.title}
-        </h1>
-        {(post.date || categoryLabels.length > 0) && (
-          <div className="mb-6 space-y-2 text-sm text-[#6b7280]">
-            {post.date ? (
-              <p>發布日期：{formatPostDate(post.date)}</p>
-            ) : null}
-            {categoryLabels.length > 0 ? (
-              <p>分類：{categoryLabels.join("、")}</p>
-            ) : null}
-          </div>
-        )}
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        <ArticleShare url={articleUrl} title={post.title} />
-      </article>
+      <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start lg:gap-x-10 xl:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="flex min-w-0 flex-col gap-8">
+          <article
+            className="w-full rounded-none border border-[#D1C7B7] bg-white p-6 text-[#334155] shadow-md sm:p-8 md:p-10"
+          >
+            <ArticleBreadcrumb items={breadcrumbItems} />
+            <h1
+              className={`text-2xl font-bold text-[#1A2744] ${
+                post.date || categoryLabels.length > 0 ? "mb-2" : "mb-6"
+              }`}
+            >
+              {post.title}
+            </h1>
+            {(post.date || categoryLabels.length > 0) && (
+              <div className="mb-6 space-y-2 text-sm text-[#6b7280]">
+                {post.date ? (
+                  <p>發布日期：{formatPostDate(post.date)}</p>
+                ) : null}
+                {categoryLabels.length > 0 ? (
+                  <p>分類：{categoryLabels.join("、")}</p>
+                ) : null}
+              </div>
+            )}
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            <ArticleShare url={articleUrl} title={post.title} />
+          </article>
+
+          <LawAboutCompact />
+        </div>
+
+        <aside className="flex w-full min-w-0 flex-col gap-8 lg:sticky lg:top-28 lg:self-start">
+          <LaborAuthorityLinksPanel />
+          <LaborPopularPostsPanel posts={sidebarPosts} />
+          <LawCertSection className="rounded-none" />
+        </aside>
+      </div>
     </CategoryLayout>
   )
 }

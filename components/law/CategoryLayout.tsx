@@ -27,6 +27,10 @@ type CategoryLayoutProps = {
    * flat：不包外層框，由子元件自帶白底等版面（例如 WP 文章詳頁）
    */
   contentFrame?: "default" | "flat"
+  /**
+   * labor-article：寬版主欄、橫幅與內文間留白加大（露出背景）、底部不顯示合併的「關於本站」大區塊（由子頁自行排版）
+   */
+  variant?: "default" | "labor-article"
 }
 
 export function CategoryLayout({
@@ -34,6 +38,7 @@ export function CategoryLayout({
   heroLatin,
   children,
   contentFrame = "default",
+  variant = "default",
 }: CategoryLayoutProps) {
   return (
     <div className="min-h-screen relative">
@@ -63,8 +68,20 @@ export function CategoryLayout({
       />
 
       {/* Main Content Panel */}
-      <main className="py-8 sm:py-12 md:py-16 relative">
-        <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 sm:gap-8 sm:px-6">
+      <main
+        className={
+          variant === "labor-article"
+            ? "relative pt-12 pb-10 sm:pt-16 sm:pb-12 md:pt-24 md:pb-16"
+            : "relative py-8 sm:py-12 md:py-16"
+        }
+      >
+        <div
+          className={`mx-auto flex flex-col px-4 sm:px-6 ${
+            variant === "labor-article"
+              ? "max-w-7xl gap-12 sm:gap-14"
+              : "max-w-4xl gap-6 sm:gap-8"
+          }`}
+        >
           {contentFrame === "flat" ? (
             children
           ) : (
@@ -73,8 +90,9 @@ export function CategoryLayout({
             </div>
           )}
 
-          {/* About block (kept consistent with current /law page visual) */}
-          <LawAboutSection />
+          {variant !== "labor-article" ? (
+            <LawAboutSection />
+          ) : null}
         </div>
       </main>
 
