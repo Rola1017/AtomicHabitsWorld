@@ -16,6 +16,13 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL
+    ? new URL(
+        process.env.NEXT_PUBLIC_SITE_URL.endsWith('/')
+          ? process.env.NEXT_PUBLIC_SITE_URL
+          : `${process.env.NEXT_PUBLIC_SITE_URL}/`
+      )
+    : undefined,
   title: 'AtomicHabitsWorld 每天一點點',
   description: '享受學習，樂在其中 - 遊戲化思維與知識萃取',
   generator: 'v0.app',
