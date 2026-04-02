@@ -4,11 +4,6 @@ import { DailyWpCategoryPostList } from "@/components/daily/daily-wp-category-po
 export default function DailyPage() {
   return (
     <div className="flex flex-col gap-10">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-[#101A3A] mb-4">日常</h1>
-        <p className="text-[#4b5563] mb-8">這裡先顯示 WP 新增的「讀書」與「隨筆」文章。</p>
-      </div>
-
       {/* 子分類按鈕：置於文章列表上方 */}
       <div className="flex flex-wrap justify-center gap-4">
         <Link
