@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 const DAILY_SUBCATEGORY_LINK_CLASS =
-  "rounded-full border-2 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90 transition-opacity"
+  "rounded-full border-2 bg-white/80 px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90 transition-opacity"
 
 export function DailySubcategoryNav() {
   return (
