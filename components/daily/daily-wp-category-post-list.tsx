@@ -7,6 +7,8 @@ type DailyWpCategoryPostListProps = {
   emptyLabel: string
 }
 
+const DAILY_LIST_EXCERPT_MAX = 90
+
 export async function DailyWpCategoryPostList({
   siteCategoryPath,
   wpCategorySlug,
@@ -17,15 +19,23 @@ export async function DailyWpCategoryPostList({
   return (
     <div className="flex flex-col gap-4 text-left sm:gap-5">
       {posts.length > 0 ? (
-        posts.map((post) => (
-          <ArticleCard
-            key={post.slug}
-            title={post.title}
-            excerpt={post.excerpt}
-            href={`/daily/${siteCategoryPath}/${encodeURIComponent(post.slug)}`}
-            variant="simple"
-          />
-        ))
+        posts.map((post) => {
+          const excerpt = post.excerpt?.trim()
+          const shortExcerpt =
+            excerpt && excerpt.length > DAILY_LIST_EXCERPT_MAX
+              ? `${excerpt.slice(0, DAILY_LIST_EXCERPT_MAX).trimEnd()}…`
+              : excerpt
+
+          return (
+            <ArticleCard
+              key={post.slug}
+              title={post.title}
+              excerpt={shortExcerpt}
+              href={`/daily/${siteCategoryPath}/${encodeURIComponent(post.slug)}`}
+              variant="simple"
+            />
+          )
+        })
       ) : (
         <div className="rounded-2xl border border-[#D1C7B7] bg-white/70 p-6 text-center text-[#6b7280] sm:p-8">
           {emptyLabel}
