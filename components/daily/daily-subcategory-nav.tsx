@@ -1,27 +1,44 @@
 import Link from "next/link"
 
 const DAILY_SUBCATEGORY_LINK_CLASS =
-  "rounded-full border border-[#101A3A]/15 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90"
+  "rounded-full border-2 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90 transition-opacity"
 
 export function DailySubcategoryNav() {
   return (
     <div className="flex flex-wrap justify-center gap-4">
-      <Link href="/daily/exam" className={DAILY_SUBCATEGORY_LINK_CLASS}>
+      <Link
+        href="/daily/exam"
+        className={DAILY_SUBCATEGORY_LINK_CLASS}
+        style={{ borderColor: "#E5A54A" }}
+      >
         考試
       </Link>
-      <Link href="/daily/life-wisdom" className={DAILY_SUBCATEGORY_LINK_CLASS}>
+      <Link
+        href="/daily/life-wisdom"
+        className={DAILY_SUBCATEGORY_LINK_CLASS}
+        style={{ borderColor: "#7C6EE6" }}
+      >
         生活智慧王
       </Link>
       <Link
         href="/daily/left-hand-writing"
         className={DAILY_SUBCATEGORY_LINK_CLASS}
+        style={{ borderColor: "#22A79A" }}
       >
         左手訓練
       </Link>
-      <Link href="/daily/study" className={DAILY_SUBCATEGORY_LINK_CLASS}>
+      <Link
+        href="/daily/study"
+        className={DAILY_SUBCATEGORY_LINK_CLASS}
+        style={{ borderColor: "#2F7EDB" }}
+      >
         讀書
       </Link>
-      <Link href="/daily/essay" className={DAILY_SUBCATEGORY_LINK_CLASS}>
+      <Link
+        href="/daily/essay"
+        className={DAILY_SUBCATEGORY_LINK_CLASS}
+        style={{ borderColor: "#D65B7C" }}
+      >
         隨筆
       </Link>
     </div>
