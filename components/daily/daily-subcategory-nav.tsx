@@ -44,9 +44,9 @@ export function DailySubcategoryNav() {
         href="/daily/exam"
         className={DAILY_SUBCATEGORY_LINK_CLASS}
         style={{
-          borderColor: "#E5A54A",
-          color: "#E5A54A",
-          backgroundColor: mixWithWhite("#E5A54A", PASTEL_MIX_WITH_WHITE),
+          borderColor: "#C85A5A",
+          color: "#C85A5A",
+          backgroundColor: mixWithWhite("#C85A5A", PASTEL_MIX_WITH_WHITE),
         }}
       >
         考試
@@ -56,9 +56,9 @@ export function DailySubcategoryNav() {
         href="/daily/essay"
         className={DAILY_SUBCATEGORY_LINK_CLASS}
         style={{
-          borderColor: "#D65B7C",
-          color: "#D65B7C",
-          backgroundColor: mixWithWhite("#D65B7C", PASTEL_MIX_WITH_WHITE),
+          borderColor: "#E5A54A",
+          color: "#E5A54A",
+          backgroundColor: mixWithWhite("#E5A54A", PASTEL_MIX_WITH_WHITE),
         }}
       >
         隨筆
