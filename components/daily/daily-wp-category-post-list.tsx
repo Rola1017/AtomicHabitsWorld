@@ -15,7 +15,7 @@ export async function DailyWpCategoryPostList({
   const posts = await fetchPublishedPostsByWpCategorySlug(wpCategorySlug, 48)
 
   return (
-    <div className="flex flex-col gap-4 sm:gap-5">
+    <div className="flex flex-col gap-4 text-left sm:gap-5">
       {posts.length > 0 ? (
         posts.map((post) => (
           <ArticleCard

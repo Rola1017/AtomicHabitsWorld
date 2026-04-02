@@ -2,8 +2,8 @@ import { DailyWpCategoryPostList } from "@/components/daily/daily-wp-category-po
 
 export default function DailyExamPage() {
   return (
-    <div className="text-center">
-      <h1 className="text-2xl font-bold text-[#101A3A] mb-4">考試</h1>
+    <div className="flex flex-col gap-6">
+      <h1 className="text-2xl font-bold text-[#101A3A] text-center">考試</h1>
       <DailyWpCategoryPostList
         siteCategoryPath="exam"
         wpCategorySlug="exam"
