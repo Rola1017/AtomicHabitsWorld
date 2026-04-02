@@ -29,6 +29,18 @@ export function DailySubcategoryNav() {
   return (
     <div className="flex flex-wrap justify-center gap-4">
       <Link
+        href="/daily/study"
+        className={DAILY_SUBCATEGORY_LINK_CLASS}
+        style={{
+          borderColor: "#2F7EDB",
+          color: "#2F7EDB",
+          backgroundColor: mixWithWhite("#2F7EDB", PASTEL_MIX_WITH_WHITE),
+        }}
+      >
+        讀書
+      </Link>
+
+      <Link
         href="/daily/exam"
         className={DAILY_SUBCATEGORY_LINK_CLASS}
         style={{
@@ -39,17 +51,19 @@ export function DailySubcategoryNav() {
       >
         考試
       </Link>
+
       <Link
-        href="/daily/life-wisdom"
+        href="/daily/essay"
         className={DAILY_SUBCATEGORY_LINK_CLASS}
         style={{
-          borderColor: "#7C6EE6",
-          color: "#7C6EE6",
-          backgroundColor: mixWithWhite("#7C6EE6", PASTEL_MIX_WITH_WHITE),
+          borderColor: "#D65B7C",
+          color: "#D65B7C",
+          backgroundColor: mixWithWhite("#D65B7C", PASTEL_MIX_WITH_WHITE),
         }}
       >
-        生活智慧王
+        隨筆
       </Link>
+
       <Link
         href="/daily/left-hand-writing"
         className={DAILY_SUBCATEGORY_LINK_CLASS}
@@ -61,27 +75,17 @@ export function DailySubcategoryNav() {
       >
         左手訓練
       </Link>
+
       <Link
-        href="/daily/study"
+        href="/daily/life-wisdom"
         className={DAILY_SUBCATEGORY_LINK_CLASS}
         style={{
-          borderColor: "#2F7EDB",
-          color: "#2F7EDB",
-          backgroundColor: mixWithWhite("#2F7EDB", PASTEL_MIX_WITH_WHITE),
+          borderColor: "#7C6EE6",
+          color: "#7C6EE6",
+          backgroundColor: mixWithWhite("#7C6EE6", PASTEL_MIX_WITH_WHITE),
         }}
       >
-        讀書
-      </Link>
-      <Link
-        href="/daily/essay"
-        className={DAILY_SUBCATEGORY_LINK_CLASS}
-        style={{
-          borderColor: "#D65B7C",
-          color: "#D65B7C",
-          backgroundColor: mixWithWhite("#D65B7C", PASTEL_MIX_WITH_WHITE),
-        }}
-      >
-        隨筆
+        生活智慧王
       </Link>
     </div>
   )
