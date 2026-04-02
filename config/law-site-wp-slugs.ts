@@ -31,6 +31,11 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
   "labor/social/national-pension-welfare": "national-pension-welfare",
   /** 集體勞動法&程序法；若後台 slug 不同請改此值 */
   "labor/collective-procedure": "collective-procedure",
+  /** 勞資爭議處理與調解程序；若後台 slug 不同請改此值 */
+  "labor/collective-procedure/dispute-mediation": "dispute-mediation",
+  /** 行政救濟與勞檢應對；若後台 slug 不同請改此值 */
+  "labor/collective-procedure/admin-remedies-labor-inspection":
+    "admin-remedies-labor-inspection",
 }
 
 /**
