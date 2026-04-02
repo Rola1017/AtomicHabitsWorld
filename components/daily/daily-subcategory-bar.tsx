@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { DailySubcategoryNav } from "@/components/daily/daily-subcategory-nav"
 
 const BACK_BUTTON_CLASS =
-  "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#101A3A]/15 bg-white/80 text-[#101A3A] shadow-sm ring-1 ring-black/5 hover:opacity-90 transition-opacity"
+  "inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl border border-[#101A3A]/15 bg-white/80 text-[#101A3A] shadow-sm ring-1 ring-black/5 hover:opacity-90 transition-opacity"
 
 function parentPathFromPathname(pathname: string): string {
   const segments = pathname.split("/").filter(Boolean)
