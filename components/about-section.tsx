@@ -29,7 +29,7 @@ export function AboutSection() {
                   href="#about"
                   className="text-[#101A3A] hover:text-[#2d3a5c] hover:underline underline-offset-4 transition-colors"
                 >
-                  關於本站
+                  關於創辦人Rola
                 </Link>
               </h2>
               <p className="text-[#4b5563] text-base leading-relaxed">
@@ -48,7 +48,7 @@ export function AboutSection() {
                   href="#skills"
                   className="text-[#101A3A] hover:text-[#2d3a5c] hover:underline underline-offset-4 transition-colors"
                 >
-                  擅長
+                  興趣
                 </Link>
               </h3>
               <ul className="space-y-2">
