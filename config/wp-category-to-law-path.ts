@@ -70,6 +70,8 @@ export const WP_CATEGORY_SLUG_TO_LAW_PATH_PREFIX: Record<string, string> = {
   "torts-and-damages": "/law/civil/torts-and-damages",
   "property-law": "/law/civil/property-law",
   civil: "/law/civil",
+  /** 行政法 */
+  administrative: "/law/administrative",
   /** 僅掛父分類 law 且無上列子分類時；可改成實際路由前綴 */
   law: "/law/labor",
 }

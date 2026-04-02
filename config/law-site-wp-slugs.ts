@@ -81,6 +81,9 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
     "marriage-contracts-and-property-regimes",
   "civil/family-and-inheritance/wills-and-advance-directives":
     "wills-and-advance-directives",
+
+  /** 行政法（最上層）；sitePathKey 與 WP slug 一致 */
+  administrative: "administrative",
 }
 
 /**
@@ -270,6 +273,9 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
   "civil/family-and-inheritance/wills-and-advance-directives": [
     "wills-and-advance-directives",
   ],
+
+  /** 行政法（列表合併：僅自己） */
+  administrative: ["administrative"],
 }
 
 function uniqWpSlugs(slugs: string[]): string[] {
@@ -285,6 +291,7 @@ export const WP_LAW_PAGE_MERGED_CATEGORY_SLUGS: string[] = uniqWpSlugs([
   ...SITE_PATH_MERGED_WP_SLUGS.labor,
   ...SITE_PATH_MERGED_WP_SLUGS.insurance,
   ...SITE_PATH_MERGED_WP_SLUGS.civil,
+  ...SITE_PATH_MERGED_WP_SLUGS.administrative,
 ])
 
 export function getMergedWpCategorySlugsForSitePath(
