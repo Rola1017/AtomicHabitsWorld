@@ -94,7 +94,37 @@ const lawMenuTree = [
       { label: "金融消費者保護與法規", href: "/law/insurance/financial-consumer-protection" },
     ],
   },
-  { label: "民法", href: "/law/civil" },
+  {
+    label: "民法",
+    href: "/law/civil",
+    children: [
+      { label: "契約法與債權實務", href: "/law/civil/contracts-and-obligations" },
+      {
+        label: "親屬與繼承法",
+        href: "/law/civil/family-and-inheritance",
+        children: [
+          {
+            label: "遺產繼承與特留分實務",
+            href: "/law/civil/family-and-inheritance/inheritance-and-forced-heirship",
+          },
+          {
+            label: "家族信託與資產保護",
+            href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection",
+          },
+          {
+            label: "婚姻契約與財產制",
+            href: "/law/civil/family-and-inheritance/marriage-contracts-and-property-regimes",
+          },
+          {
+            label: "遺囑撰擬與預立醫療決定",
+            href: "/law/civil/family-and-inheritance/wills-and-advance-directives",
+          },
+        ],
+      },
+      { label: "侵權行為與損害賠償", href: "/law/civil/torts-and-damages" },
+      { label: "物權與不動產法", href: "/law/civil/property-law" },
+    ],
+  },
   { label: "行政法", href: "/law/administrative" },
   { label: "刑法", href: "/law/criminal" },
   { label: "民事訴訟法", href: "/law/civil-procedure" },

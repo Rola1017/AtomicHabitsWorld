@@ -58,6 +58,21 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
   "insurance/personal-insurance/life-insurance/savings": "savings-insurance",
   "insurance/personal-insurance/medical": "medical",
   "insurance/personal-insurance/accident": "accident",
+
+  /** 民法（最上層） */
+  civil: "civil",
+  "civil/contracts-and-obligations": "contracts-and-obligations",
+  "civil/family-and-inheritance": "family-and-inheritance",
+  "civil/torts-and-damages": "torts-and-damages",
+  "civil/property-law": "property-law",
+  "civil/family-and-inheritance/inheritance-and-forced-heirship":
+    "inheritance-and-forced-heirship",
+  "civil/family-and-inheritance/family-trust-and-asset-protection":
+    "family-trust-and-asset-protection",
+  "civil/family-and-inheritance/marriage-contracts-and-property-regimes":
+    "marriage-contracts-and-property-regimes",
+  "civil/family-and-inheritance/wills-and-advance-directives":
+    "wills-and-advance-directives",
 }
 
 /**
@@ -192,6 +207,40 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
   "labor/collective-procedure/admin-remedies-labor-inspection": [
     "admin-remedies-labor-inspection",
   ],
+  /** 民法 */
+  civil: [
+    "civil",
+    "contracts-and-obligations",
+    "family-and-inheritance",
+    "torts-and-damages",
+    "property-law",
+    "inheritance-and-forced-heirship",
+    "family-trust-and-asset-protection",
+    "marriage-contracts-and-property-regimes",
+    "wills-and-advance-directives",
+  ],
+  "civil/contracts-and-obligations": ["contracts-and-obligations"],
+  "civil/family-and-inheritance": [
+    "family-and-inheritance",
+    "inheritance-and-forced-heirship",
+    "family-trust-and-asset-protection",
+    "marriage-contracts-and-property-regimes",
+    "wills-and-advance-directives",
+  ],
+  "civil/torts-and-damages": ["torts-and-damages"],
+  "civil/property-law": ["property-law"],
+  "civil/family-and-inheritance/inheritance-and-forced-heirship": [
+    "inheritance-and-forced-heirship",
+  ],
+  "civil/family-and-inheritance/family-trust-and-asset-protection": [
+    "family-trust-and-asset-protection",
+  ],
+  "civil/family-and-inheritance/marriage-contracts-and-property-regimes": [
+    "marriage-contracts-and-property-regimes",
+  ],
+  "civil/family-and-inheritance/wills-and-advance-directives": [
+    "wills-and-advance-directives",
+  ],
 }
 
 function uniqWpSlugs(slugs: string[]): string[] {
@@ -206,6 +255,7 @@ export const WP_LAW_PAGE_MERGED_CATEGORY_SLUGS: string[] = uniqWpSlugs([
   LAW_ROOT_WP_CATEGORY_SLUG,
   ...SITE_PATH_MERGED_WP_SLUGS.labor,
   ...SITE_PATH_MERGED_WP_SLUGS.insurance,
+  ...SITE_PATH_MERGED_WP_SLUGS.civil,
 ])
 
 export function getMergedWpCategorySlugsForSitePath(

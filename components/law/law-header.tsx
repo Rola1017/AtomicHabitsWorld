@@ -44,6 +44,53 @@ const collectiveProcedureNavItems = [
   { name: "行政救濟與勞檢應對", href: "/law/labor/collective-procedure/admin-remedies-labor-inspection", baseColor: "#F5F0E8", accentColor: "#E8E0D5" },
 ]
 
+// /law/civil 及其子頁：民法第 1 層四個分類
+const civilFamilyInheritanceSubMenuTree = [
+  {
+    label: "遺產繼承與特留分實務",
+    href: "/law/civil/family-and-inheritance/inheritance-and-forced-heirship",
+  },
+  {
+    label: "家族信託與資產保護",
+    href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection",
+  },
+  {
+    label: "婚姻契約與財產制",
+    href: "/law/civil/family-and-inheritance/marriage-contracts-and-property-regimes",
+  },
+  {
+    label: "遺囑撰擬與預立醫療決定",
+    href: "/law/civil/family-and-inheritance/wills-and-advance-directives",
+  },
+] as const
+
+const civilLawNavItems = [
+  {
+    name: "契約法與債權實務",
+    href: "/law/civil/contracts-and-obligations",
+    baseColor: "#E8EEF0",
+    accentColor: "#D5E0E8",
+  },
+  {
+    name: "親屬與繼承法",
+    href: "/law/civil/family-and-inheritance",
+    baseColor: "#F5F0E8",
+    accentColor: "#E8E0D5",
+  },
+  {
+    name: "侵權行為與損害賠償",
+    href: "/law/civil/torts-and-damages",
+    baseColor: "#E8F0EC",
+    accentColor: "#D5E8DD",
+  },
+  {
+    name: "物權與不動產法",
+    href: "/law/civil/property-law",
+    baseColor: "#EFDAD6",
+    accentColor: "#DDBBB4",
+  },
+]
+
 // /law/insurance 及其子頁：顯示保險法底下的四個分類（固定順序）
 const insuranceLawNavItems = [
   { name: "理賠實務與保險法總則", href: "/law/insurance/claims-and-general", baseColor: "#E8EEF0", accentColor: "#D5E0E8" },
@@ -177,6 +224,21 @@ const insuranceLawMenuTree: Array<{
   { label: "金融消費者保護與法規", href: "/law/insurance/financial-consumer-protection" },
 ]
 
+const civilLawMenuTree: Array<{
+  label: string
+  href: string
+  children?: Array<{ label: string; href: string; children?: any[] }>
+}> = [
+  { label: "契約法與債權實務", href: "/law/civil/contracts-and-obligations" },
+  {
+    label: "親屬與繼承法",
+    href: "/law/civil/family-and-inheritance",
+    children: [...civilFamilyInheritanceSubMenuTree],
+  },
+  { label: "侵權行為與損害賠償", href: "/law/civil/torts-and-damages" },
+  { label: "物權與不動產法", href: "/law/civil/property-law" },
+]
+
 export function LawHeader() {
   const router = useRouter()
   const pathname = usePathname()
@@ -186,6 +248,7 @@ export function LawHeader() {
   const isCollectiveProcedure =
     pathname === "/law/labor/collective-procedure" || pathname.startsWith("/law/labor/collective-procedure/")
   const isInsuranceLaw = pathname === "/law/insurance" || pathname.startsWith("/law/insurance/")
+  const isCivilLaw = pathname === "/law/civil" || pathname.startsWith("/law/civil/")
   const isClaimsAndGeneral =
     pathname === "/law/insurance/claims-and-general" || pathname.startsWith("/law/insurance/claims-and-general/")
   const isPersonalInsurance =
@@ -193,6 +256,7 @@ export function LawHeader() {
     pathname.startsWith("/law/insurance/personal-insurance/")
   const isLaborRootPage = pathname === "/law/labor"
   const isInsuranceRootPage = pathname === "/law/insurance"
+  const isCivilRootPage = pathname === "/law/civil"
   const isDenseNav = isSocialLaw
 
   const goToParent = () => {
@@ -256,6 +320,8 @@ export function LawHeader() {
                     ? personalInsuranceNavItems
                   : isInsuranceLaw
                     ? insuranceLawNavItems
+                  : isCivilLaw
+                    ? civilLawNavItems
                   : isSocialLaw
                     ? socialLawNavItems
                     : isIndividualLabor
@@ -267,10 +333,12 @@ export function LawHeader() {
                 (item) => {
                   const isLaborRoot = item.href === "/law/labor"
                   const isInsuranceRoot = item.href === "/law/insurance"
+                  const isCivilRoot = item.href === "/law/civil"
                   const hasLaborChildren =
                     !isLabor && isLaborRoot
                   const hasInsuranceChildren =
                     !isInsuranceLaw && isInsuranceRoot
+                  const hasCivilChildren = !isCivilLaw && isCivilRoot
 
                   const pillClass =
                     [
@@ -345,6 +413,25 @@ export function LawHeader() {
                     )
                   }
 
+                  if (hasCivilChildren) {
+                    return (
+                      <MenuTreeDropdown
+                        key={item.name}
+                        nodes={civilLawMenuTree as any}
+                        contentClassName="min-w-[18rem]"
+                        openOnHover
+                        trigger={
+                          <Link href={item.href} className={pillClass} style={pillStyle}>
+                            {marbleOverlay}
+                            <span className="relative z-10 text-sm lg:text-base font-medium text-[#1A2744] font-serif">
+                              {item.name}
+                            </span>
+                          </Link>
+                        }
+                      />
+                    )
+                  }
+
                   // /law/labor：三顆分類按鈕支援下拉到子分類
                   if (isLaborRootPage) {
                     const nodes =
@@ -399,6 +486,54 @@ export function LawHeader() {
                         />
                       )
                     }
+                  }
+
+                  // /law/civil：四顆分類；親屬與繼承法下掛第 2 層
+                  if (isCivilRootPage) {
+                    const matchedCivilNode = civilLawMenuTree.find((n) => n.href === item.href)
+                    const civilChildNodes = matchedCivilNode?.children
+
+                    if (civilChildNodes && civilChildNodes.length > 0) {
+                      return (
+                        <MenuTreeDropdown
+                          key={item.name}
+                          nodes={civilChildNodes as any}
+                          contentClassName="min-w-[20rem]"
+                          openOnHover
+                          trigger={
+                            <Link href={item.href} className={pillClass} style={pillStyle}>
+                              {marbleOverlay}
+                              <span className="relative z-10 text-sm lg:text-base font-medium text-[#1A2744] font-serif">
+                                {item.name}
+                              </span>
+                            </Link>
+                          }
+                        />
+                      )
+                    }
+                  }
+
+                  // 民法：親屬與繼承法底下第 2 層——hover 顯示，不與親屬並列
+                  if (
+                    isCivilLaw &&
+                    item.href === "/law/civil/family-and-inheritance"
+                  ) {
+                    return (
+                      <MenuTreeDropdown
+                        key={item.name}
+                        nodes={civilFamilyInheritanceSubMenuTree as any}
+                        contentClassName="min-w-[20rem]"
+                        openOnHover
+                        trigger={
+                          <Link href={item.href} className={pillClass} style={pillStyle}>
+                            {marbleOverlay}
+                            <span className="relative z-10 text-sm lg:text-base font-medium text-[#1A2744] font-serif">
+                              {item.name}
+                            </span>
+                          </Link>
+                        }
+                      />
+                    )
                   }
 
                   // 社會法：勞工保險底下第 3 層「勞保1」——不與勞保並列，僅在下拉

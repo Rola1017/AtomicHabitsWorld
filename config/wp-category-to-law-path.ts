@@ -47,6 +47,20 @@ export const WP_CATEGORY_SLUG_TO_LAW_PATH_PREFIX: Record<string, string> = {
   "financial-consumer-protection":
     "/law/insurance/financial-consumer-protection",
   insurance: "/law/insurance",
+  /** 民法：第 2 層須優先於 family-and-inheritance 與 civil */
+  "inheritance-and-forced-heirship":
+    "/law/civil/family-and-inheritance/inheritance-and-forced-heirship",
+  "family-trust-and-asset-protection":
+    "/law/civil/family-and-inheritance/family-trust-and-asset-protection",
+  "marriage-contracts-and-property-regimes":
+    "/law/civil/family-and-inheritance/marriage-contracts-and-property-regimes",
+  "wills-and-advance-directives":
+    "/law/civil/family-and-inheritance/wills-and-advance-directives",
+  "contracts-and-obligations": "/law/civil/contracts-and-obligations",
+  "family-and-inheritance": "/law/civil/family-and-inheritance",
+  "torts-and-damages": "/law/civil/torts-and-damages",
+  "property-law": "/law/civil/property-law",
+  civil: "/law/civil",
   /** 僅掛父分類 law 且無上列子分類時；可改成實際路由前綴 */
   law: "/law/labor",
 }
