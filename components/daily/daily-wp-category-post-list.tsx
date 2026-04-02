@@ -9,6 +9,19 @@ type DailyWpCategoryPostListProps = {
 
 const DAILY_LIST_EXCERPT_MAX = 90
 
+function normalizeWpExcerpt(raw: string | undefined): string | undefined {
+  const s = raw?.trim()
+  if (!s) return undefined
+  // WP 有時會在 excerpt 尾端塞省略符號：&hellip;、…、或文字形式的 "[&hellip;]"
+  const cleaned = s
+    .replace(/\[\s*&hellip;\s*\]\s*$/i, "")
+    .replace(/\[\s*…\s*\]\s*$/i, "")
+    .replace(/&hellip;\s*$/i, "")
+    .replace(/…\s*$/i, "")
+    .trim()
+  return cleaned || undefined
+}
+
 export async function DailyWpCategoryPostList({
   siteCategoryPath,
   wpCategorySlug,
@@ -20,7 +33,7 @@ export async function DailyWpCategoryPostList({
     <div className="flex flex-col gap-4 text-left sm:gap-5">
       {posts.length > 0 ? (
         posts.map((post) => {
-          const excerpt = post.excerpt?.trim()
+          const excerpt = normalizeWpExcerpt(post.excerpt)
           const shortExcerpt =
             excerpt && excerpt.length > DAILY_LIST_EXCERPT_MAX
               ? `${excerpt.slice(0, DAILY_LIST_EXCERPT_MAX).trimEnd()}…`
