@@ -1,6 +1,6 @@
 import { ArticleCard } from "@/components/law/article-card"
 import {
-  getMergedWpCategorySlugsForInsuranceSitePath,
+  getMergedWpCategorySlugsForSitePath,
   getWpCategorySlugForSitePath,
   LAW_ROOT_WP_CATEGORY_SLUG,
   WP_LAW_HOME_CATEGORY_SLUGS,
@@ -44,11 +44,10 @@ export async function LawWpCategoryPostList({
     posts = merged
     usePerPostHref = true
   } else {
-    const insuranceMerged =
-      getMergedWpCategorySlugsForInsuranceSitePath(sitePathKey)
-    if (insuranceMerged) {
+    const mergedSlugs = getMergedWpCategorySlugsForSitePath(sitePathKey)
+    if (mergedSlugs) {
       posts = await fetchPublishedPostsByAnyWpCategorySlugs(
-        insuranceMerged,
+        mergedSlugs,
         48
       )
       usePerPostHref = true

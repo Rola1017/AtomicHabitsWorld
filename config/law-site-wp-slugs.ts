@@ -76,10 +76,11 @@ export function getWpCategorySlugForSitePath(sitePath: string): string {
 }
 
 /**
- * 保險法：父層／第 1 層列表需合併查詢子分類。
- * WP 文章若只掛在子分類（例如「告知義務」），單查父分類 categoryIn 不會撈到。
+ * 列表頁合併查詢：父層 path → 要一併查詢的 WP 分類 slug（含自己與所有子孫）。
+ * WP 的 categoryIn 不會自動含子分類；與保險法區相同，需明列 slug。
  */
-const INSURANCE_SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
+const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
+  /** 保險法 */
   insurance: [
     "insurance",
     "claims-and-general",
@@ -105,12 +106,50 @@ const INSURANCE_SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
     "medical",
     "accident",
   ],
+  /** 勞動法（labor-social-law）＋個別／社會／集體三枝及其子分類 */
+  labor: [
+    "labor-social-law",
+    "individual",
+    "social",
+    "collective-procedure",
+    "contract-onboarding",
+    "wage-hours-leave",
+    "gender-equality-bullying",
+    "termination-layoff-retirement",
+    "nhi",
+    "labor-insurance",
+    "national-pension-welfare",
+    "employment-insurance",
+    "occupational-accident-insurance",
+    "dispute-mediation",
+    "admin-remedies-labor-inspection",
+  ],
+  "labor/individual": [
+    "individual",
+    "contract-onboarding",
+    "wage-hours-leave",
+    "gender-equality-bullying",
+    "termination-layoff-retirement",
+  ],
+  "labor/social": [
+    "social",
+    "nhi",
+    "labor-insurance",
+    "national-pension-welfare",
+    "employment-insurance",
+    "occupational-accident-insurance",
+  ],
+  "labor/collective-procedure": [
+    "collective-procedure",
+    "dispute-mediation",
+    "admin-remedies-labor-inspection",
+  ],
 }
 
-export function getMergedWpCategorySlugsForInsuranceSitePath(
+export function getMergedWpCategorySlugsForSitePath(
   sitePath: string
 ): string[] | null {
   const normalized = sitePath.replace(/^\/+|\/+$/g, "")
-  const slugs = INSURANCE_SITE_PATH_MERGED_WP_SLUGS[normalized]
+  const slugs = SITE_PATH_MERGED_WP_SLUGS[normalized]
   return slugs ? [...slugs] : null
 }
