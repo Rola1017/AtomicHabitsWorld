@@ -9,6 +9,40 @@ export default function DailyPage() {
         <p className="text-[#4b5563] mb-8">這裡先顯示 WP 新增的「讀書」與「隨筆」文章。</p>
       </div>
 
+      {/* 子分類按鈕：置於文章列表上方 */}
+      <div className="flex flex-wrap justify-center gap-4">
+        <Link
+          href="/daily/exam"
+          className="rounded-full border border-[#101A3A]/15 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90"
+        >
+          考試
+        </Link>
+        <Link
+          href="/daily/life-wisdom"
+          className="rounded-full border border-[#101A3A]/15 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90"
+        >
+          生活智慧王
+        </Link>
+        <Link
+          href="/daily/left-hand-writing"
+          className="rounded-full border border-[#101A3A]/15 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90"
+        >
+          左手訓練
+        </Link>
+        <Link
+          href="/daily/study"
+          className="rounded-full border border-[#101A3A]/15 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90"
+        >
+          讀書
+        </Link>
+        <Link
+          href="/daily/essay"
+          className="rounded-full border border-[#101A3A]/15 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90"
+        >
+          隨筆
+        </Link>
+      </div>
+
       <section>
         <h2 className="text-xl font-bold text-[#101A3A] mb-4 text-center">讀書</h2>
         <DailyWpCategoryPostList
@@ -53,28 +87,6 @@ export default function DailyPage() {
           emptyLabel="目前尚無「左手訓練」文章，請稍後再試。"
         />
       </section>
-
-      {/* 快速入口 */}
-      <div className="flex flex-wrap justify-center gap-4">
-        <Link
-          href="/daily/exam"
-          className="rounded-full border border-[#101A3A]/15 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90"
-        >
-          考試
-        </Link>
-        <Link
-          href="/daily/life-wisdom"
-          className="rounded-full border border-[#101A3A]/15 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90"
-        >
-          生活智慧王
-        </Link>
-        <Link
-          href="/daily/left-hand-writing"
-          className="rounded-full border border-[#101A3A]/15 bg-[rgba(255,226,210,.98)] px-6 py-2.5 text-[#101A3A] shadow-sm hover:opacity-90"
-        >
-          左手訓練
-        </Link>
-      </div>
     </div>
   )
 }
