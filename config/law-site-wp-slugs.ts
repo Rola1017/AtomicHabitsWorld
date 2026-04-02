@@ -84,6 +84,9 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
 
   /** 行政法（最上層）；sitePathKey 與 WP slug 一致 */
   administrative: "administrative",
+
+  /** 刑法（最上層）；sitePathKey 與 WP slug 一致 */
+  criminal: "criminal",
 }
 
 /**
