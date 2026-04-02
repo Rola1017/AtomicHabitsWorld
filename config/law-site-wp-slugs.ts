@@ -37,13 +37,17 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
   "labor/collective-procedure/admin-remedies-labor-inspection":
     "admin-remedies-labor-inspection",
 
+  /** 保險法（最上層）；與後台父分類 slug 一致 */
+  insurance: "insurance",
   /** 保險法第 1 層子分類 */
   "insurance/claims-and-general": "claims-and-general",
   "insurance/personal-insurance": "personal-insurance",
   "insurance/corporate-liability": "corporate-liability",
   "insurance/financial-consumer-protection": "financial-consumer-protection",
   /** 保險法第 2 層（理賠實務與保險法總則下） */
-  "insurance/claims-and-general/disclosure-duty": "disclosure-duty",
+  /** WP 後台子分類代稱為 claims-and-general-disclosure-duty（非 disclosure-duty） */
+  "insurance/claims-and-general/disclosure-duty":
+    "claims-and-general-disclosure-duty",
   "insurance/claims-and-general/contract-validity": "contract-validity",
   "insurance/claims-and-general/dispute-resolution": "dispute-resolution",
   /** 保險法第 2 層（人身保險規劃下） */
@@ -69,4 +73,44 @@ export function getWpCategorySlugForSitePath(sitePath: string): string {
   }
   const parts = normalized.split("/").filter(Boolean)
   return parts[parts.length - 1] ?? ""
+}
+
+/**
+ * 保險法：父層／第 1 層列表需合併查詢子分類。
+ * WP 文章若只掛在子分類（例如「告知義務」），單查父分類 categoryIn 不會撈到。
+ */
+const INSURANCE_SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
+  insurance: [
+    "insurance",
+    "claims-and-general",
+    "personal-insurance",
+    "corporate-liability",
+    "financial-consumer-protection",
+    "claims-and-general-disclosure-duty",
+    "contract-validity",
+    "dispute-resolution",
+    "life-insurance",
+    "medical",
+    "accident",
+  ],
+  "insurance/claims-and-general": [
+    "claims-and-general",
+    "claims-and-general-disclosure-duty",
+    "contract-validity",
+    "dispute-resolution",
+  ],
+  "insurance/personal-insurance": [
+    "personal-insurance",
+    "life-insurance",
+    "medical",
+    "accident",
+  ],
+}
+
+export function getMergedWpCategorySlugsForInsuranceSitePath(
+  sitePath: string
+): string[] | null {
+  const normalized = sitePath.replace(/^\/+|\/+$/g, "")
+  const slugs = INSURANCE_SITE_PATH_MERGED_WP_SLUGS[normalized]
+  return slugs ? [...slugs] : null
 }

@@ -1,5 +1,6 @@
 import { ArticleCard } from "@/components/law/article-card"
 import {
+  getMergedWpCategorySlugsForInsuranceSitePath,
   getWpCategorySlugForSitePath,
   LAW_ROOT_WP_CATEGORY_SLUG,
   WP_LAW_HOME_CATEGORY_SLUGS,
@@ -24,6 +25,7 @@ export async function LawWpCategoryPostList({
   emptyLabel,
 }: LawWpCategoryPostListProps) {
   let posts: Array<{ title: string; slug: string; href?: string }> = []
+  let usePerPostHref = false
 
   if (sitePathKey === "__law__") {
     const merged: LawPostListItem[] =
@@ -32,6 +34,7 @@ export async function LawWpCategoryPostList({
         48
       )
     posts = merged
+    usePerPostHref = true
   } else if (sitePathKey === "__all__") {
     const merged: LawPostListItem[] =
       await fetchPublishedPostsByAnyWpCategorySlugs(
@@ -39,12 +42,23 @@ export async function LawWpCategoryPostList({
         48
       )
     posts = merged
+    usePerPostHref = true
   } else {
-    const wpSlug = getWpCategorySlugForSitePath(sitePathKey)
-    if (!wpSlug) {
-      posts = []
+    const insuranceMerged =
+      getMergedWpCategorySlugsForInsuranceSitePath(sitePathKey)
+    if (insuranceMerged) {
+      posts = await fetchPublishedPostsByAnyWpCategorySlugs(
+        insuranceMerged,
+        48
+      )
+      usePerPostHref = true
     } else {
-      posts = await fetchPublishedPostsByWpCategorySlug(wpSlug, 48)
+      const wpSlug = getWpCategorySlugForSitePath(sitePathKey)
+      if (!wpSlug) {
+        posts = []
+      } else {
+        posts = await fetchPublishedPostsByWpCategorySlug(wpSlug, 48)
+      }
     }
   }
 
@@ -57,7 +71,7 @@ export async function LawWpCategoryPostList({
       {hasPosts ? (
         posts.map((post) => {
           const href =
-            (sitePathKey === "__all__" || sitePathKey === "__law__") && post.href
+            usePerPostHref && post.href
               ? post.href
               : `/law/${base}/${encodeURIComponent(post.slug)}`
           return (

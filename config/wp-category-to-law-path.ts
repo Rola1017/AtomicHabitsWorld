@@ -26,7 +26,9 @@ export const WP_CATEGORY_SLUG_TO_LAW_PATH_PREFIX: Record<string, string> = {
   "collective-procedure": "/law/labor/collective-procedure",
   "labor-social-law": "/law/labor",
   /** 保險法第 2 層（路徑優先於第 1 層與 insurance） */
-  "disclosure-duty": "/law/insurance/claims-and-general/disclosure-duty",
+  /** WP 子分類 slug：claims-and-general-disclosure-duty */
+  "claims-and-general-disclosure-duty":
+    "/law/insurance/claims-and-general/disclosure-duty",
   "contract-validity":
     "/law/insurance/claims-and-general/contract-validity",
   "dispute-resolution":
