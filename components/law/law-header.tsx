@@ -110,6 +110,33 @@ const civilLawNavItems = [
 ]
 
 // /law/insurance 及其子頁：顯示保險法底下的四個分類（固定順序）
+const familyTrustAndAssetProtectionNavItems = [
+  {
+    name: "遺囑信託與身後傳承",
+    href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection/testamentary-trusts-and-succession",
+    baseColor: "#E8EEF0",
+    accentColor: "#D5E0E8",
+  },
+  {
+    name: "子女保障與教育信託",
+    href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection/child-protection-and-education-trusts",
+    baseColor: "#F5F0E8",
+    accentColor: "#E8E0D5",
+  },
+  {
+    name: "安養信託與意定監護",
+    href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection/retirement-trusts-and-guardianship",
+    baseColor: "#E8F0EC",
+    accentColor: "#D5E8DD",
+  },
+  {
+    name: "企業傳承與股權信託",
+    href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection/corporate-succession-and-equity-trusts",
+    baseColor: "#EFDAD6",
+    accentColor: "#DDBBB4",
+  },
+]
+
 const insuranceLawNavItems = [
   { name: "理賠實務與保險法總則", href: "/law/insurance/claims-and-general", baseColor: "#E8EEF0", accentColor: "#D5E0E8" },
   { name: "人身保險規劃", href: "/law/insurance/personal-insurance", baseColor: "#F5F0E8", accentColor: "#E8E0D5" },
@@ -267,6 +294,11 @@ export function LawHeader() {
     pathname === "/law/labor/collective-procedure" || pathname.startsWith("/law/labor/collective-procedure/")
   const isInsuranceLaw = pathname === "/law/insurance" || pathname.startsWith("/law/insurance/")
   const isCivilLaw = pathname === "/law/civil" || pathname.startsWith("/law/civil/")
+  const isFamilyTrustAndAssetProtection =
+    pathname === "/law/civil/family-and-inheritance/family-trust-and-asset-protection" ||
+    pathname.startsWith(
+      "/law/civil/family-and-inheritance/family-trust-and-asset-protection/"
+    )
   const isClaimsAndGeneral =
     pathname === "/law/insurance/claims-and-general" || pathname.startsWith("/law/insurance/claims-and-general/")
   const isPersonalInsurance =
@@ -338,6 +370,8 @@ export function LawHeader() {
                     ? personalInsuranceNavItems
                   : isInsuranceLaw
                     ? insuranceLawNavItems
+                  : isFamilyTrustAndAssetProtection
+                    ? familyTrustAndAssetProtectionNavItems
                   : isCivilLaw
                     ? civilLawNavItems
                   : isSocialLaw
