@@ -24,7 +24,8 @@ export async function LawWpCategoryPostList({
   sitePathKey,
   emptyLabel,
 }: LawWpCategoryPostListProps) {
-  let posts: Array<{ title: string; slug: string; href?: string }> = []
+  let posts: Array<{ title: string; slug: string; href?: string; excerpt?: string }> =
+    []
   let usePerPostHref = false
 
   if (sitePathKey === "__law__") {
@@ -77,6 +78,7 @@ export async function LawWpCategoryPostList({
             <ArticleCard
               key={post.slug}
               title={post.title}
+              excerpt={post.excerpt}
               href={href}
               variant="simple"
             />

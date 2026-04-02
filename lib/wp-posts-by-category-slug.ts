@@ -1,12 +1,24 @@
 import { getLawArticleHrefFromWpCategories } from "@/config/wp-category-to-law-path"
+import { stripHtml } from "@/lib/strip-html"
 
 type WpPostNode = {
   title?: string
   slug?: string
+  excerpt?: string | null
   categories?: { nodes?: Array<{ slug?: string }> }
 }
 
-export type WpPostTitleSlug = { title: string; slug: string }
+const LIST_EXCERPT_MAX = 200
+
+function excerptForList(raw: string | null | undefined): string | undefined {
+  const plain = stripHtml(raw ?? "")
+  if (!plain) return undefined
+  return plain.length > LIST_EXCERPT_MAX
+    ? `${plain.slice(0, LIST_EXCERPT_MAX).trimEnd()}…`
+    : plain
+}
+
+export type WpPostTitleSlug = { title: string; slug: string; excerpt?: string }
 
 type WpGraphQLResponse = {
   data?: {
@@ -21,6 +33,7 @@ export type LawPostListItem = {
   title: string
   slug: string
   href: string
+  excerpt?: string
 }
 
 async function fetchCategoryDatabaseId(
@@ -77,6 +90,7 @@ export async function fetchPublishedPostsByWpCategorySlug(
               nodes {
                 title
                 slug
+                excerpt
               }
             }
           }
@@ -97,6 +111,7 @@ export async function fetchPublishedPostsByWpCategorySlug(
       .map((n) => ({
         title: n.title ?? "",
         slug: n.slug ?? "",
+        excerpt: excerptForList(n.excerpt ?? undefined),
       }))
   } catch {
     return []
@@ -136,6 +151,7 @@ export async function fetchPublishedPostsByAnyWpCategorySlugs(
               nodes {
                 title
                 slug
+                excerpt
                 categories {
                   nodes {
                     slug
@@ -165,6 +181,7 @@ export async function fetchPublishedPostsByAnyWpCategorySlugs(
         title: n.title,
         slug: n.slug,
         href: getLawArticleHrefFromWpCategories(n.slug, n.categories?.nodes),
+        excerpt: excerptForList(n.excerpt ?? undefined),
       })
     }
     return out

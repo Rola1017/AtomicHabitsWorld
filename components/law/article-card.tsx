@@ -31,6 +31,11 @@ export function ArticleCard({
         <h3 className="text-lg sm:text-xl font-bold text-[#1A2744] mb-3 group-hover:text-[#2A3754] transition-colors">
           {title}
         </h3>
+        {excerpt ? (
+          <p className="text-[#5A5A5A] text-sm sm:text-base leading-relaxed mb-4 line-clamp-3">
+            {excerpt}
+          </p>
+        ) : null}
         <Link 
           href={href}
           className="inline-flex items-center gap-2 text-[#8B7355] hover:text-[#6B5335] text-sm font-medium transition-colors"
