@@ -47,6 +47,15 @@ export const WP_CATEGORY_SLUG_TO_LAW_PATH_PREFIX: Record<string, string> = {
   "financial-consumer-protection":
     "/law/insurance/financial-consumer-protection",
   insurance: "/law/insurance",
+  /** 民法：第 3 層須優先於第 2 層 */
+  "testamentary-trusts-and-succession":
+    "/law/civil/family-and-inheritance/family-trust-and-asset-protection/testamentary-trusts-and-succession",
+  "child-protection-and-education-trusts":
+    "/law/civil/family-and-inheritance/family-trust-and-asset-protection/child-protection-and-education-trusts",
+  "retirement-trusts-and-guardianship":
+    "/law/civil/family-and-inheritance/family-trust-and-asset-protection/retirement-trusts-and-guardianship",
+  "corporate-succession-and-equity-trusts":
+    "/law/civil/family-and-inheritance/family-trust-and-asset-protection/corporate-succession-and-equity-trusts",
   /** 民法：第 2 層須優先於 family-and-inheritance 與 civil */
   "inheritance-and-forced-heirship":
     "/law/civil/family-and-inheritance/inheritance-and-forced-heirship",

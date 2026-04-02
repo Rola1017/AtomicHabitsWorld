@@ -69,6 +69,14 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
     "inheritance-and-forced-heirship",
   "civil/family-and-inheritance/family-trust-and-asset-protection":
     "family-trust-and-asset-protection",
+  "civil/family-and-inheritance/family-trust-and-asset-protection/testamentary-trusts-and-succession":
+    "testamentary-trusts-and-succession",
+  "civil/family-and-inheritance/family-trust-and-asset-protection/child-protection-and-education-trusts":
+    "child-protection-and-education-trusts",
+  "civil/family-and-inheritance/family-trust-and-asset-protection/retirement-trusts-and-guardianship":
+    "retirement-trusts-and-guardianship",
+  "civil/family-and-inheritance/family-trust-and-asset-protection/corporate-succession-and-equity-trusts":
+    "corporate-succession-and-equity-trusts",
   "civil/family-and-inheritance/marriage-contracts-and-property-regimes":
     "marriage-contracts-and-property-regimes",
   "civil/family-and-inheritance/wills-and-advance-directives":
@@ -216,6 +224,10 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
     "property-law",
     "inheritance-and-forced-heirship",
     "family-trust-and-asset-protection",
+    "testamentary-trusts-and-succession",
+    "child-protection-and-education-trusts",
+    "retirement-trusts-and-guardianship",
+    "corporate-succession-and-equity-trusts",
     "marriage-contracts-and-property-regimes",
     "wills-and-advance-directives",
   ],
@@ -224,6 +236,10 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
     "family-and-inheritance",
     "inheritance-and-forced-heirship",
     "family-trust-and-asset-protection",
+    "testamentary-trusts-and-succession",
+    "child-protection-and-education-trusts",
+    "retirement-trusts-and-guardianship",
+    "corporate-succession-and-equity-trusts",
     "marriage-contracts-and-property-regimes",
     "wills-and-advance-directives",
   ],
@@ -234,7 +250,20 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
   ],
   "civil/family-and-inheritance/family-trust-and-asset-protection": [
     "family-trust-and-asset-protection",
+    "testamentary-trusts-and-succession",
+    "child-protection-and-education-trusts",
+    "retirement-trusts-and-guardianship",
+    "corporate-succession-and-equity-trusts",
   ],
+  "civil/family-and-inheritance/family-trust-and-asset-protection/testamentary-trusts-and-succession": [
+    "testamentary-trusts-and-succession",
+  ],
+  "civil/family-and-inheritance/family-trust-and-asset-protection/child-protection-and-education-trusts":
+    ["child-protection-and-education-trusts"],
+  "civil/family-and-inheritance/family-trust-and-asset-protection/retirement-trusts-and-guardianship":
+    ["retirement-trusts-and-guardianship"],
+  "civil/family-and-inheritance/family-trust-and-asset-protection/corporate-succession-and-equity-trusts":
+    ["corporate-succession-and-equity-trusts"],
   "civil/family-and-inheritance/marriage-contracts-and-property-regimes": [
     "marriage-contracts-and-property-regimes",
   ],

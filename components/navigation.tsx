@@ -109,6 +109,24 @@ const lawMenuTree = [
           {
             label: "家族信託與資產保護",
             href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection",
+            children: [
+              {
+                label: "遺囑信託與身後傳承",
+                href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection/testamentary-trusts-and-succession",
+              },
+              {
+                label: "子女保障與教育信託",
+                href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection/child-protection-and-education-trusts",
+              },
+              {
+                label: "安養信託與意定監護",
+                href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection/retirement-trusts-and-guardianship",
+              },
+              {
+                label: "企業傳承與股權信託",
+                href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection/corporate-succession-and-equity-trusts",
+              },
+            ],
           },
           {
             label: "婚姻契約與財產制",
