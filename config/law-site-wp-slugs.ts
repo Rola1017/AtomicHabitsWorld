@@ -36,6 +36,20 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
   /** 行政救濟與勞檢應對；若後台 slug 不同請改此值 */
   "labor/collective-procedure/admin-remedies-labor-inspection":
     "admin-remedies-labor-inspection",
+
+  /** 保險法第 1 層子分類 */
+  "insurance/claims-and-general": "claims-and-general",
+  "insurance/personal-insurance": "personal-insurance",
+  "insurance/corporate-liability": "corporate-liability",
+  "insurance/financial-consumer-protection": "financial-consumer-protection",
+  /** 保險法第 2 層（理賠實務與保險法總則下） */
+  "insurance/claims-and-general/disclosure-duty": "disclosure-duty",
+  "insurance/claims-and-general/contract-validity": "contract-validity",
+  "insurance/claims-and-general/dispute-resolution": "dispute-resolution",
+  /** 保險法第 2 層（人身保險規劃下） */
+  "insurance/personal-insurance/life-insurance": "life-insurance",
+  "insurance/personal-insurance/medical": "medical",
+  "insurance/personal-insurance/accident": "accident",
 }
 
 /**

@@ -25,9 +25,22 @@ export const WP_CATEGORY_SLUG_TO_LAW_PATH_PREFIX: Record<string, string> = {
     "/law/labor/collective-procedure/admin-remedies-labor-inspection",
   "collective-procedure": "/law/labor/collective-procedure",
   "labor-social-law": "/law/labor",
-  /** 與 WP 分類代稱、站內路徑一致時補上，首頁合併列表才會連到正確詳頁 */
-  insurance: "/law/insurance",
+  /** 保險法第 2 層（路徑優先於第 1 層與 insurance） */
+  "disclosure-duty": "/law/insurance/claims-and-general/disclosure-duty",
+  "contract-validity":
+    "/law/insurance/claims-and-general/contract-validity",
+  "dispute-resolution":
+    "/law/insurance/claims-and-general/dispute-resolution",
+  "life-insurance": "/law/insurance/personal-insurance/life-insurance",
+  medical: "/law/insurance/personal-insurance/medical",
+  accident: "/law/insurance/personal-insurance/accident",
+  /** 保險法第 1 層 */
   "claims-and-general": "/law/insurance/claims-and-general",
+  "personal-insurance": "/law/insurance/personal-insurance",
+  "corporate-liability": "/law/insurance/corporate-liability",
+  "financial-consumer-protection":
+    "/law/insurance/financial-consumer-protection",
+  insurance: "/law/insurance",
   /** 僅掛父分類 law 且無上列子分類時；可改成實際路由前綴 */
   law: "/law/labor",
 }
