@@ -1,5 +1,5 @@
 import { DailyWpCategoryPostList } from "@/components/daily/daily-wp-category-post-list"
-import { DailySubcategoryNav } from "@/components/daily/daily-subcategory-nav"
+import { DailySubcategoryBar } from "@/components/daily/daily-subcategory-bar"
 
 export default function DailyLeftHandWritingPage() {
   return (
@@ -7,7 +7,7 @@ export default function DailyLeftHandWritingPage() {
       <h1 className="text-2xl font-bold text-[#101A3A] text-center">
         左手訓練
       </h1>
-      <DailySubcategoryNav />
+      <DailySubcategoryBar />
       <DailyWpCategoryPostList
         siteCategoryPath="left-hand-writing"
         wpCategorySlug="left-hand-writing"

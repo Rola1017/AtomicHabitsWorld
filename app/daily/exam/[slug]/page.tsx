@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 
-import { DailySubcategoryNav } from "@/components/daily/daily-subcategory-nav"
+import { DailySubcategoryBar } from "@/components/daily/daily-subcategory-bar"
 import { fetchLaborPostByRequiredWpCategorySlug } from "@/lib/wp-labor-post"
 
 export default async function DailyExamSlugPage({
@@ -18,7 +18,7 @@ export default async function DailyExamSlugPage({
 
   return (
     <div className="flex flex-col gap-6">
-      <DailySubcategoryNav />
+      <DailySubcategoryBar />
 
       <div className="rounded-2xl border border-[#D1C7B7] bg-white/80 p-6 shadow-md sm:p-8">
         <h1 className="text-2xl font-bold text-[#1A2744] mb-3">{post.title}</h1>

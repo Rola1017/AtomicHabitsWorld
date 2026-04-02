@@ -1,11 +1,11 @@
 import { DailyWpCategoryPostList } from "@/components/daily/daily-wp-category-post-list"
-import { DailySubcategoryNav } from "@/components/daily/daily-subcategory-nav"
+import { DailySubcategoryBar } from "@/components/daily/daily-subcategory-bar"
 
 export default function DailyPage() {
   return (
     <div className="flex flex-col gap-10">
       {/* 子分類按鈕：置於文章列表上方 */}
-      <DailySubcategoryNav />
+      <DailySubcategoryBar />
 
       <section>
         <h2 className="text-xl font-bold text-[#101A3A] mb-4 text-center">讀書</h2>

@@ -1,5 +1,5 @@
 import { DailyWpCategoryPostList } from "@/components/daily/daily-wp-category-post-list"
-import { DailySubcategoryNav } from "@/components/daily/daily-subcategory-nav"
+import { DailySubcategoryBar } from "@/components/daily/daily-subcategory-bar"
 
 export default function DailyLifeWisdomPage() {
   return (
@@ -7,7 +7,7 @@ export default function DailyLifeWisdomPage() {
       <h1 className="text-2xl font-bold text-[#101A3A] text-center">
         生活智慧王
       </h1>
-      <DailySubcategoryNav />
+      <DailySubcategoryBar />
       <DailyWpCategoryPostList
         siteCategoryPath="life-wisdom"
         wpCategorySlug="life-wisdom"
