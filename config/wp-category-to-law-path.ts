@@ -33,6 +33,9 @@ export const WP_CATEGORY_SLUG_TO_LAW_PATH_PREFIX: Record<string, string> = {
     "/law/insurance/claims-and-general/contract-validity",
   "dispute-resolution":
     "/law/insurance/claims-and-general/dispute-resolution",
+  /** 壽險下「儲蓄險」須優先於 life-insurance */
+  "savings-insurance":
+    "/law/insurance/personal-insurance/life-insurance/savings",
   "life-insurance": "/law/insurance/personal-insurance/life-insurance",
   medical: "/law/insurance/personal-insurance/medical",
   accident: "/law/insurance/personal-insurance/accident",

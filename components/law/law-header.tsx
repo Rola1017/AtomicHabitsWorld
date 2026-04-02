@@ -59,12 +59,19 @@ const claimsGeneralNavItems = [
   { name: "爭議處理", href: "/law/insurance/claims-and-general/dispute-resolution", baseColor: "#E8F0EC", accentColor: "#D5E8DD" },
 ]
 
-// /law/insurance/personal-insurance 及其子頁：顯示三個分類（固定順序）
+// /law/insurance/personal-insurance 及其子頁：三個分類；「壽險」pill hover 下掛第 3 層「儲蓄險」
 const personalInsuranceNavItems = [
   { name: "壽險", href: "/law/insurance/personal-insurance/life-insurance", baseColor: "#E8EEF0", accentColor: "#D5E0E8" },
   { name: "醫療險", href: "/law/insurance/personal-insurance/medical", baseColor: "#F5F0E8", accentColor: "#E8E0D5" },
   { name: "意外險", href: "/law/insurance/personal-insurance/accident", baseColor: "#E8F0EC", accentColor: "#D5E8DD" },
 ]
+
+const lifeInsuranceSubMenuTree = [
+  {
+    label: "儲蓄險",
+    href: "/law/insurance/personal-insurance/life-insurance/savings",
+  },
+] as const
 
 const laborMenuTree = [
   {
@@ -137,7 +144,16 @@ const insuranceLawMenuTree: Array<{
     label: "人身保險規劃",
     href: "/law/insurance/personal-insurance",
     children: [
-      { label: "壽險", href: "/law/insurance/personal-insurance/life-insurance" },
+      {
+        label: "壽險",
+        href: "/law/insurance/personal-insurance/life-insurance",
+        children: [
+          {
+            label: "儲蓄險",
+            href: "/law/insurance/personal-insurance/life-insurance/savings",
+          },
+        ],
+      },
       { label: "醫療險", href: "/law/insurance/personal-insurance/medical" },
       { label: "意外險", href: "/law/insurance/personal-insurance/accident" },
     ],
@@ -158,7 +174,8 @@ export function LawHeader() {
   const isClaimsAndGeneral =
     pathname === "/law/insurance/claims-and-general" || pathname.startsWith("/law/insurance/claims-and-general/")
   const isPersonalInsurance =
-    pathname === "/law/insurance/personal-insurance" || pathname.startsWith("/law/insurance/personal-insurance/")
+    pathname === "/law/insurance/personal-insurance" ||
+    pathname.startsWith("/law/insurance/personal-insurance/")
   const isLaborRootPage = pathname === "/law/labor"
   const isInsuranceRootPage = pathname === "/law/insurance"
   const isDenseNav = isSocialLaw
@@ -367,6 +384,29 @@ export function LawHeader() {
                         />
                       )
                     }
+                  }
+
+                  // 人身保險規劃：壽險為第 2 層，儲蓄險為第 3 層——僅在下拉顯示，不與壽險並列
+                  if (
+                    isPersonalInsurance &&
+                    item.href === "/law/insurance/personal-insurance/life-insurance"
+                  ) {
+                    return (
+                      <MenuTreeDropdown
+                        key={item.name}
+                        nodes={lifeInsuranceSubMenuTree as any}
+                        contentClassName="min-w-[14rem]"
+                        openOnHover
+                        trigger={
+                          <Link href={item.href} className={pillClass} style={pillStyle}>
+                            {marbleOverlay}
+                            <span className="relative z-10 text-sm lg:text-base font-medium text-[#1A2744] font-serif">
+                              {item.name}
+                            </span>
+                          </Link>
+                        }
+                      />
+                    )
                   }
 
                   return (

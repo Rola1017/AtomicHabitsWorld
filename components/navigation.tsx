@@ -67,7 +67,16 @@ const lawMenuTree = [
         label: "人身保險規劃",
         href: "/law/insurance/personal-insurance",
         children: [
-          { label: "壽險", href: "/law/insurance/personal-insurance/life-insurance" },
+          {
+            label: "壽險",
+            href: "/law/insurance/personal-insurance/life-insurance",
+            children: [
+              {
+                label: "儲蓄險",
+                href: "/law/insurance/personal-insurance/life-insurance/savings",
+              },
+            ],
+          },
           { label: "醫療險", href: "/law/insurance/personal-insurance/medical" },
           { label: "意外險", href: "/law/insurance/personal-insurance/accident" },
         ],

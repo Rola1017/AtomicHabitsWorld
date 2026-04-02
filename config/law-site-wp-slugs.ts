@@ -52,6 +52,8 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
   "insurance/claims-and-general/dispute-resolution": "dispute-resolution",
   /** 保險法第 2 層（人身保險規劃下） */
   "insurance/personal-insurance/life-insurance": "life-insurance",
+  /** 壽險底下「儲蓄險」；WP 代稱為 savings-insurance（後台輸入含空格會轉成連字號） */
+  "insurance/personal-insurance/life-insurance/savings": "savings-insurance",
   "insurance/personal-insurance/medical": "medical",
   "insurance/personal-insurance/accident": "accident",
 }
@@ -78,6 +80,10 @@ export function getWpCategorySlugForSitePath(sitePath: string): string {
 /**
  * 列表頁合併查詢：父層 path → 要一併查詢的 WP 分類 slug（含自己與所有子孫）。
  * WP 的 categoryIn 不會自動含子分類；與保險法區相同，需明列 slug。
+ *
+ * 現在即可維護：葉節點可先只列「自己」一個 slug（行為與單一查詢相同）。
+ * 往後在 WP 新增子分類時，把子分類 slug append 到同一陣列即可，不必改程式結構。
+ * 陣列裡若某 slug 在 WP 尚不存在，fetch 會略過該項，不會拋錯。
  */
 const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
   /** 保險法 */
@@ -91,6 +97,7 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
     "contract-validity",
     "dispute-resolution",
     "life-insurance",
+    "savings-insurance",
     "medical",
     "accident",
   ],
@@ -103,9 +110,27 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
   "insurance/personal-insurance": [
     "personal-insurance",
     "life-insurance",
+    "savings-insurance",
     "medical",
     "accident",
   ],
+  /** 保險法葉節點（若 WP 再有子分類，於此陣列追加 slug） */
+  "insurance/corporate-liability": ["corporate-liability"],
+  "insurance/financial-consumer-protection": [
+    "financial-consumer-protection",
+  ],
+  "insurance/claims-and-general/disclosure-duty": [
+    "claims-and-general-disclosure-duty",
+  ],
+  "insurance/claims-and-general/contract-validity": ["contract-validity"],
+  "insurance/claims-and-general/dispute-resolution": ["dispute-resolution"],
+  "insurance/personal-insurance/life-insurance": [
+    "life-insurance",
+    "savings-insurance",
+  ],
+  "insurance/personal-insurance/life-insurance/savings": ["savings-insurance"],
+  "insurance/personal-insurance/medical": ["medical"],
+  "insurance/personal-insurance/accident": ["accident"],
   /** 勞動法（labor-social-law）＋個別／社會／集體三枝及其子分類 */
   labor: [
     "labor-social-law",
@@ -142,6 +167,24 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
   "labor/collective-procedure": [
     "collective-procedure",
     "dispute-mediation",
+    "admin-remedies-labor-inspection",
+  ],
+  /** 勞動法葉節點（若 WP 再有子分類，於此陣列追加 slug） */
+  "labor/individual/contract-onboarding": ["contract-onboarding"],
+  "labor/individual/wage-hours-leave": ["wage-hours-leave"],
+  "labor/individual/termination-layoff-retirement": [
+    "termination-layoff-retirement",
+  ],
+  "labor/individual/gender-equality-bullying": ["gender-equality-bullying"],
+  "labor/social/labor-insurance": ["labor-insurance"],
+  "labor/social/occupational-accident-insurance": [
+    "occupational-accident-insurance",
+  ],
+  "labor/social/employment-insurance": ["employment-insurance"],
+  "labor/social/nhi": ["nhi"],
+  "labor/social/national-pension-welfare": ["national-pension-welfare"],
+  "labor/collective-procedure/dispute-mediation": ["dispute-mediation"],
+  "labor/collective-procedure/admin-remedies-labor-inspection": [
     "admin-remedies-labor-inspection",
   ],
 }
