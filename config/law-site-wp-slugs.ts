@@ -87,6 +87,9 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
 
   /** 刑法（最上層）；sitePathKey 與 WP slug 一致 */
   criminal: "criminal",
+
+  /** 民事訴訟法（最上層）；sitePathKey 與 WP slug 一致 */
+  "civil-procedure": "civil-procedure",
 }
 
 /**
@@ -279,6 +282,9 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
 
   /** 行政法（列表合併：僅自己） */
   administrative: ["administrative"],
+
+  /** 民事訴訟法（列表合併：僅自己） */
+  "civil-procedure": ["civil-procedure"],
 }
 
 function uniqWpSlugs(slugs: string[]): string[] {
