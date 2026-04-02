@@ -194,6 +194,20 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
   ],
 }
 
+function uniqWpSlugs(slugs: string[]): string[] {
+  return [...new Set(slugs.filter(Boolean))]
+}
+
+/**
+ * `/law` 法律總覽：WP「法律」父分類（law）＋本站已串接的勞動法枝、保險法枝等所有子分類 slug。
+ * 與單查 law 不同，子分類文章不會自動算進父分類，故需明列合併。
+ */
+export const WP_LAW_PAGE_MERGED_CATEGORY_SLUGS: string[] = uniqWpSlugs([
+  LAW_ROOT_WP_CATEGORY_SLUG,
+  ...SITE_PATH_MERGED_WP_SLUGS.labor,
+  ...SITE_PATH_MERGED_WP_SLUGS.insurance,
+])
+
 export function getMergedWpCategorySlugsForSitePath(
   sitePath: string
 ): string[] | null {

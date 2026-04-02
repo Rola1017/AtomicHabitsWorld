@@ -2,8 +2,8 @@ import { ArticleCard } from "@/components/law/article-card"
 import {
   getMergedWpCategorySlugsForSitePath,
   getWpCategorySlugForSitePath,
-  LAW_ROOT_WP_CATEGORY_SLUG,
   WP_LAW_HOME_CATEGORY_SLUGS,
+  WP_LAW_PAGE_MERGED_CATEGORY_SLUGS,
 } from "@/config/law-site-wp-slugs"
 import type { LawPostListItem } from "@/lib/wp-posts-by-category-slug"
 import {
@@ -14,7 +14,7 @@ import {
 type LawWpCategoryPostListProps = {
   /**
    * 相對 /law/ 的路徑，不含前後斜線。
-   * `/law` 法律分類頁傳 `__law__`（對應 LAW_ROOT_WP_CATEGORY_SLUG）。
+   * `/law` 法律總覽傳 `__law__`（合併 law 與已串接子分類，見 WP_LAW_PAGE_MERGED_CATEGORY_SLUGS）。
    */
   sitePathKey: string
   emptyLabel: string
@@ -31,8 +31,8 @@ export async function LawWpCategoryPostList({
   if (sitePathKey === "__law__") {
     const merged: LawPostListItem[] =
       await fetchPublishedPostsByAnyWpCategorySlugs(
-        [LAW_ROOT_WP_CATEGORY_SLUG],
-        48
+        WP_LAW_PAGE_MERGED_CATEGORY_SLUGS,
+        96
       )
     posts = merged
     usePerPostHref = true
