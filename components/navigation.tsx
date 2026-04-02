@@ -33,7 +33,16 @@ const lawMenuTree = [
         label: "社會法",
         href: "/law/labor/social",
         children: [
-          { label: "勞工保險(勞保)", href: "/law/labor/social/labor-insurance" },
+          {
+            label: "勞工保險(勞保)",
+            href: "/law/labor/social/labor-insurance",
+            children: [
+              {
+                label: "勞保1",
+                href: "/law/labor/social/labor-insurance/labor-insurance1",
+              },
+            ],
+          },
           { label: "職業災害保險與保護(災保法)", href: "/law/labor/social/occupational-accident-insurance" },
           { label: "就業保險與失業保障", href: "/law/labor/social/employment-insurance" },
           { label: "全民健保與二代健保", href: "/law/labor/social/nhi" },

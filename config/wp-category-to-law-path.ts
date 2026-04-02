@@ -11,7 +11,8 @@ export const WP_CATEGORY_SLUG_TO_LAW_PATH_PREFIX: Record<string, string> = {
     "/law/labor/individual/gender-equality-bullying",
   /** 子分類優先於 labor-social-law */
   individual: "/law/labor/individual",
-  /** 社會法子分類優先於 social 父分類 */
+  /** 社會法子分類優先於 social 父分類；第 3 層須優先於 labor-insurance */
+  "labor-insurance1": "/law/labor/social/labor-insurance/labor-insurance1",
   "labor-insurance": "/law/labor/social/labor-insurance",
   "occupational-accident-insurance":
     "/law/labor/social/occupational-accident-insurance",

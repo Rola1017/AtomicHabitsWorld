@@ -20,6 +20,8 @@ export const SITE_PATH_TO_WP_CATEGORY_SLUG: Record<string, string> = {
   "labor/social": "social",
   /** 勞工保險(勞保)；若後台 slug 不同請改此值 */
   "labor/social/labor-insurance": "labor-insurance",
+  /** 勞工保險底下「勞保1」；WP 代稱 labor-insurance1 */
+  "labor/social/labor-insurance/labor-insurance1": "labor-insurance1",
   /** 職業災害保險與保護(災保法)；若後台 slug 不同請改此值 */
   "labor/social/occupational-accident-insurance":
     "occupational-accident-insurance",
@@ -143,6 +145,7 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
     "termination-layoff-retirement",
     "nhi",
     "labor-insurance",
+    "labor-insurance1",
     "national-pension-welfare",
     "employment-insurance",
     "occupational-accident-insurance",
@@ -160,6 +163,7 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
     "social",
     "nhi",
     "labor-insurance",
+    "labor-insurance1",
     "national-pension-welfare",
     "employment-insurance",
     "occupational-accident-insurance",
@@ -176,7 +180,8 @@ const SITE_PATH_MERGED_WP_SLUGS: Record<string, string[]> = {
     "termination-layoff-retirement",
   ],
   "labor/individual/gender-equality-bullying": ["gender-equality-bullying"],
-  "labor/social/labor-insurance": ["labor-insurance"],
+  "labor/social/labor-insurance": ["labor-insurance", "labor-insurance1"],
+  "labor/social/labor-insurance/labor-insurance1": ["labor-insurance1"],
   "labor/social/occupational-accident-insurance": [
     "occupational-accident-insurance",
   ],

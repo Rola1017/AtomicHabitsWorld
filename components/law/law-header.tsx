@@ -73,6 +73,13 @@ const lifeInsuranceSubMenuTree = [
   },
 ] as const
 
+const laborInsuranceSocialSubMenuTree = [
+  {
+    label: "勞保1",
+    href: "/law/labor/social/labor-insurance/labor-insurance1",
+  },
+] as const
+
 const laborMenuTree = [
   {
     label: "個別勞動法",
@@ -88,7 +95,11 @@ const laborMenuTree = [
     label: "社會法",
     href: "/law/labor/social",
     children: [
-      { label: "勞工保險(勞保)", href: "/law/labor/social/labor-insurance" },
+      {
+        label: "勞工保險(勞保)",
+        href: "/law/labor/social/labor-insurance",
+        children: [...laborInsuranceSocialSubMenuTree],
+      },
       { label: "職業災害保險與保護(災保法)", href: "/law/labor/social/occupational-accident-insurance" },
       { label: "就業保險與失業保障", href: "/law/labor/social/employment-insurance" },
       { label: "全民健保與二代健保", href: "/law/labor/social/nhi" },
@@ -113,7 +124,11 @@ const individualLaborMenuTree = [
 ] as const
 
 const socialLawMenuTree = [
-  { label: "勞工保險(勞保)", href: "/law/labor/social/labor-insurance" },
+  {
+    label: "勞工保險(勞保)",
+    href: "/law/labor/social/labor-insurance",
+    children: [...laborInsuranceSocialSubMenuTree],
+  },
   { label: "職業災害保險與保護(災保法)", href: "/law/labor/social/occupational-accident-insurance" },
   { label: "就業保險與失業保障", href: "/law/labor/social/employment-insurance" },
   { label: "全民健保與二代健保", href: "/law/labor/social/nhi" },
@@ -384,6 +399,29 @@ export function LawHeader() {
                         />
                       )
                     }
+                  }
+
+                  // 社會法：勞工保險底下第 3 層「勞保1」——不與勞保並列，僅在下拉
+                  if (
+                    isSocialLaw &&
+                    item.href === "/law/labor/social/labor-insurance"
+                  ) {
+                    return (
+                      <MenuTreeDropdown
+                        key={item.name}
+                        nodes={laborInsuranceSocialSubMenuTree as any}
+                        contentClassName="min-w-[14rem]"
+                        openOnHover
+                        trigger={
+                          <Link href={item.href} className={pillClass} style={pillStyle}>
+                            {marbleOverlay}
+                            <span className="relative z-10 text-sm lg:text-base font-medium text-[#1A2744] font-serif">
+                              {item.name}
+                            </span>
+                          </Link>
+                        }
+                      />
+                    )
                   }
 
                   // 人身保險規劃：壽險為第 2 層，儲蓄險為第 3 層——僅在下拉顯示，不與壽險並列
