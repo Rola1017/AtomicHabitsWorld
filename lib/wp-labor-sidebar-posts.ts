@@ -41,7 +41,7 @@ function pickCategoryLabel(
  */
 export const fetchLaborSidebarPosts = cache(
   async (excludeSlug: string, first = 8): Promise<LaborSidebarPost[]> => {
-    const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_API_URL
+    const endpoint = process.env.WORDPRESS_API_URL
     if (!endpoint) return []
 
     try {

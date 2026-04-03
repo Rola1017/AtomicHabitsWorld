@@ -1,7 +1,63 @@
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import { DailySubcategoryBar } from "@/components/daily/daily-subcategory-bar"
+import { getSiteOrigin } from "@/lib/site-url"
+import { stripHtml } from "@/lib/strip-html"
 import { fetchLaborPostByRequiredWpCategorySlug } from "@/lib/wp-labor-post"
+
+function absolutizeOgImage(
+  url: string | undefined | null,
+  siteOrigin: string
+): string {
+  if (!url?.trim()) return `${siteOrigin}/icon.svg`
+  const u = url.trim()
+  if (u.startsWith("http://") || u.startsWith("https://")) return u
+  return `${siteOrigin}${u.startsWith("/") ? "" : "/"}${u}`
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const decodedSlug = decodeURIComponent(slug)
+  const post = await fetchLaborPostByRequiredWpCategorySlug(decodedSlug, "exam")
+  if (!post) return { title: "文章" }
+
+  const siteOrigin = await getSiteOrigin()
+  const canonical = `${siteOrigin}/daily/exam/${encodeURIComponent(decodedSlug)}`
+  const rawDesc = stripHtml(
+    (post.excerpt?.trim() ? post.excerpt : null) ?? post.content ?? ""
+  )
+  const description = (rawDesc || post.title).slice(0, 160)
+  const ogImage = absolutizeOgImage(
+    post.featuredImage?.node?.sourceUrl ?? undefined,
+    siteOrigin
+  )
+
+  return {
+    title: post.title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title: post.title,
+      description,
+      url: canonical,
+      siteName: "AtomicHabitsWorld 每天一點點",
+      type: "article",
+      locale: "zh_TW",
+      images: [{ url: ogImage, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images: [ogImage],
+    },
+  }
+}
 
 export default async function DailyExamSlugPage({
   params,

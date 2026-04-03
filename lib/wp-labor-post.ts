@@ -47,7 +47,7 @@ function postHasAnyCategorySlug(
 
 const loadPublishedWpPostBySlug = cache(
   async (slug: string): Promise<WpPostDetail | null> => {
-    const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_API_URL
+    const endpoint = process.env.WORDPRESS_API_URL
     if (!endpoint) return null
 
     const normalizedSlug = normalizePostSlugParam(slug)

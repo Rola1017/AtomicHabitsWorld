@@ -67,7 +67,7 @@ export async function fetchPublishedPostsByWpCategorySlug(
   wpCategorySlug: string,
   first = 48
 ): Promise<WpPostTitleSlug[]> {
-  const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_API_URL
+  const endpoint = process.env.WORDPRESS_API_URL
   if (!endpoint || !wpCategorySlug.trim()) return []
 
   try {
@@ -123,7 +123,7 @@ export async function fetchPublishedPostsByAnyWpCategorySlugs(
   wpCategorySlugs: string[],
   first = 48
 ): Promise<LawPostListItem[]> {
-  const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_API_URL
+  const endpoint = process.env.WORDPRESS_API_URL
   const unique = [...new Set(wpCategorySlugs.filter(Boolean))]
   if (!endpoint || unique.length === 0) return []
 
