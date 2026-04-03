@@ -1,6 +1,24 @@
 import { DailyWpCategoryPostList } from "@/components/daily/daily-wp-category-post-list"
 import { DailySubcategoryBar } from "@/components/daily/daily-subcategory-bar"
 
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "每日精進｜左手書寫｜AtomicHabitsWorld",
+  description: "瀏覽每日精進｜左手書寫的重點整理與文章列表，快速掌握主題脈絡與實務重點。",
+  alternates: {
+    canonical: "/daily/left-hand-writing",
+  },
+  openGraph: {
+    title: "每日精進｜左手書寫｜AtomicHabitsWorld",
+    description: "瀏覽每日精進｜左手書寫的重點整理與文章列表，快速掌握主題脈絡與實務重點。",
+    url: "/daily/left-hand-writing",
+    siteName: "AtomicHabitsWorld 每天進步一點點",
+    type: "website",
+    locale: "zh_TW",
+  },
+}
+
 export default function DailyLeftHandWritingPage() {
   return (
     <div className="flex flex-col gap-6">

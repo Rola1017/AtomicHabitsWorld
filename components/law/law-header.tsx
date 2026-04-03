@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 
@@ -329,9 +330,11 @@ export function LawHeader() {
             {/* Left: Logo + Law button */}
             <div className="flex items-center gap-3 flex-shrink-0">
               <Link href="/" className="flex items-center gap-3 group">
-                <img 
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AtomicHabitsWorld-3z8SeHYJL10EbNkkgMMxKYWJDZbFVn.png" 
-                  alt="AtomicHabitsWorld Logo" 
+                <Image
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AtomicHabitsWorld-3z8SeHYJL10EbNkkgMMxKYWJDZbFVn.png"
+                  alt="AtomicHabitsWorld Logo"
+                  width={44}
+                  height={44}
                   className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl shadow-lg group-hover:shadow-xl transition-shadow object-cover"
                 />
                 <span className="text-lg sm:text-xl font-bold text-[#1A2744] tracking-wide">

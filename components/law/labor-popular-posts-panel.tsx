@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 import type { LaborSidebarPost } from "@/lib/wp-labor-sidebar-posts"
@@ -31,10 +32,11 @@ export function LaborPopularPostsPanel({ posts }: LaborPopularPostsPanelProps) {
                 className="flex gap-3 py-3 transition first:pt-0 last:pb-0 hover:bg-sky-100/50"
               >
                 <div className="relative h-16 w-16 shrink-0 overflow-hidden bg-slate-200/80">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={post.featuredImageUrl || PLACEHOLDER}
                     alt=""
+                    width={64}
+                    height={64}
                     className="h-full w-full object-cover"
                   />
                 </div>

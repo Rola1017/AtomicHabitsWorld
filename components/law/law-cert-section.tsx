@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 import { cn } from "@/lib/utils"
 
 const CERT_BG = "/cert-diamond-bg.png"
@@ -33,10 +35,12 @@ export function LawCertSection({ className }: { className?: string }) {
             證照考取中
           </div>
           <p className="text-base leading-relaxed text-slate-800 drop-shadow-sm">
-            <img
+            <Image
               src={CERT_PEN_ICON}
               alt=""
               aria-hidden
+              width={20}
+              height={20}
               className="mr-1 inline-block h-5 w-5 rounded-sm align-[-1px] object-cover"
             />
             勞健保暨勞動法規管理師
@@ -53,37 +57,45 @@ export function LawCertSection({ className }: { className?: string }) {
             </div>
             <div className="space-y-1.5 text-base leading-relaxed text-slate-800 drop-shadow-sm">
               <p>
-                <img
+                <Image
                   src={CERT_STAR_ICON}
                   alt=""
                   aria-hidden
+                  width={20}
+                  height={20}
                   className="mr-1 inline-block h-5 w-5 align-[-2px] drop-shadow-[0_0_6px_rgba(255,225,120,0.95)]"
                 />
                 獲得1ｘｘｘｘｘｘｘｘｘｘ
               </p>
               <p>
-                <img
+                <Image
                   src={CERT_STAR_ICON}
                   alt=""
                   aria-hidden
+                  width={20}
+                  height={20}
                   className="mr-1 inline-block h-5 w-5 align-[-2px] drop-shadow-[0_0_6px_rgba(255,225,120,0.95)]"
                 />
                 獲得2ｘｘｘｘｘｘｘｘｘｘ
               </p>
               <p>
-                <img
+                <Image
                   src={CERT_STAR_ICON}
                   alt=""
                   aria-hidden
+                  width={20}
+                  height={20}
                   className="mr-1 inline-block h-5 w-5 align-[-2px] drop-shadow-[0_0_6px_rgba(255,225,120,0.95)]"
                 />
                 獲得3ｘｘｘｘｘｘｘｘｘｘ
               </p>
               <p>
-                <img
+                <Image
                   src={CERT_STAR_ICON}
                   alt=""
                   aria-hidden
+                  width={20}
+                  height={20}
                   className="mr-1 inline-block h-5 w-5 align-[-2px] drop-shadow-[0_0_6px_rgba(255,225,120,0.95)]"
                 />
                 獲得4ｘｘｘｘｘｘｘｘｘｘ
