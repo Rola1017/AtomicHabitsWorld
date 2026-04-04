@@ -198,10 +198,10 @@ export function Navigation() {
   }, [])
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md shadow-sm">
+    <header className="sticky top-0 z-50 w-full min-w-0 overflow-x-hidden bg-white/90 backdrop-blur-md shadow-sm">
       <div className="relative mx-auto max-w-5xl px-3 py-2 sm:px-4 sm:py-3">
         {/* —— 電腦版 md+：維持原 pill + hover 下拉 —— */}
-        <nav className="hidden w-full flex-row items-center gap-3 md:flex">
+        <nav className="hidden w-full min-w-0 flex-row items-center gap-3 md:flex">
           <Link
             href="/"
             className="inline-flex shrink-0 items-center gap-2"
@@ -270,129 +270,150 @@ export function Navigation() {
           </div>
         </nav>
 
-        {/* —— 手機版：第一列 + 全寬白底選單 —— */}
-        <div className="md:hidden">
-          <div className="flex w-full items-center justify-between gap-3">
+        {/* —— 手機版：僅第一列（選單本體在 header 下層全寬，避免 w-screen + 負 margin 造成橫向捲動） —— */}
+        <div className="flex w-full min-w-0 items-center justify-between gap-3 md:hidden">
+          <Link
+            href="/"
+            className="flex min-w-0 flex-1 items-center gap-2"
+            onClick={closeMobile}
+          >
+            <Image
+              src={LOGO_SRC}
+              alt="AtomicHabitsWorld Logo"
+              width={42}
+              height={42}
+              className="size-[42px] shrink-0 rounded-full object-cover"
+            />
+            <span className="truncate text-base font-semibold text-[#101A3A]">每天一點點</span>
+          </Link>
+
+          <button
+            type="button"
+            className="shrink-0 rounded-lg p-2 transition-colors hover:bg-stone-100/50"
+            aria-label={mobileOpen ? "關閉選單" : "開啟選單"}
+            aria-expanded={mobileOpen}
+            onClick={toggleHamburger}
+          >
+            <svg
+              className="h-6 w-6 text-[#1A2744]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* 手機全寬選單：與 max-w-5xl 同層，寬度 = header = 100%，不再使用 100vw / 負 margin */}
+      <div
+        className={
+          mobileOpen
+            ? "md:hidden w-full min-w-0 border-t border-stone-200 bg-white py-2 shadow-md"
+            : "hidden"
+        }
+      >
+        <div className="border-b border-stone-100">
+          <div
+            className="flex w-full min-w-0 items-stretch"
+            style={{ backgroundColor: "rgba(222,230,255,.98)" }}
+          >
             <Link
-              href="/"
-              className="flex min-w-0 flex-1 items-center gap-2"
+              href="/law"
+              className="flex min-w-0 flex-1 items-center px-4 py-3 text-base font-medium text-[#101A3A]"
               onClick={closeMobile}
             >
-              <Image
-                src={LOGO_SRC}
-                alt="AtomicHabitsWorld Logo"
-                width={42}
-                height={42}
-                className="size-[42px] shrink-0 rounded-full object-cover"
-              />
-              <span className="truncate text-base font-semibold text-[#101A3A]">
-                每天一點點
-              </span>
+              法律
             </Link>
-
             <button
               type="button"
-              className="shrink-0 rounded-lg p-2 transition-colors hover:bg-stone-100/50"
-              aria-label={mobileOpen ? "關閉選單" : "開啟選單"}
-              aria-expanded={mobileOpen}
-              onClick={toggleHamburger}
+              className="flex shrink-0 items-center justify-center border-l border-stone-300/50 px-4 py-3 text-lg leading-none text-stone-600"
+              aria-label={mobileExpand === "law" ? "收合法律子選單" : "展開法律子選單"}
+              aria-expanded={mobileExpand === "law"}
+              onClick={toggleLawExpand}
             >
-              <svg
-                className="h-6 w-6 text-[#1A2744]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
+              {mobileExpand === "law" ? "−" : "+"}
             </button>
           </div>
+          {mobileExpand === "law" ? (
+            <ul className="border-t border-stone-100 bg-stone-50/80">
+              {mobileLawLinks.map((row) => (
+                <li key={row.href} className="border-b border-stone-100/80 last:border-b-0">
+                  <Link
+                    href={row.href}
+                    className="block px-6 py-2.5 text-sm text-[#2563eb]"
+                    onClick={closeMobile}
+                  >
+                    {row.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
 
+        <Link
+          href="/reading"
+          className="block border-b border-stone-100 px-4 py-3 text-base font-medium text-[#101A3A]"
+          style={{ backgroundColor: "rgba(255,243,196,.98)" }}
+          onClick={closeMobile}
+        >
+          閱讀
+        </Link>
+
+        <Link
+          href="/tech"
+          className="block border-b border-stone-100 px-4 py-3 text-base font-medium text-[#101A3A]"
+          style={{ backgroundColor: "rgba(215,243,234,.98)" }}
+          onClick={closeMobile}
+        >
+          科技
+        </Link>
+
+        <div>
           <div
-            className={
-              mobileOpen
-                ? "mt-3 block w-screen max-w-[100vw] border-t border-stone-200 bg-white py-2 shadow-md ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]"
-                : "hidden"
-            }
+            className="flex w-full min-w-0 items-stretch"
+            style={{ backgroundColor: "rgba(255,226,210,.98)" }}
           >
-            <div className="border-b border-stone-100">
-              <button
-                type="button"
-                className="flex w-full items-center justify-between px-4 py-3 text-left text-base font-medium text-[#101A3A]"
-                style={{ backgroundColor: "rgba(222,230,255,.98)" }}
-                onClick={toggleLawExpand}
-              >
-                法律
-                <span className="text-stone-500">{mobileExpand === "law" ? "−" : "+"}</span>
-              </button>
-              {mobileExpand === "law" ? (
-                <ul className="border-t border-stone-100 bg-stone-50/80">
-                  {mobileLawLinks.map((row) => (
-                    <li key={row.href} className="border-b border-stone-100/80 last:border-b-0">
-                      <Link
-                        href={row.href}
-                        className="block px-6 py-2.5 text-sm text-[#2563eb]"
-                        onClick={closeMobile}
-                      >
-                        {row.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
-
             <Link
-              href="/reading"
-              className="block border-b border-stone-100 px-4 py-3 text-base font-medium text-[#101A3A]"
-              style={{ backgroundColor: "rgba(255,243,196,.98)" }}
+              href="/daily"
+              className="flex min-w-0 flex-1 items-center px-4 py-3 text-base font-medium text-[#101A3A]"
               onClick={closeMobile}
             >
-              閱讀
+              日常
             </Link>
-
-            <Link
-              href="/tech"
-              className="block border-b border-stone-100 px-4 py-3 text-base font-medium text-[#101A3A]"
-              style={{ backgroundColor: "rgba(215,243,234,.98)" }}
-              onClick={closeMobile}
+            <button
+              type="button"
+              className="flex shrink-0 items-center justify-center border-l border-stone-300/50 px-4 py-3 text-lg leading-none text-stone-600"
+              aria-label={mobileExpand === "daily" ? "收合日常子選單" : "展開日常子選單"}
+              aria-expanded={mobileExpand === "daily"}
+              onClick={toggleDailyExpand}
             >
-              科技
-            </Link>
-
-            <div>
-              <button
-                type="button"
-                className="flex w-full items-center justify-between px-4 py-3 text-left text-base font-medium text-[#101A3A]"
-                style={{ backgroundColor: "rgba(255,226,210,.98)" }}
-                onClick={toggleDailyExpand}
-              >
-                日常
-                <span className="text-stone-500">{mobileExpand === "daily" ? "−" : "+"}</span>
-              </button>
-              {mobileExpand === "daily" ? (
-                <ul className="border-t border-stone-100 bg-stone-50/80">
-                  {dailyMenuTree.map((row) => (
-                    <li key={row.href} className="border-b border-stone-100/80 last:border-b-0">
-                      <Link
-                        href={row.href}
-                        className="block px-6 py-2.5 text-sm text-[#2563eb]"
-                        onClick={closeMobile}
-                      >
-                        {row.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </div>
+              {mobileExpand === "daily" ? "−" : "+"}
+            </button>
           </div>
+          {mobileExpand === "daily" ? (
+            <ul className="border-t border-stone-100 bg-stone-50/80">
+              {dailyMenuTree.map((row) => (
+                <li key={row.href} className="border-b border-stone-100/80 last:border-b-0">
+                  <Link
+                    href={row.href}
+                    className="block px-6 py-2.5 text-sm text-[#2563eb]"
+                    onClick={closeMobile}
+                  >
+                    {row.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </div>
     </header>

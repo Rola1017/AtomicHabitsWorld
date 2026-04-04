@@ -51,8 +51,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="zh-TW">
-      <body className={`${notoSansTC.variable} ${notoSans.variable} font-sans antialiased`}>
+    <html lang="zh-TW" className="overflow-x-hidden">
+      <body
+        className={`${notoSansTC.variable} ${notoSans.variable} min-w-0 overflow-x-hidden font-sans antialiased`}
+      >
         {children}
         <Analytics />
       </body>

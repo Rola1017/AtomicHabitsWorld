@@ -13,11 +13,11 @@ function ThreadsIcon({ className }: { className?: string }) {
 
 export function Footer() {
   return (
-    <footer className="w-full px-4 py-12 bg-gradient-to-b from-white via-blue-50/30 to-pink-50/30">
-      <div className="max-w-4xl mx-auto">
+    <footer className="w-full min-w-0 max-w-[100%] px-4 py-12 bg-gradient-to-b from-white via-blue-50/30 to-pink-50/30">
+      <div className="mx-auto w-full min-w-0 max-w-4xl">
         {/* Main Footer Container with light blue background */}
         <div 
-          className="rounded-[26px] p-8 text-center"
+          className="w-full min-w-0 max-w-full rounded-[26px] p-6 text-center sm:p-8"
           style={{ 
             backgroundColor: '#EEF6FF',
             border: '1px solid rgba(57,180,255,.15)'
@@ -68,11 +68,11 @@ export function Footer() {
           </div>
           
           {/* Description */}
-          <div className="text-[#4b5563] text-base leading-relaxed mb-6 max-w-md mx-auto">
-            <p className="mb-2">
+          <div className="mx-auto mb-6 max-w-md min-w-0 text-base leading-relaxed text-[#4b5563]">
+            <p className="mb-2 break-words">
               這一切，源於我最愛的<span className="text-red-500">&#10084;&#65039;</span>一本書《Atomic Habits》
             </p>
-            <p className="whitespace-nowrap">
+            <p className="break-words">
               感謝James Clear的啟發<span>&#127793;</span>以及成長路上幫助我的每一個貴人<span>&#11088;</span>
             </p>
             <p>
@@ -100,9 +100,11 @@ export function Footer() {
           
           {/* Divider */}
           <div className="border-t border-gray-200/50 pt-6">
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-sm text-[#9ca3af]">
-              <p>© · 2026 AtomicHabitsWorld 每天一點點. All rights reserved.</p>
-              <div className="flex gap-4">
+            <div className="flex min-w-0 flex-col items-center justify-between gap-2 text-sm text-[#9ca3af] sm:flex-row">
+              <p className="max-w-full break-words text-center sm:text-left">
+                © · 2026 AtomicHabitsWorld 每天一點點. All rights reserved.
+              </p>
+              <div className="flex shrink-0 gap-4">
                 <Link href="#" className="hover:text-[#6b7280] transition-colors">
                   隱私權 · 條款
                 </Link>
