@@ -1,5 +1,7 @@
 import { cache } from "react"
 
+import { wpGraphqlFetchNext } from "@/lib/wp-graphql-isr"
+
 export type LaborSidebarPost = {
   title: string
   slug: string
@@ -57,7 +59,7 @@ export const fetchLaborSidebarPosts = cache(
             }
           `,
         }),
-        cache: "no-store",
+        ...wpGraphqlFetchNext,
       })
 
       if (!catRes.ok) return []
@@ -101,7 +103,7 @@ export const fetchLaborSidebarPosts = cache(
           `,
           variables: { categoryId: [categoryId], first },
         }),
-        cache: "no-store",
+        ...wpGraphqlFetchNext,
       })
 
       if (!postsRes.ok) return []

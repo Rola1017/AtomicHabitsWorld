@@ -1,4 +1,5 @@
 import { getLawArticleHrefFromWpCategories } from "@/config/wp-category-to-law-path"
+import { wpGraphqlFetchNext } from "@/lib/wp-graphql-isr"
 import { stripHtml } from "@/lib/strip-html"
 
 type WpPostNode = {
@@ -53,7 +54,7 @@ async function fetchCategoryDatabaseId(
       `,
       variables: { slug },
     }),
-    cache: "no-store",
+    ...wpGraphqlFetchNext,
   })
   if (!res.ok) return null
   const json = (await res.json()) as WpGraphQLResponse
@@ -97,7 +98,7 @@ export async function fetchPublishedPostsByWpCategorySlug(
         `,
         variables: { categoryId: [categoryId], first },
       }),
-      cache: "no-store",
+      ...wpGraphqlFetchNext,
     })
 
     if (!postsRes.ok) return []
@@ -163,7 +164,7 @@ export async function fetchPublishedPostsByAnyWpCategorySlugs(
         `,
         variables: { categoryIds: ids, first },
       }),
-      cache: "no-store",
+      ...wpGraphqlFetchNext,
     })
 
     if (!postsRes.ok) return []

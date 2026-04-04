@@ -1,5 +1,7 @@
 import { cache } from "react"
 
+import { wpGraphqlFetchNext } from "@/lib/wp-graphql-isr"
+
 export type WpPostDetail = {
   title: string
   slug: string
@@ -85,7 +87,7 @@ const loadPublishedWpPostBySlug = cache(
         `,
           variables: { slug: normalizedSlug },
         }),
-        cache: "no-store",
+        ...wpGraphqlFetchNext,
       })
 
       if (!res.ok) return null
