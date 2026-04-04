@@ -104,9 +104,15 @@ export function Footer() {
               <p className="max-w-full break-words text-center sm:text-left">
                 © · 2026 AtomicHabitsWorld 每天一點點. All rights reserved.
               </p>
-              <div className="flex shrink-0 gap-4">
+              <div className="flex shrink-0 flex-wrap justify-center gap-x-4 gap-y-1 sm:justify-end">
+                <Link href="/privacy" className="hover:text-[#6b7280] transition-colors">
+                  隱私權
+                </Link>
+                <span className="text-[#d1d5db]" aria-hidden>
+                  ·
+                </span>
                 <Link href="#" className="hover:text-[#6b7280] transition-colors">
-                  隱私權 · 條款
+                  條款
                 </Link>
               </div>
             </div>
