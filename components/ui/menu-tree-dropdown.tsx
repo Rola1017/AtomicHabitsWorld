@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 
 import {
   DropdownMenu,
@@ -13,6 +12,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useMediaQuery } from "@/lib/use-media-query"
 
 export type MenuTreeNode = {
   label: string
@@ -21,21 +21,13 @@ export type MenuTreeNode = {
 }
 
 function MenuTreeItems({ nodes }: { nodes: MenuTreeNode[] }) {
-  const router = useRouter()
-
   return nodes.map((node) => {
     const hasChildren = !!node.children?.length
 
     if (hasChildren) {
       return (
         <DropdownMenuSub key={node.label}>
-          <DropdownMenuSubTrigger
-            // 讓父項可點擊導頁；同時保留 hover 開子選單
-            onClick={() => {
-              if (!node.href) return
-              router.push(node.href)
-            }}
-          >
+          <DropdownMenuSubTrigger>
             {node.label}
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent className="min-w-[14rem]">
@@ -45,7 +37,6 @@ function MenuTreeItems({ nodes }: { nodes: MenuTreeNode[] }) {
       )
     }
 
-    // leaf
     return (
       <DropdownMenuItem key={node.label} asChild>
         <Link href={node.href ?? "#"}>{node.label}</Link>
@@ -65,49 +56,56 @@ export function MenuTreeDropdown({
   contentClassName?: string
   openOnHover?: boolean
 }) {
+  const isMdUp = useMediaQuery("(min-width: 768px)")
+  const hoverMode = Boolean(openOnHover && isMdUp)
+
   const [open, setOpen] = useState(false)
   const closeTimer = useRef<number | null>(null)
 
   const scheduleClose = () => {
-    if (!openOnHover) return
+    if (!hoverMode) return
     if (closeTimer.current) window.clearTimeout(closeTimer.current)
-    // 給使用者從 trigger 移動到選單的緩衝時間，避免抖動/點不到
     closeTimer.current = window.setTimeout(() => setOpen(false), 220)
   }
 
   const cancelClose = () => {
-    if (!openOnHover) return
+    if (!hoverMode) return
     if (closeTimer.current) window.clearTimeout(closeTimer.current)
     closeTimer.current = null
   }
 
-  return (
-    <div
-      onPointerEnter={() => {
-        if (!openOnHover) return
-        cancelClose()
-        setOpen(true)
-      }}
-      onPointerLeave={scheduleClose}
-    >
-    {/* modal={false} 取消 scroll lock，避免捲軸消失造成版面位移與 hover 閃爍 */}
+  const menu = (
     <DropdownMenu
-      modal={false}
-      open={openOnHover ? open : undefined}
-      onOpenChange={openOnHover ? setOpen : undefined}
+      modal={!hoverMode}
+      open={hoverMode ? open : undefined}
+      onOpenChange={hoverMode ? setOpen : undefined}
     >
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-      {/* overflow-visible: 允許 SubContent 往外延伸（支援多層選單） */}
       <DropdownMenuContent
         align="start"
-        onPointerEnter={cancelClose}
-        onPointerLeave={scheduleClose}
+        sideOffset={4}
+        onPointerEnter={hoverMode ? cancelClose : undefined}
+        onPointerLeave={hoverMode ? scheduleClose : undefined}
         className={["overflow-visible", contentClassName].filter(Boolean).join(" ")}
       >
         <MenuTreeItems nodes={nodes} />
       </DropdownMenuContent>
     </DropdownMenu>
+  )
+
+  if (!hoverMode) {
+    return menu
+  }
+
+  return (
+    <div
+      onPointerEnter={() => {
+        cancelClose()
+        setOpen(true)
+      }}
+      onPointerLeave={scheduleClose}
+    >
+      {menu}
     </div>
   )
 }
-

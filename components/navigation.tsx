@@ -155,73 +155,91 @@ const dailyMenuTree = [
   { label: "生活智慧王", href: "/daily/life-wisdom" },
 ] as const
 
+const NAV_PILL_CLASS =
+  "inline-flex touch-manipulation cursor-pointer items-center rounded-full border border-[#101A3A]/15 px-4 py-2 text-base font-medium whitespace-nowrap text-[#101A3A] shadow-sm ring-1 ring-black/5 transition-opacity hover:opacity-80 sm:px-6 sm:py-2.5 sm:text-lg"
+
+const lawMenuWithOverview = [
+  { label: "法律總覽", href: "/law" },
+  ...lawMenuTree,
+] as const
+
+const dailyMenuWithOverview = [
+  { label: "日常總覽", href: "/daily" },
+  ...dailyMenuTree,
+] as const
+
 export function Navigation() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md shadow-sm">
-      <div className="max-w-5xl mx-auto px-4 py-3">
-        <nav className="flex items-center gap-3">
-          {/* Logo + Site Name */}
-          <Link href="/" className="flex-shrink-0 inline-flex items-center gap-2 -ml-2">
-            <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AtomicHabitsWorld-OV1EpY5UU1vffttWVWCcHGOdrWoPSF.png"
-              alt="AtomicHabitsWorld Logo"
-              width={42}
-              height={42}
-              className="rounded-lg"
-            />
-            <span className="text-[#101A3A] text-lg font-semibold whitespace-nowrap">每天一點點</span>
-          </Link>
+      <div className="mx-auto max-w-5xl px-3 py-2 sm:px-4 sm:py-3">
+        <nav className="flex flex-col gap-2 md:flex-row md:items-center md:gap-3">
+          <div className="flex min-w-0 shrink-0 items-center gap-2 md:shrink-0">
+            <Link
+              href="/"
+              className="inline-flex min-w-0 max-w-full items-center gap-2"
+            >
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AtomicHabitsWorld-OV1EpY5UU1vffttWVWCcHGOdrWoPSF.png"
+                alt="AtomicHabitsWorld Logo"
+                width={42}
+                height={42}
+                className="shrink-0 rounded-lg"
+              />
+              <span className="truncate text-base font-semibold text-[#101A3A] sm:text-lg sm:whitespace-nowrap">
+                每天一點點
+              </span>
+            </Link>
+          </div>
 
-          {/* Navigation Items (centered) */}
-          <div className="flex-1 min-w-0 flex justify-center">
-            <div className="flex items-center justify-center gap-2 overflow-x-auto scrollbar-hide px-1">
-              {navItems.map((item) =>
-                item.label === "法律" ? (
-                  <MenuTreeDropdown
-                    key={item.label}
-                    nodes={lawMenuTree as any}
-                    openOnHover
-                    contentClassName="min-w-[16rem]"
-                    trigger={
-                      <Link
-                        href={item.href}
-                        style={{ backgroundColor: item.bgColor }}
-                        className="inline-flex cursor-pointer items-center py-2.5 px-6 rounded-full border border-[#101A3A]/15 text-lg font-medium whitespace-nowrap text-[#101A3A] shadow-sm ring-1 ring-black/5 hover:opacity-80 transition-opacity"
-                      >
-                        {item.label}
-                      </Link>
-                    }
-                  />
-                ) : item.label === "日常" ? (
-                  <MenuTreeDropdown
-                    key={item.label}
-                    nodes={dailyMenuTree as any}
-                    openOnHover
-                    contentClassName="min-w-[14rem]"
-                    trigger={
-                      <Link
-                        href={item.href}
-                        style={{ backgroundColor: item.bgColor }}
-                        className="inline-flex cursor-pointer items-center py-2.5 px-6 rounded-full border border-[#101A3A]/15 text-lg font-medium whitespace-nowrap text-[#101A3A] shadow-sm ring-1 ring-black/5 hover:opacity-80 transition-opacity"
-                      >
-                        {item.label}
-                      </Link>
-                    }
-                  />
-                ) : (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    style={{
-                      backgroundColor: item.bgColor,
-                    }}
-                    className="inline-flex items-center py-2.5 px-6 rounded-full border border-[#101A3A]/15 text-lg font-medium whitespace-nowrap text-[#101A3A] shadow-sm ring-1 ring-black/5 hover:opacity-80 transition-opacity"
-                  >
-                    {item.label}
-                  </Link>
-                )
-              )}
-            </div>
+          <div className="flex w-full flex-wrap justify-center gap-2 md:flex-1 md:min-w-0 md:flex-nowrap md:justify-center md:overflow-x-auto md:scrollbar-hide md:px-1">
+            {navItems.map((item) =>
+              item.label === "法律" ? (
+                <MenuTreeDropdown
+                  key={item.label}
+                  nodes={lawMenuWithOverview as any}
+                  openOnHover
+                  contentClassName="min-w-[16rem] max-h-[min(70vh,28rem)] overflow-y-auto"
+                  trigger={
+                    <button
+                      type="button"
+                      style={{ backgroundColor: item.bgColor }}
+                      className={NAV_PILL_CLASS}
+                      aria-haspopup="menu"
+                    >
+                      {item.label}
+                    </button>
+                  }
+                />
+              ) : item.label === "日常" ? (
+                <MenuTreeDropdown
+                  key={item.label}
+                  nodes={dailyMenuWithOverview as any}
+                  openOnHover
+                  contentClassName="min-w-[14rem] max-h-[min(70vh,24rem)] overflow-y-auto"
+                  trigger={
+                    <button
+                      type="button"
+                      style={{ backgroundColor: item.bgColor }}
+                      className={NAV_PILL_CLASS}
+                      aria-haspopup="menu"
+                    >
+                      {item.label}
+                    </button>
+                  }
+                />
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  style={{
+                    backgroundColor: item.bgColor,
+                  }}
+                  className={NAV_PILL_CLASS}
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
           </div>
         </nav>
       </div>
