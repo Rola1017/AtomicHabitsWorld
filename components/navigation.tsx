@@ -2,15 +2,15 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { useCallback, useState } from "react"
 
 import { MenuTreeDropdown } from "@/components/ui/menu-tree-dropdown"
 
 const navItems = [
-  // 高對比交錯配色（確保相鄰按鈕色系明顯不同）
-  { label: "法律", href: "/law", bgColor: "rgba(222,230,255,.98)" }, // 淡藍紫
-  { label: "閱讀", href: "#", bgColor: "rgba(255,243,196,.98)" }, // 奶油黃
-  { label: "科技", href: "#", bgColor: "rgba(215,243,234,.98)" }, // 薄荷綠
-  { label: "日常", href: "/daily", bgColor: "rgba(255,226,210,.98)" }, // 暖桃色
+  { label: "法律", href: "/law", bgColor: "rgba(222,230,255,.98)" },
+  { label: "閱讀", href: "#", bgColor: "rgba(255,243,196,.98)" },
+  { label: "科技", href: "#", bgColor: "rgba(215,243,234,.98)" },
+  { label: "日常", href: "/daily", bgColor: "rgba(255,226,210,.98)" },
 ]
 
 const lawMenuTree = [
@@ -155,93 +155,245 @@ const dailyMenuTree = [
   { label: "生活智慧王", href: "/daily/life-wisdom" },
 ] as const
 
+/** 手機版「法律」下一層（規格：六項，無更深層） */
+const mobileLawLinks = [
+  { label: "勞動社會法", href: "/law/labor" },
+  { label: "保險法", href: "/law/insurance" },
+  { label: "民法", href: "/law/civil" },
+  { label: "行政法", href: "/law/administrative" },
+  { label: "刑法", href: "/law/criminal" },
+  { label: "民事訴訟法", href: "/law/civil-procedure" },
+] as const
+
 const NAV_PILL_CLASS =
   "inline-flex touch-manipulation cursor-pointer items-center rounded-full border border-[#101A3A]/15 px-4 py-2 text-base font-medium whitespace-nowrap text-[#101A3A] shadow-sm ring-1 ring-black/5 transition-opacity hover:opacity-80 sm:px-6 sm:py-2.5 sm:text-lg"
 
-const lawMenuWithOverview = [
-  { label: "法律總覽", href: "/law" },
-  ...lawMenuTree,
-] as const
+const lawMenuWithOverview = [{ label: "法律總覽", href: "/law" }, ...lawMenuTree] as const
 
-const dailyMenuWithOverview = [
-  { label: "日常總覽", href: "/daily" },
-  ...dailyMenuTree,
-] as const
+const dailyMenuWithOverview = [{ label: "日常總覽", href: "/daily" }, ...dailyMenuTree] as const
+
+const LOGO_SRC =
+  "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AtomicHabitsWorld-OV1EpY5UU1vffttWVWCcHGOdrWoPSF.png"
 
 export function Navigation() {
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [mobileExpand, setMobileExpand] = useState<null | "law" | "daily">(null)
+
+  const closeMobile = useCallback(() => {
+    setMobileOpen(false)
+    setMobileExpand(null)
+  }, [])
+
+  const toggleHamburger = useCallback(() => {
+    setMobileOpen((o) => !o)
+    setMobileExpand(null)
+  }, [])
+
+  const toggleLawExpand = useCallback(() => {
+    setMobileExpand((e) => (e === "law" ? null : "law"))
+  }, [])
+
+  const toggleDailyExpand = useCallback(() => {
+    setMobileExpand((e) => (e === "daily" ? null : "daily"))
+  }, [])
+
   return (
     <header className="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md shadow-sm">
-      <div className="mx-auto max-w-5xl px-3 py-2 sm:px-4 sm:py-3">
-        <nav className="flex flex-col gap-2 md:flex-row md:items-center md:gap-3">
-          <div className="flex min-w-0 shrink-0 items-center gap-2 md:shrink-0">
+      <div className="relative mx-auto max-w-5xl px-3 py-2 sm:px-4 sm:py-3">
+        {/* —— 電腦版 md+：維持原 pill + hover 下拉 —— */}
+        <nav className="hidden w-full flex-row items-center gap-3 md:flex">
+          <Link
+            href="/"
+            className="inline-flex shrink-0 items-center gap-2"
+          >
+            <Image
+              src={LOGO_SRC}
+              alt="AtomicHabitsWorld Logo"
+              width={42}
+              height={42}
+              className="shrink-0 rounded-lg"
+            />
+            <span className="whitespace-nowrap text-base font-semibold text-[#101A3A] sm:text-lg">
+              每天一點點
+            </span>
+          </Link>
+
+          <div className="flex min-w-0 flex-1 justify-center overflow-x-auto scrollbar-hide px-1">
+            <div className="flex items-center justify-center gap-2">
+              {navItems.map((item) =>
+                item.label === "法律" ? (
+                  <MenuTreeDropdown
+                    key={item.label}
+                    nodes={lawMenuWithOverview as any}
+                    openOnHover
+                    contentClassName="min-w-[16rem] max-h-[min(70vh,28rem)] overflow-y-auto"
+                    trigger={
+                      <button
+                        type="button"
+                        style={{ backgroundColor: item.bgColor }}
+                        className={NAV_PILL_CLASS}
+                        aria-haspopup="menu"
+                      >
+                        {item.label}
+                      </button>
+                    }
+                  />
+                ) : item.label === "日常" ? (
+                  <MenuTreeDropdown
+                    key={item.label}
+                    nodes={dailyMenuWithOverview as any}
+                    openOnHover
+                    contentClassName="min-w-[14rem] max-h-[min(70vh,24rem)] overflow-y-auto"
+                    trigger={
+                      <button
+                        type="button"
+                        style={{ backgroundColor: item.bgColor }}
+                        className={NAV_PILL_CLASS}
+                        aria-haspopup="menu"
+                      >
+                        {item.label}
+                      </button>
+                    }
+                  />
+                ) : (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    style={{ backgroundColor: item.bgColor }}
+                    className={NAV_PILL_CLASS}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
+            </div>
+          </div>
+        </nav>
+
+        {/* —— 手機版：第一列 + 全寬白底選單 —— */}
+        <div className="md:hidden">
+          <div className="flex w-full items-center justify-between gap-3">
             <Link
               href="/"
-              className="inline-flex min-w-0 max-w-full items-center gap-2"
+              className="flex min-w-0 flex-1 items-center gap-2"
+              onClick={closeMobile}
             >
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AtomicHabitsWorld-OV1EpY5UU1vffttWVWCcHGOdrWoPSF.png"
+                src={LOGO_SRC}
                 alt="AtomicHabitsWorld Logo"
                 width={42}
                 height={42}
-                className="shrink-0 rounded-lg"
+                className="size-[42px] shrink-0 rounded-full object-cover"
               />
-              <span className="truncate text-base font-semibold text-[#101A3A] sm:text-lg sm:whitespace-nowrap">
+              <span className="truncate text-base font-semibold text-[#101A3A]">
                 每天一點點
               </span>
             </Link>
+
+            <button
+              type="button"
+              className="shrink-0 rounded-lg p-2 transition-colors hover:bg-stone-100/50"
+              aria-label={mobileOpen ? "關閉選單" : "開啟選單"}
+              aria-expanded={mobileOpen}
+              onClick={toggleHamburger}
+            >
+              <svg
+                className="h-6 w-6 text-[#1A2744]"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
           </div>
 
-          <div className="flex w-full flex-wrap justify-center gap-2 md:flex-1 md:min-w-0 md:flex-nowrap md:justify-center md:overflow-x-auto md:scrollbar-hide md:px-1">
-            {navItems.map((item) =>
-              item.label === "法律" ? (
-                <MenuTreeDropdown
-                  key={item.label}
-                  nodes={lawMenuWithOverview as any}
-                  openOnHover
-                  contentClassName="min-w-[16rem] max-h-[min(70vh,28rem)] overflow-y-auto"
-                  trigger={
-                    <button
-                      type="button"
-                      style={{ backgroundColor: item.bgColor }}
-                      className={NAV_PILL_CLASS}
-                      aria-haspopup="menu"
-                    >
-                      {item.label}
-                    </button>
-                  }
-                />
-              ) : item.label === "日常" ? (
-                <MenuTreeDropdown
-                  key={item.label}
-                  nodes={dailyMenuWithOverview as any}
-                  openOnHover
-                  contentClassName="min-w-[14rem] max-h-[min(70vh,24rem)] overflow-y-auto"
-                  trigger={
-                    <button
-                      type="button"
-                      style={{ backgroundColor: item.bgColor }}
-                      className={NAV_PILL_CLASS}
-                      aria-haspopup="menu"
-                    >
-                      {item.label}
-                    </button>
-                  }
-                />
-              ) : (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  style={{
-                    backgroundColor: item.bgColor,
-                  }}
-                  className={NAV_PILL_CLASS}
-                >
-                  {item.label}
-                </Link>
-              )
-            )}
+          <div
+            className={
+              mobileOpen
+                ? "mt-3 block w-screen max-w-[100vw] border-t border-stone-200 bg-white py-2 shadow-md ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]"
+                : "hidden"
+            }
+          >
+            <div className="border-b border-stone-100">
+              <button
+                type="button"
+                className="flex w-full items-center justify-between px-4 py-3 text-left text-base font-medium text-[#101A3A]"
+                style={{ backgroundColor: "rgba(222,230,255,.98)" }}
+                onClick={toggleLawExpand}
+              >
+                法律
+                <span className="text-stone-500">{mobileExpand === "law" ? "−" : "+"}</span>
+              </button>
+              {mobileExpand === "law" ? (
+                <ul className="border-t border-stone-100 bg-stone-50/80">
+                  {mobileLawLinks.map((row) => (
+                    <li key={row.href} className="border-b border-stone-100/80 last:border-b-0">
+                      <Link
+                        href={row.href}
+                        className="block px-6 py-2.5 text-sm text-[#2563eb]"
+                        onClick={closeMobile}
+                      >
+                        {row.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+
+            <Link
+              href="/reading"
+              className="block border-b border-stone-100 px-4 py-3 text-base font-medium text-[#101A3A]"
+              style={{ backgroundColor: "rgba(255,243,196,.98)" }}
+              onClick={closeMobile}
+            >
+              閱讀
+            </Link>
+
+            <Link
+              href="/tech"
+              className="block border-b border-stone-100 px-4 py-3 text-base font-medium text-[#101A3A]"
+              style={{ backgroundColor: "rgba(215,243,234,.98)" }}
+              onClick={closeMobile}
+            >
+              科技
+            </Link>
+
+            <div>
+              <button
+                type="button"
+                className="flex w-full items-center justify-between px-4 py-3 text-left text-base font-medium text-[#101A3A]"
+                style={{ backgroundColor: "rgba(255,226,210,.98)" }}
+                onClick={toggleDailyExpand}
+              >
+                日常
+                <span className="text-stone-500">{mobileExpand === "daily" ? "−" : "+"}</span>
+              </button>
+              {mobileExpand === "daily" ? (
+                <ul className="border-t border-stone-100 bg-stone-50/80">
+                  {dailyMenuTree.map((row) => (
+                    <li key={row.href} className="border-b border-stone-100/80 last:border-b-0">
+                      <Link
+                        href={row.href}
+                        className="block px-6 py-2.5 text-sm text-[#2563eb]"
+                        onClick={closeMobile}
+                      >
+                        {row.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
           </div>
-        </nav>
+        </div>
       </div>
     </header>
   )

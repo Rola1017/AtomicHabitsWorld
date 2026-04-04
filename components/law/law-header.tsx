@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
+import { useCallback, useEffect, useState } from "react"
 
 import { MenuTreeDropdown } from "@/components/ui/menu-tree-dropdown"
 
@@ -288,6 +289,12 @@ const civilLawMenuTree: Array<{
 export function LawHeader() {
   const router = useRouter()
   const pathname = usePathname()
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const closeMobile = useCallback(() => setMobileOpen(false), [])
+
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [pathname])
   const isLabor = pathname === "/law/labor" || pathname.startsWith("/law/labor/")
   const isIndividualLabor = pathname === "/law/labor/individual" || pathname.startsWith("/law/labor/individual/")
   const isSocialLaw = pathname === "/law/labor/social" || pathname.startsWith("/law/labor/social/")
@@ -320,6 +327,27 @@ export function LawHeader() {
 
     router.push(parentPath)
   }
+
+  const activeNavItems =
+    isCollectiveProcedure
+      ? collectiveProcedureNavItems
+      : isClaimsAndGeneral
+        ? claimsGeneralNavItems
+        : isPersonalInsurance
+          ? personalInsuranceNavItems
+          : isInsuranceLaw
+            ? insuranceLawNavItems
+            : isFamilyTrustAndAssetProtection
+              ? familyTrustAndAssetProtectionNavItems
+              : isCivilLaw
+                ? civilLawNavItems
+                : isSocialLaw
+                  ? socialLawNavItems
+                  : isIndividualLabor
+                    ? individualLaborNavItems
+                    : isLabor
+                      ? laborNavItems
+                      : mainNavItems
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -364,27 +392,7 @@ export function LawHeader() {
                   isDenseNav ? "gap-2 lg:gap-2" : "gap-3 lg:gap-4",
                 ].join(" ")}
               >
-              {(
-                isCollectiveProcedure
-                  ? collectiveProcedureNavItems
-                  : isClaimsAndGeneral
-                    ? claimsGeneralNavItems
-                  : isPersonalInsurance
-                    ? personalInsuranceNavItems
-                  : isInsuranceLaw
-                    ? insuranceLawNavItems
-                  : isFamilyTrustAndAssetProtection
-                    ? familyTrustAndAssetProtectionNavItems
-                  : isCivilLaw
-                    ? civilLawNavItems
-                  : isSocialLaw
-                    ? socialLawNavItems
-                    : isIndividualLabor
-                      ? individualLaborNavItems
-                      : isLabor
-                        ? laborNavItems
-                        : mainNavItems
-              ).map(
+              {activeNavItems.map(
                 (item) => {
                   const isLaborRoot = item.href === "/law/labor"
                   const isInsuranceRoot = item.href === "/law/insurance"
@@ -673,12 +681,59 @@ export function LawHeader() {
             </button>
 
             {/* Mobile menu button */}
-            <button className="md:hidden p-2 rounded-lg hover:bg-stone-100/50 transition-colors">
-              <svg className="w-6 h-6 text-[#1A2744]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button
+              type="button"
+              className="md:hidden shrink-0 p-2 rounded-lg hover:bg-stone-100/50 transition-colors"
+              aria-label={mobileOpen ? "關閉選單" : "開啟法律分類選單"}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen((o) => !o)}
+            >
+              <svg className="w-6 h-6 text-[#1A2744]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
+
+          {mobileOpen ? (
+            <div className="md:hidden mt-4 border-t border-[#C9BFB0]/60 pt-4">
+              <div className="flex max-h-[min(70vh,28rem)] flex-col gap-2 overflow-y-auto pr-1">
+                <Link
+                  href="/law"
+                  onClick={closeMobile}
+                  className="rounded-xl border-2 border-[#C85A5A] px-4 py-3 text-center text-sm font-bold text-white shadow-md"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #101A3A 0%, #1A2744 55%, #0B1228 100%)",
+                  }}
+                >
+                  法律總覽
+                </Link>
+                {activeNavItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={closeMobile}
+                    className="rounded-xl border border-[#C9BFB0] px-4 py-3 text-sm font-medium text-[#1A2744]"
+                    style={{
+                      background: `linear-gradient(135deg, ${item.baseColor} 0%, ${item.accentColor} 50%, ${item.baseColor} 100%)`,
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                <button
+                  type="button"
+                  className="mt-1 rounded-xl border border-[#8B7355] bg-gradient-to-br from-[#A89880] to-[#8B7355] px-4 py-3 text-sm font-medium text-white shadow-sm"
+                  onClick={() => {
+                    closeMobile()
+                    goToParent()
+                  }}
+                >
+                  返回上一層
+                </button>
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </header>
