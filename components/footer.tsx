@@ -13,7 +13,7 @@ function ThreadsIcon({ className }: { className?: string }) {
 
 export function Footer() {
   return (
-    <footer className="w-full min-w-0 max-w-[100%] px-4 py-12 bg-gradient-to-b from-white via-blue-50/30 to-pink-50/30">
+    <footer className="relative z-20 w-full min-w-0 max-w-[100%] px-4 py-12 bg-gradient-to-b from-white via-blue-50/30 to-pink-50/30">
       <div className="mx-auto w-full min-w-0 max-w-4xl">
         {/* Main Footer Container with light blue background */}
         <div 
@@ -104,16 +104,14 @@ export function Footer() {
               <p className="max-w-full break-words text-center sm:text-left">
                 © · 2026 AtomicHabitsWorld 每天一點點. All rights reserved.
               </p>
-              <div className="flex shrink-0 flex-wrap justify-center gap-x-4 gap-y-1 sm:justify-end">
-                <Link href="/privacy" className="hover:text-[#6b7280] transition-colors">
-                  隱私權
-                </Link>
-                <span className="text-[#d1d5db]" aria-hidden>
-                  ·
-                </span>
-                <Link href="#" className="hover:text-[#6b7280] transition-colors">
-                  條款
-                </Link>
+              <div className="flex shrink-0 items-center justify-center whitespace-nowrap sm:justify-end">
+                {/* 用原生 <a> 避免少數環境下 Link 被遮擋或攔截時無法導向 */}
+                <a
+                  href="/privacy"
+                  className="touch-manipulation rounded px-2 py-2 text-[#9ca3af] underline-offset-2 transition-colors hover:text-[#6b7280] hover:underline"
+                >
+                  隱私權條款
+                </a>
               </div>
             </div>
           </div>
