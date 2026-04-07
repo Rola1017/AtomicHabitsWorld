@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+﻿@import 'tailwindcss';
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
@@ -164,4 +164,50 @@
     color: #f5f0e8;
     text-shadow: 0 0 4px rgba(245, 240, 232, 1), 0 0 12px rgba(245, 240, 232, 0.9), 0 0 24px rgba(218, 190, 140, 0.8);
   }
+}
+
+/* WordPress content alignment helpers */
+.wp-content .has-text-align-left,
+.prose .has-text-align-left {
+  text-align: left !important;
+}
+
+.wp-content .has-text-align-center,
+.prose .has-text-align-center {
+  text-align: center !important;
+}
+
+.wp-content .has-text-align-right,
+.prose .has-text-align-right {
+  text-align: right !important;
+}
+
+.wp-content .has-text-align-justify,
+.prose .has-text-align-justify {
+  text-align: justify !important;
+}
+
+/* WordPress content spacing helpers */
+.wp-content > * + * {
+  margin-top: 1rem;
+}
+
+.wp-content p {
+  margin-block: 0.8rem;
+}
+
+.wp-content h1,
+.wp-content h2,
+.wp-content h3,
+.wp-content h4,
+.wp-content h5,
+.wp-content h6 {
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.wp-content .wp-block-spacer {
+  display: block;
+  width: 100%;
+  min-height: 1.25rem;
 }
