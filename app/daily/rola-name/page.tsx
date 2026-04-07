@@ -17,9 +17,9 @@ export default async function DailyRolaNamePage() {
   const page = await fetchWpPageByKeyword("Rola這個名字")
 
   return (
-    <section className="mx-auto w-full max-w-4xl px-4 py-8 sm:py-10">
-      <article className="rounded-2xl border border-[#D1C7B7] bg-white/80 p-6 shadow-sm sm:p-8">
-        <h1 className="mb-5 text-2xl font-bold text-[#101A3A]">Rola這個名字</h1>
+    <section className="mx-auto w-full max-w-7xl px-3 py-8 sm:px-4 sm:py-10">
+      <article className="rounded-2xl border border-[#D1C7B7] bg-white/80 p-5 shadow-sm sm:p-8">
+        <h1 className="mb-5 text-center text-2xl font-bold text-[#101A3A]">Rola這個名字</h1>
         {page?.contentHtml ? (
           <div
             className="wp-content prose prose-sm max-w-none leading-relaxed text-[#4b5563]"
@@ -32,3 +32,4 @@ export default async function DailyRolaNamePage() {
     </section>
   )
 }
+

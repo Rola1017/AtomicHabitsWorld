@@ -18,7 +18,7 @@ export default function DailyLayout({ children }: { children: React.ReactNode })
       }}
     >
       <Navigation />
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-10">{children}</main>
+      <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-10">{children}</main>
       <DailyFounderSection />
       <Footer />
     </div>

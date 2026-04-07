@@ -17,9 +17,9 @@ export default async function DailyFounderStoryPage() {
   const page = await fetchWpPageByKeyword("創辦人的理念與故事")
 
   return (
-    <section className="mx-auto w-full max-w-4xl px-4 py-8 sm:py-10">
-      <article className="rounded-2xl border border-[#D1C7B7] bg-white/80 p-6 shadow-sm sm:p-8">
-        <h1 className="mb-5 text-2xl font-bold text-[#101A3A]">創辦人的理念與故事</h1>
+    <section className="mx-auto w-full max-w-none px-6 py-8 sm:px-10 sm:py-10">
+      <article className="rounded-2xl border border-[#D1C7B7] bg-white/80 p-5 shadow-sm sm:p-8">
+        <h1 className="mb-5 text-center text-2xl font-bold text-[#101A3A]">創辦人的理念與故事</h1>
         {page?.contentHtml ? (
           <div
             className="wp-content prose prose-sm max-w-none leading-relaxed text-[#4b5563]"
@@ -32,3 +32,4 @@ export default async function DailyFounderStoryPage() {
     </section>
   )
 }
+
