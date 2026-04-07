@@ -1,6 +1,4 @@
-import { cache } from "react"
-
-import { wpGraphqlFetchNext } from "@/lib/wp-graphql-isr"
+import { wpGraphqlNoStore } from "@/lib/wp-graphql-isr"
 
 export type WpPostDetail = {
   title: string
@@ -47,8 +45,9 @@ function postHasAnyCategorySlug(
   )
 }
 
-const loadPublishedWpPostBySlug = cache(
-  async (slug: string): Promise<WpPostDetail | null> => {
+async function loadPublishedWpPostBySlug(
+  slug: string
+): Promise<WpPostDetail | null> {
     const endpoint = process.env.WORDPRESS_API_URL
     if (!endpoint) return null
 
@@ -87,7 +86,7 @@ const loadPublishedWpPostBySlug = cache(
         `,
           variables: { slug: normalizedSlug },
         }),
-        ...wpGraphqlFetchNext,
+        ...wpGraphqlNoStore,
       })
 
       if (!res.ok) return null
@@ -103,31 +102,28 @@ const loadPublishedWpPostBySlug = cache(
     } catch {
       return null
     }
-  }
-)
+}
 
-export const fetchLaborPostBySlug = cache(
-  async (slug: string): Promise<WpPostDetail | null> => {
-    const post = await loadPublishedWpPostBySlug(slug)
-    if (!post) return null
-    if (!postHasAnyCategorySlug(post, LABOR_SECTION_CATEGORY_SLUGS)) return null
-    return post
-  }
-)
+export async function fetchLaborPostBySlug(
+  slug: string
+): Promise<WpPostDetail | null> {
+  const post = await loadPublishedWpPostBySlug(slug)
+  if (!post) return null
+  if (!postHasAnyCategorySlug(post, LABOR_SECTION_CATEGORY_SLUGS)) return null
+  return post
+}
 
 /**
  * 詳頁：文章必須帶有指定 WP 分類代稱（例如個別勞動法 `individual`）。
  */
-export const fetchLaborPostByRequiredWpCategorySlug = cache(
-  async (
-    slug: string,
-    requiredCategorySlug: string
-  ): Promise<WpPostDetail | null> => {
-    const req = requiredCategorySlug.trim()
-    if (!req) return null
-    const post = await loadPublishedWpPostBySlug(slug)
-    if (!post) return null
-    if (!postHasAnyCategorySlug(post, new Set([req]))) return null
-    return post
-  }
-)
+export async function fetchLaborPostByRequiredWpCategorySlug(
+  slug: string,
+  requiredCategorySlug: string
+): Promise<WpPostDetail | null> {
+  const req = requiredCategorySlug.trim()
+  if (!req) return null
+  const post = await loadPublishedWpPostBySlug(slug)
+  if (!post) return null
+  if (!postHasAnyCategorySlug(post, new Set([req]))) return null
+  return post
+}
