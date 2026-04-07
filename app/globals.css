@@ -211,3 +211,27 @@
   width: 100%;
   min-height: 1.25rem;
 }
+
+/* WordPress image alignment helpers */
+.wp-content .wp-block-image {
+  margin-block: 1rem;
+}
+
+.wp-content .wp-block-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.wp-content .wp-block-image.aligncenter,
+.wp-content .aligncenter {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wp-content .wp-block-image.aligncenter img,
+.wp-content img.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

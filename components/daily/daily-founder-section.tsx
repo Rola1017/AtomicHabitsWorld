@@ -1,20 +1,8 @@
 import Link from "next/link"
 
-import { fetchWpPageByKeyword, wpHtmlToExcerpt } from "@/lib/wp-pages"
-
-const FALLBACK_STORY =
-  "我相信真正有價值的內容，不是把知識堆得更高，而是把複雜問題拆成可執行的小步驟。AtomicHabitsWorld 每天一點點，想做的就是把法律、學習與生活的關鍵觀念整理成「今天就能用」的形式，讓每個人都能在忙碌中持續成長。"
-
-const FALLBACK_NAME =
-  "Rola 代表的是「滾動前進」的節奏：不求一步到位，但每天都往前。這也是本站最核心的信念——持續累積、逐步質變。希望你在這裡看到的不只是資訊，而是可以落地實踐、陪你走長路的方法。"
-
-export async function DailyFounderSection() {
-  const [storyPage, namePage] = await Promise.all([
-    fetchWpPageByKeyword("創辦人的理念與故事"),
-    fetchWpPageByKeyword("Rola這個名字"),
-  ])
-  const storyExcerpt = wpHtmlToExcerpt(storyPage?.contentHtml, 120)
-  const nameExcerpt = wpHtmlToExcerpt(namePage?.contentHtml, 110)
+export function DailyFounderSection() {
+  const storyExcerpt = "我從一個什麼都不懂的門外漢...."
+  const nameExcerpt = "兩個音節裡，藏著溫柔而強大的生命力🌱....."
 
   return (
     <section className="w-full px-4 py-8">
@@ -37,7 +25,7 @@ export async function DailyFounderSection() {
                 </Link>
               </h2>
               <p className="text-base leading-relaxed text-[#4b5563]">
-                {storyExcerpt ?? FALLBACK_STORY}
+                {storyExcerpt}
               </p>
             </div>
 
@@ -57,7 +45,7 @@ export async function DailyFounderSection() {
                 </Link>
               </h3>
               <p className="text-base leading-relaxed text-[#4b5563]">
-                {nameExcerpt ?? FALLBACK_NAME}
+                {nameExcerpt}
               </p>
             </div>
           </div>
