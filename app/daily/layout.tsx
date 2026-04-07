@@ -1,5 +1,5 @@
 import { Navigation } from "@/components/navigation"
-import { AboutSection } from "@/components/about-section"
+import { DailyFounderSection } from "@/components/daily/daily-founder-section"
 import { Footer } from "@/components/footer"
 
 export default function DailyLayout({ children }: { children: React.ReactNode }) {
@@ -19,7 +19,7 @@ export default function DailyLayout({ children }: { children: React.ReactNode })
     >
       <Navigation />
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-10">{children}</main>
-      <AboutSection />
+      <DailyFounderSection />
       <Footer />
     </div>
   )
