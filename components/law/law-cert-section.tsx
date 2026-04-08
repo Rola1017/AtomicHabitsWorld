@@ -17,8 +17,11 @@ export function LawCertSection({ className }: { className?: string }) {
       )}
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${CERT_BG})` }}
+        className="pointer-events-none absolute inset-0 bg-cover"
+        style={{
+          backgroundImage: `url(${CERT_BG})`,
+          backgroundPosition: "48% center",
+        }}
         aria-hidden
       />
       <div
