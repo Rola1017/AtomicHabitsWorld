@@ -65,8 +65,9 @@ export function QuoteCards() {
     {
       category: "享受",
       categoryTextColor: "#FF6FB1",
-      categoryBgColor: "#FFE3F1",
-      cardGradient: "linear-gradient(135deg, #FFD4EA 0%, #E6D9FF 45%, #FFFFFF 100%)",
+      categoryBgColor: "#FFECF6",
+      cardGradient:
+        "linear-gradient(135deg, #FFE1F0 0%, #F3ECFF 42%, #FFFFFF 100%)",
       borderColor: "#FFB9DB",
       title: "動畫，遊戲，身歷其境",
       author: "阿爾伯特·愛因斯坦",
