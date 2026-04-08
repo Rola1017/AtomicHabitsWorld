@@ -80,7 +80,7 @@ export function CategoryLayout({
           className={`mx-auto flex flex-col px-4 sm:px-6 ${
             variant === "labor-article"
               ? "max-w-7xl gap-12 sm:gap-14"
-              : "max-w-4xl gap-6 sm:gap-8"
+              : "max-w-6xl gap-6 sm:gap-8"
           }`}
         >
           {variant === "labor-article" ? (
