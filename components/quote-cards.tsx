@@ -27,7 +27,7 @@ function QuoteCard({
 }: QuoteCardProps) {
   return (
     <div 
-      className="p-5 hover:shadow-2xl transition-shadow"
+      className="p-5 text-center hover:shadow-2xl transition-shadow"
       style={{ 
         backgroundImage: cardGradient,
         borderRadius: '26px',
