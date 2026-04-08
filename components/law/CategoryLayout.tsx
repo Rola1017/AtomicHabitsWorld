@@ -3,6 +3,7 @@ import { Corinthia, Noto_Serif_TC } from "next/font/google"
 
 import { Footer } from "@/components/footer"
 import { LawAboutSection } from "@/components/law/law-about-section"
+import { LawCertSection } from "@/components/law/law-cert-section"
 import { LawHeader } from "@/components/law/law-header"
 import { LawHero } from "@/components/law/law-hero"
 
@@ -82,17 +83,34 @@ export function CategoryLayout({
               : "max-w-4xl gap-6 sm:gap-8"
           }`}
         >
-          {contentFrame === "flat" ? (
-            children
+          {variant === "labor-article" ? (
+            contentFrame === "flat" ? (
+              children
+            ) : (
+              <div className="rounded-2xl border border-[#D1C7B7] bg-[#F6F4F0] p-6 shadow-md sm:p-8 md:p-10">
+                {children}
+              </div>
+            )
           ) : (
-            <div className="rounded-2xl border border-[#D1C7B7] bg-[#F6F4F0] p-6 shadow-md sm:p-8 md:p-10">
-              {children}
-            </div>
-          )}
+            <>
+              <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-8">
+                <div className="min-w-0">
+                  {contentFrame === "flat" ? (
+                    children
+                  ) : (
+                    <div className="rounded-2xl border border-[#D1C7B7] bg-[#F6F4F0] p-6 shadow-md sm:p-8 md:p-10">
+                      {children}
+                    </div>
+                  )}
+                </div>
+                <aside className="w-full lg:sticky lg:top-28">
+                  <LawCertSection className="rounded-3xl" />
+                </aside>
+              </div>
 
-          {variant !== "labor-article" ? (
-            <LawAboutSection />
-          ) : null}
+              <LawAboutSection />
+            </>
+          )}
         </div>
       </main>
 

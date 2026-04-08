@@ -1,5 +1,3 @@
-import { LawCertSection } from "@/components/law/law-cert-section"
-
 const ABOUT_BG = "/about-diamond-bg.png"
 
 export function LawAboutSection() {
@@ -22,17 +20,13 @@ export function LawAboutSection() {
           aria-hidden
         />
 
-        <div className="relative z-10 flex flex-col gap-8 p-8 sm:p-10 lg:flex-row lg:items-stretch lg:justify-between lg:gap-10">
-          <div className="min-w-0 flex-[1.6] lg:max-w-[65%]">
-            <h2 className="mb-4 text-xl font-bold text-[#1E293B] drop-shadow-sm sm:text-2xl">
-              關於本站
-            </h2>
-            <p className="text-base leading-relaxed text-[#334155] drop-shadow-sm sm:text-[17px]">
-              相信最好的服務來自於「量身打造」，而這需要深厚的知識庫作為基礎。透過拆解書籍、研究新科技來提升自己，目標是將繁瑣的知識「遊戲化」，幫助更多人理解自身權益。
-            </p>
-          </div>
-
-          <LawCertSection className="rounded-2xl lg:w-[min(100%,38%)] lg:max-w-sm" />
+        <div className="relative z-10 p-8 sm:p-10">
+          <h2 className="mb-4 text-xl font-bold text-[#1E293B] drop-shadow-sm sm:text-2xl">
+            關於本站
+          </h2>
+          <p className="text-base leading-relaxed text-[#334155] drop-shadow-sm sm:text-[17px]">
+            相信最好的服務來自於「量身打造」，而這需要深厚的知識庫作為基礎。透過拆解書籍、研究新科技來提升自己，目標是將繁瑣的知識「遊戲化」，幫助更多人理解自身權益。
+          </p>
         </div>
       </div>
     </section>
