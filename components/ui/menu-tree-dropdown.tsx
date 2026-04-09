@@ -28,7 +28,13 @@ function MenuTreeItems({ nodes }: { nodes: MenuTreeNode[] }) {
       return (
         <DropdownMenuSub key={node.label}>
           <DropdownMenuSubTrigger>
-            {node.label}
+            {node.href ? (
+              <Link href={node.href} className="flex-1">
+                {node.label}
+              </Link>
+            ) : (
+              node.label
+            )}
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent className="min-w-[14rem]">
             <MenuTreeItems nodes={node.children!} />
