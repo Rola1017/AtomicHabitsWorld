@@ -58,7 +58,7 @@ export function LawHero({
   }
 
   return (
-    <section className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] overflow-hidden rounded-none">
+    <section className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] lg:h-[420px] xl:h-[460px] overflow-hidden rounded-none">
       {/* Background Image — solid overlays only, no gradient/mask at bottom edge */}
       <div className="absolute inset-0">
         <Image
