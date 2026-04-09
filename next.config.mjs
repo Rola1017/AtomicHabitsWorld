@@ -7,6 +7,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "cms.atomichabitsworld.com",
+      },
+      {
+        protocol: "https",
         hostname: "atomichabitsworld.com",
       },
       {
