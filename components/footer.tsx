@@ -112,14 +112,19 @@ export function Footer() {
               <p className="max-w-full break-words text-center sm:text-left">
                 © · 2026 AtomicHabitsWorld 每天一點點. All rights reserved.
               </p>
-              <div className="flex shrink-0 items-center justify-center whitespace-nowrap sm:justify-end">
-                {/* 用原生 <a> 避免少數環境下 Link 被遮擋或攔截時無法導向 */}
-                <a
+              <div className="flex shrink-0 items-center justify-center gap-3 whitespace-nowrap sm:justify-end">
+                <Link
                   href="/privacy"
-                  className="touch-manipulation rounded px-2 py-2 text-[#9ca3af] underline-offset-2 transition-colors hover:text-[#6b7280] hover:underline"
+                  className="touch-manipulation rounded px-1 py-2 text-[#9ca3af] underline-offset-2 transition-colors hover:text-[#6b7280] hover:underline"
                 >
-                  隱私權條款
-                </a>
+                  隱私權
+                </Link>
+                <Link
+                  href="/terms"
+                  className="touch-manipulation rounded px-1 py-2 text-[#9ca3af] underline-offset-2 transition-colors hover:text-[#6b7280] hover:underline"
+                >
+                  條款
+                </Link>
               </div>
             </div>
           </div>
