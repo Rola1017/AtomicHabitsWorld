@@ -71,7 +71,7 @@ export function MenuTreeDropdown({
   const scheduleClose = () => {
     if (!hoverMode) return
     if (closeTimer.current) window.clearTimeout(closeTimer.current)
-    closeTimer.current = window.setTimeout(() => setOpen(false), 220)
+    closeTimer.current = window.setTimeout(() => setOpen(false), 600)
   }
 
   const cancelClose = () => {
