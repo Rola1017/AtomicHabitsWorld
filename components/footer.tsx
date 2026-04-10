@@ -42,25 +42,33 @@ export function Footer() {
           {/* Social Icons */}
           <div className="flex justify-center gap-4 mb-6">
             <Link 
-              href="#" 
+              href="https://www.facebook.com/profile.php?id=61551926000421"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-11 h-11 rounded-full bg-blue-500 flex items-center justify-center text-white hover:bg-blue-600 transition-colors"
             >
               <Facebook className="w-[18px] h-[18px]" />
             </Link>
             <Link 
-              href="#" 
+              href="https://www.instagram.com/renachen012/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-11 h-11 rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center text-white hover:opacity-90 transition-opacity"
             >
               <Instagram className="w-[18px] h-[18px]" />
             </Link>
             <Link 
-              href="#" 
+              href="https://www.threads.com/@renachen012"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-11 h-11 rounded-full bg-black flex items-center justify-center text-white hover:bg-gray-800 transition-colors"
             >
               <ThreadsIcon className="w-[18px] h-[18px]" />
             </Link>
             <Link 
-              href="#" 
+              href="https://www.youtube.com/@AtomicHabitsWorld"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-11 h-11 rounded-full bg-red-500 flex items-center justify-center text-white hover:bg-red-600 transition-colors"
             >
               <Youtube className="w-[18px] h-[18px]" />
