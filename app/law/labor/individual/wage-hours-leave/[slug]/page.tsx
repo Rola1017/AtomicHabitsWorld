@@ -5,6 +5,7 @@ import { ArticleBreadcrumb } from "@/components/law/article-breadcrumb"
 import { ArticleShare } from "@/components/law/article-share"
 import { CategoryLayout } from "@/components/law/CategoryLayout"
 import { LaborAuthorityLinksPanel } from "@/components/law/labor-authority-links-panel"
+import { LawSearchBox } from "@/components/law/law-search-box"
 import { LaborPopularPostsPanel } from "@/components/law/labor-popular-posts-panel"
 import { LawAboutCompact } from "@/components/law/law-about-compact"
 import { LawArticleLegalDisclaimer } from "@/components/law/law-article-legal-disclaimer"
@@ -164,6 +165,7 @@ export default async function WageHoursLeavePostPage({
         </div>
 
         <aside className="flex w-full min-w-0 flex-col gap-8 lg:sticky lg:top-28 lg:self-start">
+          <LawSearchBox />
           <LaborAuthorityLinksPanel />
           <LaborPopularPostsPanel posts={sidebarPosts} />
           <LawCertSection className="rounded-none" />
