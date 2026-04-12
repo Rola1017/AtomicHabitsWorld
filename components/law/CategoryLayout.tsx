@@ -4,6 +4,7 @@ import { Corinthia, Noto_Serif_TC } from "next/font/google"
 import { Footer } from "@/components/footer"
 import { LawAboutSection } from "@/components/law/law-about-section"
 import { LawCertSection } from "@/components/law/law-cert-section"
+import { LaborAuthorityLinksPanel } from "@/components/law/labor-authority-links-panel"
 import { LawHeader } from "@/components/law/law-header"
 import { LawHero } from "@/components/law/law-hero"
 
@@ -103,7 +104,8 @@ export function CategoryLayout({
                     </div>
                   )}
                 </div>
-                <aside className="w-full lg:sticky lg:top-28">
+                <aside className="flex w-full flex-col gap-6 lg:sticky lg:top-28">
+                  <LaborAuthorityLinksPanel />
                   <LawCertSection className="rounded-3xl" />
                 </aside>
               </div>
