@@ -7,6 +7,7 @@ import { CategoryLayout } from "@/components/law/CategoryLayout"
 import { LaborAuthorityLinksPanel } from "@/components/law/labor-authority-links-panel"
 import { LaborPopularPostsPanel } from "@/components/law/labor-popular-posts-panel"
 import { LawAboutCompact } from "@/components/law/law-about-compact"
+import { LawArticleLegalDisclaimer } from "@/components/law/law-article-legal-disclaimer"
 import { LawCertSection } from "@/components/law/law-cert-section"
 import { buildLaborArticleBreadcrumb } from "@/lib/labor-wp-breadcrumb"
 import { getSiteOrigin } from "@/lib/site-url"
@@ -147,6 +148,7 @@ export default async function LaborPostPage({
             <div
               dangerouslySetInnerHTML={{ __html: post.content ?? "" }}
             />
+            <LawArticleLegalDisclaimer />
             <ArticleShare url={articleUrl} title={post.title} />
           </article>
 
