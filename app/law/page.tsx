@@ -4,18 +4,18 @@ import { CategoryLayout } from "@/components/law/CategoryLayout"
 import { LawWpCategoryPostList } from "@/components/law/law-wp-category-post-list"
 
 export const metadata: Metadata = {
-  title: "法律總覽｜AtomicHabitsWorld 每天進步一點點",
+  title: "法律總覽｜AtomicHabitsWorld 每天一點點",
   description:
     "法律總覽收錄勞動社會法、保險法、民法、行政法、刑法與民事訴訟法文章，提供實務導向的重點整理與案例脈絡。",
   alternates: {
     canonical: "/law",
   },
   openGraph: {
-    title: "法律總覽｜AtomicHabitsWorld 每天進步一點點",
+    title: "法律總覽｜AtomicHabitsWorld 每天一點點",
     description:
       "法律總覽收錄勞動社會法、保險法、民法、行政法、刑法與民事訴訟法文章，提供實務導向的重點整理與案例脈絡。",
     url: "/law",
-    siteName: "AtomicHabitsWorld 每天進步一點點",
+    siteName: "AtomicHabitsWorld 每天一點點",
     type: "website",
     locale: "zh_TW",
   },

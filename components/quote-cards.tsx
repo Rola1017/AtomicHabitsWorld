@@ -109,7 +109,7 @@ export function QuoteCards() {
           享受學習，樂在其中<span className="text-red-500" role="img" aria-label="heart">&#10084;&#65039;</span>
         </h2>
         <p className="text-[#6b7280] text-base mb-6 text-center">
-          遊戲化思維與知識萃取，每天進步一點點<span role="img" aria-label="seedling">&#127793;</span>
+          遊戲化思維與知識萃取，每天一點點<span role="img" aria-label="seedling">&#127793;</span>
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

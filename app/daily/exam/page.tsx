@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "每日精進｜考試｜AtomicHabitsWorld",
     description: "瀏覽每日精進｜考試的重點整理與文章列表，快速掌握主題脈絡與實務重點。",
     url: "/daily/exam",
-    siteName: "AtomicHabitsWorld 每天進步一點點",
+    siteName: "AtomicHabitsWorld 每天一點點",
     type: "website",
     locale: "zh_TW",
   },

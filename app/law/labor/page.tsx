@@ -4,18 +4,18 @@ import { CategoryLayout } from "@/components/law/CategoryLayout"
 import { LawWpCategoryPostList } from "@/components/law/law-wp-category-post-list"
 
 export const metadata: Metadata = {
-  title: "勞動社會法｜AtomicHabitsWorld 每天進步一點點",
+  title: "勞動社會法｜AtomicHabitsWorld 每天一點點",
   description:
     "勞動社會法專區整理勞動契約、工時工資、資遣退休、職災與社會保險等核心議題，協助你快速理解權利義務與救濟方向。",
   alternates: {
     canonical: "/law/labor",
   },
   openGraph: {
-    title: "勞動社會法｜AtomicHabitsWorld 每天進步一點點",
+    title: "勞動社會法｜AtomicHabitsWorld 每天一點點",
     description:
       "勞動社會法專區整理勞動契約、工時工資、資遣退休、職災與社會保險等核心議題，協助你快速理解權利義務與救濟方向。",
     url: "/law/labor",
-    siteName: "AtomicHabitsWorld 每天進步一點點",
+    siteName: "AtomicHabitsWorld 每天一點點",
     type: "website",
     locale: "zh_TW",
   },

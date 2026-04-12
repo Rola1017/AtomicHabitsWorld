@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "法律｜勞動法｜個別勞動｜性別平等與職場霸凌｜AtomicHabitsWorld",
     description: "瀏覽法律｜勞動法｜個別勞動｜性別平等與職場霸凌的重點整理與文章列表，快速掌握主題脈絡與實務重點。",
     url: "/law/labor/individual/gender-equality-bullying",
-    siteName: "AtomicHabitsWorld 每天進步一點點",
+    siteName: "AtomicHabitsWorld 每天一點點",
     type: "website",
     locale: "zh_TW",
   },

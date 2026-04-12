@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "法律｜勞動法｜集體勞資程序｜AtomicHabitsWorld",
     description: "瀏覽法律｜勞動法｜集體勞資程序的重點整理與文章列表，快速掌握主題脈絡與實務重點。",
     url: "/law/labor/collective-procedure",
-    siteName: "AtomicHabitsWorld 每天進步一點點",
+    siteName: "AtomicHabitsWorld 每天一點點",
     type: "website",
     locale: "zh_TW",
   },

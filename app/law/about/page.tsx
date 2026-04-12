@@ -5,7 +5,7 @@ import { LawHeader } from "@/components/law/law-header"
 import { fetchWpPageByKeyword } from "@/lib/wp-pages"
 
 export const metadata: Metadata = {
-  title: "關於本站-法律｜AtomicHabitsWorld 每天進步一點點",
+  title: "關於本站-法律｜AtomicHabitsWorld 每天一點點",
   description: "關於本站-法律完整內容。",
   alternates: {
     canonical: "/law/about",

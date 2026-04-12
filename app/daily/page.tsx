@@ -4,18 +4,18 @@ import { DailyWpCategoryPostList } from "@/components/daily/daily-wp-category-po
 import { DailySubcategoryBar } from "@/components/daily/daily-subcategory-bar"
 
 export const metadata: Metadata = {
-  title: "日常｜AtomicHabitsWorld 每天進步一點點",
+  title: "日常｜AtomicHabitsWorld 每天一點點",
   description:
     "日常專區聚合讀書、考試、隨筆、左手訓練與生活智慧王，快速掌握每個主題的最新文章與實用重點。",
   alternates: {
     canonical: "/daily",
   },
   openGraph: {
-    title: "日常｜AtomicHabitsWorld 每天進步一點點",
+    title: "日常｜AtomicHabitsWorld 每天一點點",
     description:
       "日常專區聚合讀書、考試、隨筆、左手訓練與生活智慧王，快速掌握每個主題的最新文章與實用重點。",
     url: "/daily",
-    siteName: "AtomicHabitsWorld 每天進步一點點",
+    siteName: "AtomicHabitsWorld 每天一點點",
     type: "website",
     locale: "zh_TW",
   },

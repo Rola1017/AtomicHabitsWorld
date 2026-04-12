@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "法律｜民法｜契約與債編｜AtomicHabitsWorld",
     description: "瀏覽法律｜民法｜契約與債編的重點整理與文章列表，快速掌握主題脈絡與實務重點。",
     url: "/law/civil/contracts-and-obligations",
-    siteName: "AtomicHabitsWorld 每天進步一點點",
+    siteName: "AtomicHabitsWorld 每天一點點",
     type: "website",
     locale: "zh_TW",
   },

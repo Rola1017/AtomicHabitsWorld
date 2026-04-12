@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     title: "法律｜保險法｜人身保險規劃｜壽險｜AtomicHabitsWorld",
     description: "瀏覽法律｜保險法｜人身保險規劃｜壽險的重點整理與文章列表，快速掌握主題脈絡與實務重點。",
     url: "/law/insurance/personal-insurance/life-insurance",
-    siteName: "AtomicHabitsWorld 每天進步一點點",
+    siteName: "AtomicHabitsWorld 每天一點點",
     type: "website",
     locale: "zh_TW",
   },

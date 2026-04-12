@@ -1,9 +1,9 @@
-﻿import type { Metadata } from "next"
+import type { Metadata } from "next"
 
 import { fetchWpPageByKeyword } from "@/lib/wp-pages"
 
 export const metadata: Metadata = {
-  title: "Rola這個名字｜AtomicHabitsWorld 每天進步一點點",
+  title: "Rola這個名字｜AtomicHabitsWorld 每天一點點",
   description: "Rola這個名字的完整內容。",
   alternates: {
     canonical: "/daily/rola-name",

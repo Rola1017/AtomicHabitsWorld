@@ -13,18 +13,18 @@ import { fetchLatestPublishedArticleHref } from "@/lib/wp-latest-post-href"
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: "AtomicHabitsWorld 每天進步一點點｜首頁",
+  title: "AtomicHabitsWorld 每天一點點｜首頁",
   description:
-    "AtomicHabitsWorld 每天進步一點點，整理法律、日常與學習成長內容，陪你用可執行的方法穩定累積長期進步。",
+    "AtomicHabitsWorld 每天一點點，整理法律、日常與學習成長內容，陪你用可執行的方法穩定累積長期進步。",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "AtomicHabitsWorld 每天進步一點點｜首頁",
+    title: "AtomicHabitsWorld 每天一點點｜首頁",
     description:
-      "AtomicHabitsWorld 每天進步一點點，整理法律、日常與學習成長內容，陪你用可執行的方法穩定累積長期進步。",
+      "AtomicHabitsWorld 每天一點點，整理法律、日常與學習成長內容，陪你用可執行的方法穩定累積長期進步。",
     url: "/",
-    siteName: "AtomicHabitsWorld 每天進步一點點",
+    siteName: "AtomicHabitsWorld 每天一點點",
     type: "website",
     locale: "zh_TW",
   },
