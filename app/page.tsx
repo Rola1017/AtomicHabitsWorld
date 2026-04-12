@@ -7,6 +7,10 @@ import { QuoteCards } from "@/components/quote-cards"
 import { AboutSection } from "@/components/about-section"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
+import { fetchLatestPublishedArticleHref } from "@/lib/wp-latest-post-href"
+
+/** 與 WP 列表類 ISR 一致，首頁「最新文章」連結可定期更新 */
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: "AtomicHabitsWorld 每天進步一點點｜首頁",
@@ -26,7 +30,9 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Home() {
+export default async function Home() {
+  const latestArticleHref = await fetchLatestPublishedArticleHref()
+
   return (
     <main 
       className="min-h-screen"
@@ -46,7 +52,7 @@ export default function Home() {
       <HeroSection />
       <QuoteCards />
       <AboutSection />
-      <CTASection />
+      <CTASection latestArticleHref={latestArticleHref} />
       <Footer />
     </main>
   )

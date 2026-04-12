@@ -1,6 +1,13 @@
 import Link from "next/link"
 
-export function CTASection() {
+type CTASectionProps = {
+  /** 全站最新文章站內路徑；缺省時連到 /daily */
+  latestArticleHref?: string | null
+}
+
+export function CTASection({ latestArticleHref }: CTASectionProps) {
+  const exploreHref = latestArticleHref?.trim() || "/daily"
+
   return (
     <section className="w-full px-4 py-8">
       <div className="max-w-4xl mx-auto">
@@ -20,7 +27,7 @@ export function CTASection() {
             </div>
             
             <Link
-              href="#"
+              href={exploreHref}
               className="inline-flex items-center gap-2 px-5 py-2.5 text-white text-base font-medium rounded-full hover:opacity-90 transition-opacity shadow-md"
               style={{ backgroundColor: '#101A3A' }}
             >
