@@ -11,7 +11,7 @@ import { LawAboutCompact } from "@/components/law/law-about-compact"
 import { LawArticleLegalDisclaimer } from "@/components/law/law-article-legal-disclaimer"
 import { LawCertSection } from "@/components/law/law-cert-section"
 import { getWpCategorySlugForSitePath } from "@/config/law-site-wp-slugs"
-import { buildLaborArticleBreadcrumb } from "@/lib/labor-wp-breadcrumb"
+import { buildLawArticleBreadcrumb } from "@/lib/labor-wp-breadcrumb"
 import { getSiteOrigin } from "@/lib/site-url"
 import { stripHtml } from "@/lib/strip-html"
 import { fetchLaborPostByRequiredWpCategorySlug } from "@/lib/wp-labor-post"
@@ -116,7 +116,7 @@ export async function LawInsuranceWpArticle({
       ?.map((c) => c.name?.trim())
       .filter((n): n is string => Boolean(n)) ?? []
 
-  const breadcrumbItems = buildLaborArticleBreadcrumb(
+  const breadcrumbItems = buildLawArticleBreadcrumb(
     post.categories?.nodes,
     post.title
   )
