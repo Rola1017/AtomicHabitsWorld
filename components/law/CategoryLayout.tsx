@@ -2,6 +2,7 @@ import type { ReactNode } from "react"
 import { Corinthia, Noto_Serif_TC } from "next/font/google"
 
 import { Footer } from "@/components/footer"
+import { LawAboutCompact } from "@/components/law/law-about-compact"
 import { LawAboutSection } from "@/components/law/law-about-section"
 import { LawCertSection } from "@/components/law/law-cert-section"
 import { LaborAuthorityLinksPanel } from "@/components/law/labor-authority-links-panel"
@@ -34,6 +35,11 @@ type CategoryLayoutProps = {
    * labor-article：寬版主欄、橫幅與內文間留白加大（露出背景）、底部不顯示合併的「關於本站」大區塊（由子頁自行排版）
    */
   variant?: "default" | "labor-article"
+  /**
+   * 是否在 labor-article 版型的 footer 上方顯示「關於本站-法律」。
+   * 預設為 true，只有明確需求時才關閉。
+   */
+  showBottomAbout?: boolean
 }
 
 export function CategoryLayout({
@@ -42,6 +48,7 @@ export function CategoryLayout({
   children,
   contentFrame = "default",
   variant = "default",
+  showBottomAbout = true,
 }: CategoryLayoutProps) {
   return (
     <div className="min-h-screen relative">
@@ -86,13 +93,16 @@ export function CategoryLayout({
           }`}
         >
           {variant === "labor-article" ? (
-            contentFrame === "flat" ? (
-              children
-            ) : (
-              <div className="rounded-2xl border border-[#D1C7B7] bg-[#F6F4F0] p-6 shadow-md sm:p-8 md:p-10">
-                {children}
-              </div>
-            )
+            <>
+              {contentFrame === "flat" ? (
+                children
+              ) : (
+                <div className="rounded-2xl border border-[#D1C7B7] bg-[#F6F4F0] p-6 shadow-md sm:p-8 md:p-10">
+                  {children}
+                </div>
+              )}
+              {showBottomAbout ? <LawAboutCompact /> : null}
+            </>
           ) : (
             <>
               <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start lg:gap-8">

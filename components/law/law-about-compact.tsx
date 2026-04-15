@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 /** 與「關於本站」大區塊相同：鑽石切面底圖 `about-diamond-bg.png` */
 const ABOUT_COMPACT_BG = "/about-diamond-bg.png"
 
@@ -24,7 +26,12 @@ export function LawAboutCompact() {
           id="about-compact-heading"
           className="mb-2 text-base font-bold text-[#1E293B] drop-shadow-sm sm:text-lg"
         >
-          關於本站
+          <Link
+            href="/law/about"
+            className="underline-offset-4 transition-colors hover:text-[#0f172a] hover:underline"
+          >
+            關於本站-法律
+          </Link>
         </h2>
         <p className="max-w-2xl text-sm leading-relaxed text-[#334155] drop-shadow-sm sm:text-[15px]">
           相信最好的服務來自於「量身打造」，而這需要深厚的知識庫作為基礎。透過拆解書籍、研究新科技來提升自己，目標是將繁瑣的知識「遊戲化」，幫助更多人理解自身權益。
