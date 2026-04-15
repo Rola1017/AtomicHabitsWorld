@@ -55,11 +55,15 @@ export async function fetchWpPageByKeyword(keyword: string): Promise<WpPageData 
     if (nodes.length === 0) return null
 
     const normalizedKeyword = keyword.replace(/\s+/g, "").toLowerCase()
+    const matchedByExactTitle = nodes.find((node) => {
+      const title = (node.title ?? "").replace(/\s+/g, "").toLowerCase()
+      return title === normalizedKeyword
+    })
     const matchedByTitle = nodes.find((node) => {
       const title = (node.title ?? "").replace(/\s+/g, "").toLowerCase()
       return title.includes(normalizedKeyword)
     })
-    const target = matchedByTitle ?? nodes[0]
+    const target = matchedByExactTitle ?? matchedByTitle ?? nodes[0]
 
     const title = (target.title ?? "").trim()
     const slug = (target.slug ?? "").trim()

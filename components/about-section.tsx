@@ -26,14 +26,18 @@ export function AboutSection() {
             <div className="flex-1">
               <h2 className="text-[#101A3A] text-2xl font-bold mb-4">
                 <Link
-                  href="#about"
+                  href="/daily/about"
                   className="text-[#101A3A] hover:text-[#2d3a5c] hover:underline underline-offset-4 transition-colors"
                 >
                   關於本站
                 </Link>
               </h2>
               <p className="text-[#4b5563] text-base leading-relaxed">
-                相信最好的服務來自於「量身打造」，而這需要深厚的知識庫作為基礎。透過拆解書籍、研究新科技來提升自己，目標是將繁瑣的知識「遊戲化」，幫助更多人理解自身權益。
+                我喜歡關於愛迪生的那句名言：
+                <br />
+                「我沒有失敗。我只是發現了一萬種行不通的方法。」
+                <br />
+                I have not failed. I've just found 10,000 ways that won't work.
               </p>
             </div>
             

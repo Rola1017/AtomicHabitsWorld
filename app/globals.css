@@ -235,3 +235,43 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Match default WordPress page typography (used by /daily/about) */
+.wp-page-content {
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.wp-page-content h1,
+.wp-page-content h2,
+.wp-page-content h3,
+.wp-page-content h4,
+.wp-page-content h5,
+.wp-page-content h6 {
+  color: #101a3a;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.wp-page-content ul,
+.wp-page-content ol {
+  margin-block: 1rem;
+  padding-left: 1.25rem;
+}
+
+.wp-page-content li + li {
+  margin-top: 0.4rem;
+}
+
+.wp-page-content a {
+  color: #1d4ed8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.wp-page-content blockquote {
+  margin: 1rem 0;
+  padding: 0.2rem 0 0.2rem 1rem;
+  border-left: 3px solid #d1c7b7;
+  color: #374151;
+}
