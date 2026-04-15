@@ -17,7 +17,10 @@ function normalizeWpHtmlTypography(html: string): string {
   return html
     .replace(/&rsquo;|&#8217;|&#x2019;|&lsquo;|&#8216;|&#x2018;/gi, "'")
     .replace(/[\u2018\u2019\uFF07]/g, "'")
+    .replace(/&rdquo;|&#8221;|&#x201d;|&ldquo;|&#8220;|&#x201c;/gi, '"')
+    .replace(/[\u201C\u201D\uFF02]/g, '"')
     .replace(/([A-Za-z])\s*'\s*([A-Za-z])/g, "$1'$2")
+    .replace(/([A-Za-z])\s*"\s*([A-Za-z])/g, '$1"$2')
 }
 
 export default async function DailyRolaNamePage() {
