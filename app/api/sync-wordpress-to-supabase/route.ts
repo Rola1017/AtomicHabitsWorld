@@ -126,6 +126,9 @@ export async function POST(request: NextRequest) {
     // 驗證密鑰（防止濫用）
     console.log('SYNC_SECRET_KEY:', process.env.SYNC_SECRET_KEY);
     const auth = request.headers.get('authorization');
+    console.log('auth header:', auth);
+    console.log('expected:', `Bearer ${process.env.SYNC_SECRET_KEY}`);
+    console.log('match:', auth === `Bearer ${process.env.SYNC_SECRET_KEY}`);
     if (auth !== `Bearer ${process.env.SYNC_SECRET_KEY}`) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
