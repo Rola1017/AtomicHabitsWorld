@@ -45,7 +45,7 @@ type WpPost = {
 async function fetchWordPressPosts(): Promise<WpPost[]> {
   const query = `
     query GetAllPosts {
-      posts(first: 100, where: { status: PUBLISH }) {
+      posts(first: 100) {
         edges {
           node {
             id
@@ -66,9 +66,6 @@ async function fetchWordPressPosts(): Promise<WpPost[]> {
                 }
               }
             }
-            seo {
-              metaDesc
-            }
           }
         }
       }
@@ -88,6 +85,7 @@ async function fetchWordPressPosts(): Promise<WpPost[]> {
     }
 
     const data = await response.json();
+    console.log('WP GraphQL response:', JSON.stringify(data).slice(0, 500));
     const edges = data?.data?.posts?.edges;
 
     if (!Array.isArray(edges)) return [];
@@ -126,6 +124,7 @@ function transformPost(wpPost: WpPost) {
 export async function POST(request: NextRequest) {
   try {
     // 驗證密鑰（防止濫用）
+    console.log('SYNC_SECRET_KEY:', process.env.SYNC_SECRET_KEY);
     const auth = request.headers.get('authorization');
     if (auth !== `Bearer ${process.env.SYNC_SECRET_KEY}`) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
