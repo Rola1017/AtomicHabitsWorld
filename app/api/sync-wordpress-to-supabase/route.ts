@@ -85,7 +85,6 @@ async function fetchWordPressPosts(): Promise<WpPost[]> {
     }
 
     const data = await response.json();
-    console.log('WP GraphQL response:', JSON.stringify(data).slice(0, 500));
     const edges = data?.data?.posts?.edges;
 
     if (!Array.isArray(edges)) return [];
