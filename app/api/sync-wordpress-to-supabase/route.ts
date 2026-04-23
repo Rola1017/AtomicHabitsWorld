@@ -11,58 +11,65 @@ const WP_GRAPHQL_URL = 'https://cms.atomichabitsworld.com/graphql';
 
 // 分類對應表（WordPress 分類 slug → Supabase 分類）
 const categoryMapping: Record<string, { main: string; sub: string }> = {
+  // 日常
   'essay': { main: 'daily', sub: 'essay' },
   'exam': { main: 'daily', sub: 'exam' },
   'left-hand-writing': { main: 'daily', sub: 'left-hand-writing' },
   'life-wisdom': { main: 'daily', sub: 'life-wisdom' },
   'study': { main: 'daily', sub: 'study' },
   'founder-story': { main: 'daily', sub: 'founder-story' },
-  'individual': { main: 'law', sub: 'labor-individual' },
-  'contract-onboarding': { main: 'law', sub: 'labor-individual' },
-  'wage-hours-leave': { main: 'law', sub: 'labor-individual' },
-  'gender-equality-bullying': { main: 'law', sub: 'labor-individual' },
-  'termination-layoff-retirement': { main: 'law', sub: 'labor-individual' },
-  'social': { main: 'law', sub: 'labor-social' },
-  'labor-social-law': { main: 'law', sub: 'labor-social' },
-  'nhi': { main: 'law', sub: 'labor-social' },
-  'labor-insurance': { main: 'law', sub: 'labor-social' },
-  'labor-insurance1': { main: 'law', sub: 'labor-social' },
-  'national-pension-welfare': { main: 'law', sub: 'labor-social' },
-  'employment-insurance': { main: 'law', sub: 'labor-social' },
-  'occupational-accident-insurance': { main: 'law', sub: 'labor-social' },
-  'collective-procedure': { main: 'law', sub: 'labor-collective' },
-  'dispute-mediation': { main: 'law', sub: 'labor-collective' },
-  'admin-remedies-labor-inspection': { main: 'law', sub: 'labor-collective' },
+  'reading': { main: 'daily', sub: 'reading' },
+  'science and technology': { main: 'daily', sub: 'tech' },
+  // 勞動法－個別
+  'individual': { main: 'law', sub: 'individual' },
+  'contract-onboarding': { main: 'law', sub: 'contract-onboarding' },
+  'wage-hours-leave': { main: 'law', sub: 'wage-hours-leave' },
+  'termination-layoff-retirement': { main: 'law', sub: 'termination-layoff-retirement' },
+  'gender-equality-bullying': { main: 'law', sub: 'gender-equality-bullying' },
+  // 勞動法－社會
+  'social': { main: 'law', sub: 'social' },
+  'labor-social-law': { main: 'law', sub: 'labor-social-law' },
+  'labor-insurance': { main: 'law', sub: 'labor-insurance' },
+  'labor-insurance1': { main: 'law', sub: 'labor-insurance1' },
+  'occupational-accident-insurance': { main: 'law', sub: 'occupational-accident-insurance' },
+  'employment-insurance': { main: 'law', sub: 'employment-insurance' },
+  'nhi': { main: 'law', sub: 'nhi' },
+  'national-pension-welfare': { main: 'law', sub: 'national-pension-welfare' },
+  // 勞動法－集體
+  'collective-procedure': { main: 'law', sub: 'collective-procedure' },
+  'dispute-mediation': { main: 'law', sub: 'dispute-mediation' },
+  'admin-remedies-labor-inspection': { main: 'law', sub: 'admin-remedies-labor-inspection' },
+  // 保險法
   'insurance': { main: 'law', sub: 'insurance' },
-  'personal-insurance': { main: 'law', sub: 'insurance' },
-  'life-insurance': { main: 'law', sub: 'insurance' },
-  'savings-insurance': { main: 'law', sub: 'insurance' },
-  'accident': { main: 'law', sub: 'insurance' },
-  'medical': { main: 'law', sub: 'insurance' },
-  'corporate-liability': { main: 'law', sub: 'insurance' },
-  'claims-and-general': { main: 'law', sub: 'insurance' },
-  'claims-and-general-disclosure-duty': { main: 'law', sub: 'insurance' },
-  'contract-validity': { main: 'law', sub: 'insurance' },
-  'dispute-resolution': { main: 'law', sub: 'insurance' },
-  'financial-consumer-protection': { main: 'law', sub: 'insurance' },
+  'claims-and-general': { main: 'law', sub: 'claims-and-general' },
+  'claims-and-general-disclosure-duty': { main: 'law', sub: 'claims-and-general-disclosure-duty' },
+  'contract-validity': { main: 'law', sub: 'contract-validity' },
+  'dispute-resolution': { main: 'law', sub: 'dispute-resolution' },
+  'personal-insurance': { main: 'law', sub: 'personal-insurance' },
+  'corporate-liability': { main: 'law', sub: 'corporate-liability' },
+  'financial-consumer-protection': { main: 'law', sub: 'financial-consumer-protection' },
+  'life-insurance': { main: 'law', sub: 'life-insurance' },
+  'medical': { main: 'law', sub: 'medical' },
+  'accident': { main: 'law', sub: 'accident' },
+  'savings-insurance': { main: 'law', sub: 'savings-insurance' },
+  // 民法
   'civil': { main: 'law', sub: 'civil' },
-  'torts-and-damages': { main: 'law', sub: 'civil' },
-  'contracts-and-obligations': { main: 'law', sub: 'civil' },
-  'property-law': { main: 'law', sub: 'civil' },
-  'family-and-inheritance': { main: 'law', sub: 'civil' },
-  'marriage-contracts-and-property-regimes': { main: 'law', sub: 'civil' },
-  'family-trust-and-asset-protection': { main: 'law', sub: 'civil' },
-  'corporate-succession-and-equity-trusts': { main: 'law', sub: 'civil' },
-  'child-protection-and-education-trusts': { main: 'law', sub: 'civil' },
-  'retirement-trusts-and-guardianship': { main: 'law', sub: 'civil' },
-  'testamentary-trusts-and-succession': { main: 'law', sub: 'civil' },
-  'wills-and-advance-directives': { main: 'law', sub: 'civil' },
-  'inheritance-and-forced-heirship': { main: 'law', sub: 'civil' },
+  'contracts-and-obligations': { main: 'law', sub: 'contracts-and-obligations' },
+  'family-and-inheritance': { main: 'law', sub: 'family-and-inheritance' },
+  'torts-and-damages': { main: 'law', sub: 'torts-and-damages' },
+  'property-law': { main: 'law', sub: 'property-law' },
+  'inheritance-and-forced-heirship': { main: 'law', sub: 'inheritance-and-forced-heirship' },
+  'family-trust-and-asset-protection': { main: 'law', sub: 'family-trust-and-asset-protection' },
+  'marriage-contracts-and-property-regimes': { main: 'law', sub: 'marriage-contracts-and-property-regimes' },
+  'wills-and-advance-directives': { main: 'law', sub: 'wills-and-advance-directives' },
+  'testamentary-trusts-and-succession': { main: 'law', sub: 'testamentary-trusts-and-succession' },
+  'child-protection-and-education-trusts': { main: 'law', sub: 'child-protection-and-education-trusts' },
+  'retirement-trusts-and-guardianship': { main: 'law', sub: 'retirement-trusts-and-guardianship' },
+  'corporate-succession-and-equity-trusts': { main: 'law', sub: 'corporate-succession-and-equity-trusts' },
+  // 其他法律
   'administrative': { main: 'law', sub: 'administrative' },
   'criminal': { main: 'law', sub: 'criminal' },
   'civil-procedure': { main: 'law', sub: 'civil-procedure' },
-  'reading': { main: 'daily', sub: 'reading' },
-  'science and technology': { main: 'daily', sub: 'tech' },
 };
 
 type WpPost = {
@@ -134,7 +141,7 @@ async function fetchWordPressPosts(): Promise<WpPost[]> {
 function transformPost(wpPost: WpPost) {
   // 找出主分類和子分類
   const categories = wpPost.categories?.edges?.map((e) => e?.node?.slug).filter(Boolean) as string[] || [];
-  const categorySlug = categories[0] || 'law';
+  const categorySlug = [...categories].reverse().find(slug => categoryMapping[slug]) || categories[0] || 'law';
   const categoryInfo = categoryMapping[categorySlug] || { main: 'law', sub: 'law' };
 
   return {
