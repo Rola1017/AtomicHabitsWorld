@@ -43,6 +43,19 @@ export async function getPostBySlug(slug: string): Promise<Article | null> {
   return (data ?? null) as Article | null;
 }
 
+/** 依 WordPress wp_id 抓單篇文章 */
+export async function getPostByWpId(wpId: number): Promise<Article | null> {
+  const { data, error } = await supabase
+    .from('articles')
+    .select('*')
+    .eq('wp_id', wpId)
+    .eq('status', 'published')
+    .maybeSingle();
+
+  if (error) throw error;
+  return (data ?? null) as Article | null;
+}
+
 /** 抓全部文章 */
 export async function getAllPosts(): Promise<Article[]> {
   const { data, error } = await supabase

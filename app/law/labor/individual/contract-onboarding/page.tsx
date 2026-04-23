@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const LIST_BASE = "/law/labor/individual/contract-onboarding"
 
 export default async function ContractOnboardingPage() {
-  const articles = await getPostsByCategory("labor")
+  const articles = await getPostsByCategory("labor-individual")
 
   return (
     <CategoryLayout
@@ -42,7 +42,7 @@ export default async function ContractOnboardingPage() {
                 key={post.slug}
                 title={post.title}
                 excerpt={plain}
-                href={`${LIST_BASE}/${encodeURIComponent(post.slug)}`}
+                href={`${LIST_BASE}/${encodeURIComponent(String(post.wp_id))}`}
                 variant="simple"
               />
             )
