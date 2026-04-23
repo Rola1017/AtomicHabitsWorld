@@ -10,13 +10,13 @@ const supabase = createClient(supabaseUrl, supabaseServiceRole);
 const WP_GRAPHQL_URL = 'https://cms.atomichabitsworld.com/graphql';
 
 // 分類對應表（WordPress 分類 slug → Supabase 分類）
-const categoryMapping: Record<string, { main: string; sub?: string }> = {
-  'labor-social': { main: 'law', sub: 'labor' },
-  'labor-individual': { main: 'law', sub: 'labor' },
-  'labor-collective': { main: 'law', sub: 'labor' },
-  'employment-insurance': { main: 'law', sub: 'labor' },
-  'labor-insurance': { main: 'law', sub: 'labor' },
-  'occupational-accident': { main: 'law', sub: 'labor' },
+const categoryMapping: Record<string, { main: string; sub: string }> = {
+  'labor-individual': { main: 'law', sub: 'labor-individual' },
+  'labor-collective': { main: 'law', sub: 'labor-collective' },
+  'employment-insurance': { main: 'law', sub: 'employment-insurance' },
+  'labor-insurance': { main: 'law', sub: 'labor-insurance' },
+  'occupational-accident': { main: 'law', sub: 'occupational-accident' },
+  'labor-social': { main: 'law', sub: 'labor-social' },
   insurance: { main: 'law', sub: 'insurance' },
   civil: { main: 'law', sub: 'civil' },
   administrative: { main: 'law', sub: 'administrative' },
