@@ -1,5 +1,7 @@
 import { CategoryLayout } from "@/components/law/CategoryLayout"
-import { LawWpCategoryPostList } from "@/components/law/law-wp-category-post-list"
+import { ArticleCard } from "@/components/law/article-card"
+import { getPostsByCategory } from "@/lib/supabase-posts"
+import { stripHtml } from "@/lib/strip-html"
 
 import type { Metadata } from "next"
 
@@ -19,16 +21,38 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ContractsAndObligationsPage() {
+const LIST_BASE = "/law/civil/contracts-and-obligations"
+
+export default async function ContractsAndObligationsPage() {
+  const articles = await getPostsByCategory("contracts-and-obligations")
+
   return (
     <CategoryLayout
       heroTitle={["契約法與債權實務"]}
       heroLatin="Contracts & obligations in practice."
     >
-      <LawWpCategoryPostList
-        sitePathKey="civil/contracts-and-obligations"
-        emptyLabel="目前尚無「契約法與債權實務」文章，請稍後再試。"
-      />
+      <div className="flex flex-col gap-4 sm:gap-5">
+        {articles.length > 0 ? (
+          articles.map((post) => {
+            const plain =
+              stripHtml(post.excerpt || post.meta_description || "").trim() ||
+              undefined
+            return (
+              <ArticleCard
+                key={post.slug}
+                title={post.title}
+                excerpt={plain}
+                href={`${LIST_BASE}/${encodeURIComponent(String(post.wp_id))}`}
+                variant="simple"
+              />
+            )
+          })
+        ) : (
+          <div className="rounded-2xl border border-[#D1C7B7] bg-white/70 p-6 text-center text-[#6b7280] sm:p-8">
+            目前尚無「契約法與債權實務」文章，請稍後再試。
+          </div>
+        )}
+      </div>
     </CategoryLayout>
   )
 }

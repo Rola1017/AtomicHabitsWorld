@@ -1,5 +1,7 @@
 import { CategoryLayout } from "@/components/law/CategoryLayout"
-import { LawWpCategoryPostList } from "@/components/law/law-wp-category-post-list"
+import { ArticleCard } from "@/components/law/article-card"
+import { getPostsByCategory } from "@/lib/supabase-posts"
+import { stripHtml } from "@/lib/strip-html"
 
 import type { Metadata } from "next"
 
@@ -19,16 +21,39 @@ export const metadata: Metadata = {
   },
 }
 
-export default function CorporateSuccessionAndEquityTrustsPage() {
+const LIST_BASE =
+  "/law/civil/family-and-inheritance/family-trust-and-asset-protection/corporate-succession-and-equity-trusts"
+
+export default async function CorporateSuccessionAndEquityTrustsPage() {
+  const articles = await getPostsByCategory("corporate-succession-and-equity-trusts")
+
   return (
     <CategoryLayout
       heroTitle={["企業傳承與股權信託"]}
       heroLatin="Corporate succession & equity trusts."
     >
-      <LawWpCategoryPostList
-        sitePathKey="civil/family-and-inheritance/family-trust-and-asset-protection/corporate-succession-and-equity-trusts"
-        emptyLabel="目前尚無「企業傳承與股權信託」文章，請稍後再試。"
-      />
+      <div className="flex flex-col gap-4 sm:gap-5">
+        {articles.length > 0 ? (
+          articles.map((post) => {
+            const plain =
+              stripHtml(post.excerpt || post.meta_description || "").trim() ||
+              undefined
+            return (
+              <ArticleCard
+                key={post.slug}
+                title={post.title}
+                excerpt={plain}
+                href={`${LIST_BASE}/${encodeURIComponent(String(post.wp_id))}`}
+                variant="simple"
+              />
+            )
+          })
+        ) : (
+          <div className="rounded-2xl border border-[#D1C7B7] bg-white/70 p-6 text-center text-[#6b7280] sm:p-8">
+            目前尚無「企業傳承與股權信託」文章，請稍後再試。
+          </div>
+        )}
+      </div>
     </CategoryLayout>
   )
 }
