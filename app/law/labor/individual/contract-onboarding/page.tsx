@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const LIST_BASE = "/law/labor/individual/contract-onboarding"
 
 export default async function ContractOnboardingPage() {
-  const articles = await getPostsByCategory("labor-individual")
+  const articles = await getPostsByCategory("contract-onboarding")
 
   return (
     <CategoryLayout
