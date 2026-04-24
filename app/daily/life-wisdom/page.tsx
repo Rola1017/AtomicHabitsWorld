@@ -1,4 +1,4 @@
-import { DailyWpCategoryPostList } from "@/components/daily/daily-wp-category-post-list"
+import { DailySupabaseCategoryPostList } from "@/components/daily/daily-supabase-category-post-list"
 import { DailySubcategoryBar } from "@/components/daily/daily-subcategory-bar"
 
 import type { Metadata } from "next"
@@ -26,9 +26,9 @@ export default function DailyLifeWisdomPage() {
         生活智慧王
       </h1>
       <DailySubcategoryBar />
-      <DailyWpCategoryPostList
-        siteCategoryPath="life-wisdom"
-        wpCategorySlug="life-wisdom"
+      <DailySupabaseCategoryPostList
+        categorySub="life-wisdom"
+        listBase="/daily/life-wisdom"
         emptyLabel="目前尚無「生活智慧王」文章，請稍後再試。"
       />
     </div>

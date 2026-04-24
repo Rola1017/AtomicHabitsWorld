@@ -1,4 +1,4 @@
-import { DailyWpCategoryPostList } from "@/components/daily/daily-wp-category-post-list"
+import { DailySupabaseCategoryPostList } from "@/components/daily/daily-supabase-category-post-list"
 import { DailySubcategoryBar } from "@/components/daily/daily-subcategory-bar"
 
 import type { Metadata } from "next"
@@ -26,9 +26,9 @@ export default function DailyLeftHandWritingPage() {
         左手訓練
       </h1>
       <DailySubcategoryBar />
-      <DailyWpCategoryPostList
-        siteCategoryPath="left-hand-writing"
-        wpCategorySlug="left-hand-writing"
+      <DailySupabaseCategoryPostList
+        categorySub="left-hand-writing"
+        listBase="/daily/left-hand-writing"
         emptyLabel="目前尚無「左手訓練」文章，請稍後再試。"
       />
     </div>
