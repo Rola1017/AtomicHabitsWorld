@@ -9,28 +9,11 @@ import { LaborPopularPostsPanel } from "@/components/law/labor-popular-posts-pan
 import { LawSearchBox } from "@/components/law/law-search-box"
 import { LawArticleLegalDisclaimer } from "@/components/law/law-article-legal-disclaimer"
 import { LawCertSection } from "@/components/law/law-cert-section"
-import { getWpCategorySlugForSitePath } from "@/config/law-site-wp-slugs"
 import { buildLawArticleBreadcrumb } from "@/lib/labor-wp-breadcrumb"
 import { getSiteOrigin } from "@/lib/site-url"
 import { stripHtml } from "@/lib/strip-html"
-import { fetchLaborPostByRequiredWpCategorySlug } from "@/lib/wp-labor-post"
+import { getPostByWpId } from "@/lib/supabase-posts"
 import { fetchLaborSidebarPosts } from "@/lib/wp-labor-sidebar-posts"
-
-function formatPostDate(iso: string): string {
-  const d = new Date(iso)
-  if (Number.isNaN(d.getTime())) return iso
-  const parts = new Intl.DateTimeFormat("zh-TW", {
-    timeZone: "Asia/Taipei",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).formatToParts(d)
-  const y = parts.find((p) => p.type === "year")?.value
-  const m = parts.find((p) => p.type === "month")?.value
-  const day = parts.find((p) => p.type === "day")?.value
-  if (y && m && day) return `${y}/${m}/${day}`
-  return iso
-}
 
 function absolutizeOgImage(
   url: string | undefined | null,
@@ -46,24 +29,23 @@ export async function generateLawInsuranceArticleMetadata(
   sitePathKey: string,
   rawSlug: string
 ): Promise<Metadata> {
-  const slug = decodeURIComponent(rawSlug)
-  const wpCat = getWpCategorySlugForSitePath(sitePathKey)
-  const post = await fetchLaborPostByRequiredWpCategorySlug(slug, wpCat)
+  const wpId = Number(decodeURIComponent(rawSlug))
+  if (!Number.isFinite(wpId)) {
+    return { title: "文章" }
+  }
+  const post = await getPostByWpId(wpId)
   if (!post) {
     return { title: "文章" }
   }
 
   const siteOrigin = await getSiteOrigin()
   const pathBase = `/law/${sitePathKey}`
-  const canonical = `${siteOrigin}${pathBase}/${encodeURIComponent(slug)}`
+  const canonical = `${siteOrigin}${pathBase}/${encodeURIComponent(String(wpId))}`
   const rawDesc = stripHtml(
     (post.excerpt?.trim() ? post.excerpt : null) ?? post.content ?? ""
   )
   const description = (rawDesc || post.title).slice(0, 160)
-  const ogImage = absolutizeOgImage(
-    post.featuredImage?.node?.sourceUrl ?? undefined,
-    siteOrigin
-  )
+  const ogImage = absolutizeOgImage(post.featured_image_url ?? undefined, siteOrigin)
 
   return {
     title: post.title,
@@ -100,8 +82,11 @@ export async function LawInsuranceWpArticle({
   heroLatin,
   slug,
 }: LawInsuranceWpArticleProps) {
-  const wpCat = getWpCategorySlugForSitePath(sitePathKey)
-  const post = await fetchLaborPostByRequiredWpCategorySlug(slug, wpCat)
+  const wpId = Number(decodeURIComponent(slug))
+  if (!Number.isFinite(wpId)) {
+    notFound()
+  }
+  const post = await getPostByWpId(wpId)
 
   if (!post) {
     notFound()
@@ -109,16 +94,10 @@ export async function LawInsuranceWpArticle({
 
   const siteOrigin = await getSiteOrigin()
   const pathBase = `/law/${sitePathKey}`
-  const articleUrl = `${siteOrigin}${pathBase}/${encodeURIComponent(post.slug)}`
-  const categoryLabels =
-    post.categories?.nodes
-      ?.map((c) => c.name?.trim())
-      .filter((n): n is string => Boolean(n)) ?? []
+  const articleUrl = `${siteOrigin}${pathBase}/${encodeURIComponent(String(wpId))}`
+  const categoryLabels = [post.category_sub].filter(Boolean)
 
-  const breadcrumbItems = buildLawArticleBreadcrumb(
-    post.categories?.nodes,
-    post.title
-  )
+  const breadcrumbItems = buildLawArticleBreadcrumb(undefined, post.title)
   const sidebarPosts = await fetchLaborSidebarPosts(post.slug, 12)
 
   return (
@@ -136,19 +115,14 @@ export async function LawInsuranceWpArticle({
             <ArticleBreadcrumb items={breadcrumbItems} />
             <h1
               className={`text-2xl font-bold text-[#1A2744] ${
-                post.date || categoryLabels.length > 0 ? "mb-2" : "mb-6"
+                categoryLabels.length > 0 ? "mb-2" : "mb-6"
               }`}
             >
               {post.title}
             </h1>
-            {(post.date || categoryLabels.length > 0) && (
+            {categoryLabels.length > 0 && (
               <div className="mb-6 space-y-2 text-sm text-[#6b7280]">
-                {post.date ? (
-                  <p>發布日期：{formatPostDate(post.date)}</p>
-                ) : null}
-                {categoryLabels.length > 0 ? (
-                  <p>分類：{categoryLabels.join("、")}</p>
-                ) : null}
+                <p>分類：{categoryLabels.join("、")}</p>
               </div>
             )}
             <div
