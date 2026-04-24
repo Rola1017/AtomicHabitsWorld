@@ -9,31 +9,14 @@ import { LawSearchBox } from "@/components/law/law-search-box"
 import { LaborPopularPostsPanel } from "@/components/law/labor-popular-posts-panel"
 import { LawArticleLegalDisclaimer } from "@/components/law/law-article-legal-disclaimer"
 import { LawCertSection } from "@/components/law/law-cert-section"
-import { getWpCategorySlugForSitePath } from "@/config/law-site-wp-slugs"
 import { buildLaborArticleBreadcrumb } from "@/lib/labor-wp-breadcrumb"
 import { getSiteOrigin } from "@/lib/site-url"
 import { stripHtml } from "@/lib/strip-html"
-import { fetchLaborPostByRequiredWpCategorySlug } from "@/lib/wp-labor-post"
+import { getPostByWpId } from "@/lib/supabase-posts"
 import { fetchLaborSidebarPosts } from "@/lib/wp-labor-sidebar-posts"
 
 const ADMIN_REMEDIES_LABOR_INSPECTION_SITE_PATH =
   "labor/collective-procedure/admin-remedies-labor-inspection"
-
-function formatPostDate(iso: string): string {
-  const d = new Date(iso)
-  if (Number.isNaN(d.getTime())) return iso
-  const parts = new Intl.DateTimeFormat("zh-TW", {
-    timeZone: "Asia/Taipei",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).formatToParts(d)
-  const y = parts.find((p) => p.type === "year")?.value
-  const m = parts.find((p) => p.type === "month")?.value
-  const day = parts.find((p) => p.type === "day")?.value
-  if (y && m && day) return `${y}/${m}/${day}`
-  return iso
-}
 
 function absolutizeOgImage(
   url: string | undefined | null,
@@ -45,34 +28,29 @@ function absolutizeOgImage(
   return `${siteOrigin}${u.startsWith("/") ? "" : "/"}${u}`
 }
 
-function getAdminRemediesLaborInspectionWpCategorySlug(): string {
-  return getWpCategorySlugForSitePath(ADMIN_REMEDIES_LABOR_INSPECTION_SITE_PATH)
-}
-
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug: rawSlug } = await params
-  const slug = decodeURIComponent(rawSlug)
-  const wpCat = getAdminRemediesLaborInspectionWpCategorySlug()
-  const post = await fetchLaborPostByRequiredWpCategorySlug(slug, wpCat)
+  const wpId = Number(decodeURIComponent(rawSlug))
+  if (!Number.isFinite(wpId)) {
+    return { title: "文章" }
+  }
+  const post = await getPostByWpId(wpId)
   if (!post) {
     return { title: "文章" }
   }
 
   const siteOrigin = await getSiteOrigin()
   const pathBase = `/law/${ADMIN_REMEDIES_LABOR_INSPECTION_SITE_PATH}`
-  const canonical = `${siteOrigin}${pathBase}/${encodeURIComponent(slug)}`
+  const canonical = `${siteOrigin}${pathBase}/${encodeURIComponent(String(wpId))}`
   const rawDesc = stripHtml(
     (post.excerpt?.trim() ? post.excerpt : null) ?? post.content ?? ""
   )
   const description = (rawDesc || post.title).slice(0, 160)
-  const ogImage = absolutizeOgImage(
-    post.featuredImage?.node?.sourceUrl ?? undefined,
-    siteOrigin
-  )
+  const ogImage = absolutizeOgImage(post.featured_image_url ?? undefined, siteOrigin)
 
   return {
     title: post.title,
@@ -102,9 +80,11 @@ export default async function AdminRemediesLaborInspectionPostPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug: rawSlug } = await params
-  const slug = decodeURIComponent(rawSlug)
-  const wpCat = getAdminRemediesLaborInspectionWpCategorySlug()
-  const post = await fetchLaborPostByRequiredWpCategorySlug(slug, wpCat)
+  const wpId = Number(decodeURIComponent(rawSlug))
+  if (!Number.isFinite(wpId)) {
+    notFound()
+  }
+  const post = await getPostByWpId(wpId)
 
   if (!post) {
     notFound()
@@ -112,16 +92,9 @@ export default async function AdminRemediesLaborInspectionPostPage({
 
   const siteOrigin = await getSiteOrigin()
   const pathBase = `/law/${ADMIN_REMEDIES_LABOR_INSPECTION_SITE_PATH}`
-  const articleUrl = `${siteOrigin}${pathBase}/${encodeURIComponent(post.slug)}`
-  const categoryLabels =
-    post.categories?.nodes
-      ?.map((c) => c.name?.trim())
-      .filter((n): n is string => Boolean(n)) ?? []
-
-  const breadcrumbItems = buildLaborArticleBreadcrumb(
-    post.categories?.nodes,
-    post.title
-  )
+  const articleUrl = `${siteOrigin}${pathBase}/${encodeURIComponent(String(wpId))}`
+  const categoryLabels = [post.category_sub].filter(Boolean)
+  const breadcrumbItems = buildLaborArticleBreadcrumb(undefined, post.title)
   const sidebarPosts = await fetchLaborSidebarPosts(post.slug, 12)
 
   return (
@@ -139,19 +112,14 @@ export default async function AdminRemediesLaborInspectionPostPage({
             <ArticleBreadcrumb items={breadcrumbItems} />
             <h1
               className={`text-2xl font-bold text-[#1A2744] ${
-                post.date || categoryLabels.length > 0 ? "mb-2" : "mb-6"
+                categoryLabels.length > 0 ? "mb-2" : "mb-6"
               }`}
             >
               {post.title}
             </h1>
-            {(post.date || categoryLabels.length > 0) && (
+            {categoryLabels.length > 0 && (
               <div className="mb-6 space-y-2 text-sm text-[#6b7280]">
-                {post.date ? (
-                  <p>發布日期：{formatPostDate(post.date)}</p>
-                ) : null}
-                {categoryLabels.length > 0 ? (
-                  <p>分類：{categoryLabels.join("、")}</p>
-                ) : null}
+                <p>分類：{categoryLabels.join("、")}</p>
               </div>
             )}
             <div
