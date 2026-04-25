@@ -1,5 +1,7 @@
 import { CategoryLayout } from "@/components/law/CategoryLayout"
-import { LawWpCategoryPostList } from "@/components/law/law-wp-category-post-list"
+import { ArticleCard } from "@/components/law/article-card"
+import { getPostsByCategory } from "@/lib/supabase-posts"
+import { stripHtml } from "@/lib/strip-html"
 
 import type { Metadata } from "next"
 
@@ -19,16 +21,38 @@ export const metadata: Metadata = {
   },
 }
 
-export default function CollectiveLaborProcedurePage() {
+const LIST_BASE = "/law/labor/collective-procedure"
+
+export default async function CollectiveLaborProcedurePage() {
+  const articles = await getPostsByCategory("collective-procedure")
+
   return (
     <CategoryLayout
       heroTitle={["集體勞動法&程序法"]}
       heroLatin="Collective labor & procedure law."
     >
-      <LawWpCategoryPostList
-        sitePathKey="labor/collective-procedure"
-        emptyLabel="目前尚無「集體勞動法&程序法」文章，請稍後再試。"
-      />
+      <div className="flex flex-col gap-4 sm:gap-5">
+        {articles.length > 0 ? (
+          articles.map((post) => {
+            const plain =
+              stripHtml(post.excerpt || post.meta_description || "").trim() ||
+              undefined
+            return (
+              <ArticleCard
+                key={post.slug}
+                title={post.title}
+                excerpt={plain}
+                href={`${LIST_BASE}/${encodeURIComponent(String(post.wp_id))}`}
+                variant="simple"
+              />
+            )
+          })
+        ) : (
+          <div className="rounded-2xl border border-[#D1C7B7] bg-white/70 p-6 text-center text-[#6b7280] sm:p-8">
+            目前尚無「集體勞動法&程序法」文章，請稍後再試。
+          </div>
+        )}
+      </div>
     </CategoryLayout>
   )
 }

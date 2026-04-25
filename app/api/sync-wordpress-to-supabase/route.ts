@@ -12,6 +12,7 @@ const WP_GRAPHQL_URL = 'https://cms.atomichabitsworld.com/graphql';
 // 分類對應表（WordPress 分類 slug → Supabase 分類）
 const categoryMapping: Record<string, { main: string; sub: string }> = {
   // 日常
+  'daily': { main: 'daily', sub: 'daily' },
   'essay': { main: 'daily', sub: 'essay' },
   'exam': { main: 'daily', sub: 'exam' },
   'left-hand-writing': { main: 'daily', sub: 'left-hand-writing' },
@@ -19,7 +20,8 @@ const categoryMapping: Record<string, { main: string; sub: string }> = {
   'study': { main: 'daily', sub: 'study' },
   'founder-story': { main: 'daily', sub: 'founder-story' },
   'reading': { main: 'daily', sub: 'reading' },
-  'science and technology': { main: 'daily', sub: 'tech' },
+  'science-and-technology': { main: 'daily', sub: 'tech' },
+  'law': { main: 'law', sub: 'law' },
   // 勞動法－個別
   'individual': { main: 'law', sub: 'individual' },
   'contract-onboarding': { main: 'law', sub: 'contract-onboarding' },
