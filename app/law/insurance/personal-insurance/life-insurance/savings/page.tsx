@@ -5,6 +5,8 @@ import { stripHtml } from "@/lib/strip-html"
 
 import type { Metadata } from "next"
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   title: "法律｜保險法｜人身保險規劃｜壽險｜儲蓄型保險｜AtomicHabitsWorld",
   description: "瀏覽法律｜保險法｜人身保險規劃｜壽險｜儲蓄型保險的重點整理與文章列表，快速掌握主題脈絡與實務重點。",
