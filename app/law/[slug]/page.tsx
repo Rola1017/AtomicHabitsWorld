@@ -9,7 +9,7 @@ import { LawSearchBox } from "@/components/law/law-search-box"
 import { LaborPopularPostsPanel } from "@/components/law/labor-popular-posts-panel"
 import { LawArticleLegalDisclaimer } from "@/components/law/law-article-legal-disclaimer"
 import { LawCertSection } from "@/components/law/law-cert-section"
-import { buildLaborArticleBreadcrumb } from "@/lib/labor-wp-breadcrumb"
+import { buildLawArticleBreadcrumb } from "@/lib/labor-wp-breadcrumb"
 import { getSiteOrigin } from "@/lib/site-url"
 import { stripHtml } from "@/lib/strip-html"
 import { getPostByWpId } from "@/lib/supabase-posts"
@@ -91,7 +91,11 @@ export default async function LawPostPage({
   const articleUrl = `${siteOrigin}/law/${encodeURIComponent(String(wpId))}`
   const categoryLabels = [post.category_sub].filter(Boolean)
 
-  const breadcrumbItems = buildLaborArticleBreadcrumb(undefined, post.title)
+  const categorySlug = post.category_sub ?? post.category_main ?? ""
+  const breadcrumbItems = buildLawArticleBreadcrumb(
+    categorySlug ? [{ slug: categorySlug }] : undefined,
+    post.title
+  )
   const sidebarPosts = await fetchLaborSidebarPosts(post.slug, 12)
 
   return (
