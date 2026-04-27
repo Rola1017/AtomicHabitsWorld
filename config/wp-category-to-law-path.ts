@@ -76,7 +76,7 @@ export const WP_CATEGORY_SLUG_TO_LAW_PATH_PREFIX: Record<string, string> = {
   /** 民事訴訟法 */
   "civil-procedure": "/law/civil-procedure",
   /** 僅掛父分類 law 且無上列子分類時；可改成實際路由前綴 */
-  law: "/law/labor",
+  law: "/law",
 }
 
 const DEFAULT_PREFIX = "/law/labor"

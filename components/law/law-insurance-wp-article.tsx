@@ -97,7 +97,11 @@ export async function LawInsuranceWpArticle({
   const articleUrl = `${siteOrigin}${pathBase}/${encodeURIComponent(String(wpId))}`
   const categoryLabels = [post.category_sub].filter(Boolean)
 
-  const breadcrumbItems = buildLawArticleBreadcrumb(undefined, post.title)
+  const categorySlug = post.category_sub ?? post.category_main ?? ""
+  const breadcrumbItems = buildLawArticleBreadcrumb(
+    categorySlug ? [{ slug: categorySlug }] : undefined,
+    post.title
+  )
   const sidebarPosts = await fetchLaborSidebarPosts(post.slug, 12)
 
   return (
