@@ -84,6 +84,33 @@ const civilFamilyInheritanceSubMenuTree = [
   },
 ] as const
 
+const familyAndInheritanceNavItems = [
+  {
+    name: "遺產繼承與特留分實務",
+    href: "/law/civil/family-and-inheritance/inheritance-and-forced-heirship",
+    baseColor: "#F5F0E8",
+    accentColor: "#E8E0D5",
+  },
+  {
+    name: "家族信託與資產保護",
+    href: "/law/civil/family-and-inheritance/family-trust-and-asset-protection",
+    baseColor: "#E8EEF0",
+    accentColor: "#D5E0E8",
+  },
+  {
+    name: "婚姻契約與財產制",
+    href: "/law/civil/family-and-inheritance/marriage-contracts-and-property-regimes",
+    baseColor: "#E8F0EC",
+    accentColor: "#D5E8DD",
+  },
+  {
+    name: "遺囑撰擬與預立醫療決定",
+    href: "/law/civil/family-and-inheritance/wills-and-advance-directives",
+    baseColor: "#EFDAD6",
+    accentColor: "#DDBBB4",
+  },
+]
+
 const civilLawNavItems = [
   {
     name: "契約法與債權實務",
@@ -307,6 +334,8 @@ export function LawHeader() {
     pathname.startsWith(
       "/law/civil/family-and-inheritance/family-trust-and-asset-protection/"
     )
+  const isCivilFamilyAndInheritance =
+    pathname.startsWith("/law/civil/family-and-inheritance/")
   const isClaimsAndGeneral =
     pathname === "/law/insurance/claims-and-general" || pathname.startsWith("/law/insurance/claims-and-general/")
   const isPersonalInsurance =
@@ -339,6 +368,8 @@ export function LawHeader() {
             ? insuranceLawNavItems
             : isFamilyTrustAndAssetProtection
               ? familyTrustAndAssetProtectionNavItems
+              : isCivilFamilyAndInheritance
+                ? familyAndInheritanceNavItems
               : isCivilLaw
                 ? civilLawNavItems
                 : isSocialLaw
